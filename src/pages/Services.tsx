@@ -12,8 +12,8 @@ import * as LucideIcons from 'lucide-react';
 import Breadcrumbs from '../components/ui/Breadcrumbs';
 import ServicesSection from '../components/home/ServicesSection';
 import SEO from '../components/SEO';
-import { Card, CardContent } from '@bettergov/kapwa/card';
-import { Banner } from '@bettergov/kapwa/banner';
+import { Card, CardContent } from '../components/ui/Card';
+import { Banner } from '../components/ui/Banner';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -54,11 +54,7 @@ const Services: React.FC = () => {
           description="All services provided by the Puerto Princesa City government. Find what you need for citizenship, business, education, and more."
           keywords="government services, public services, local government, civic services"
         />
-        <ServicesSection
-          title="All local government services"
-          description="All services provided by the Puerto Princesa City government. Find what you need for citizenship, business, education, and more."
-          showViewAll={false}
-        />
+        <ServicesSection />
       </>
     );
   }

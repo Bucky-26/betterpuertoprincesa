@@ -1,10 +1,11 @@
 import React from 'react';
-import { Facebook, Github, MessageCircle } from 'lucide-react';
 import { footerNavigation } from '../../data/navigation';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { SocialIcon } from '../ui/SocialIcon';
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
+const REPO_URL = 'https://github.com/hmcldryl/betterpuertoprincesa';
 
 const FooterLink: React.FC<{
   href: string;
@@ -29,61 +30,62 @@ const FooterLink: React.FC<{
 const Footer: React.FC = () => {
   const { t } = useTranslation('common');
 
-  const getSocialIcon = (label: string) => {
-    switch (label) {
-      case 'Facebook':
-        return <Facebook className="h-5 w-5" strokeWidth={1} />;
-      case 'GitHub':
-        return <Github className="h-5 w-5" strokeWidth={1} />;
-      case 'Discord':
-        return <MessageCircle className="h-5 w-5" strokeWidth={1} />;
-      default:
-        return null;
-    }
-  };
-
   return (
-    <footer className="border-t-4 border-balayong-400 bg-gray-900 text-white">
-      <div className="container mx-auto px-4 pt-12 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-primary-900 text-white">
+      <div className="container mx-auto px-4 pt-14 pb-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center mb-4">
-              <img
-                src="/logos/logo-white.svg"
-                alt="Puerto Princesa City"
-                className="h-16 w-auto"
-              />
-            </div>
-            <p className="text-gray-400 text-sm mb-4">
-              A community-run portal for Puerto Princesa City, Palawan.
+            <img
+              src="/logos/logo-white.svg"
+              alt="Better Puerto Princesa"
+              className="mb-4 h-16 w-auto"
+            />
+            <p className="mb-5 max-w-xs text-primary-100">
+              {t('footer.tagline')}
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-2.5">
               {footerNavigation.socialLinks
                 .filter(link => link.href)
                 .map(link => (
                   <a
                     key={link.label}
                     href={link.href as string}
-                    className="text-gray-400 hover:text-balayong-200 transition-colors"
+                    className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-primary-100 transition-colors hover:bg-balayong-300 hover:text-gray-900"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
                   >
-                    {getSocialIcon(link.label)}
+                    <SocialIcon
+                      name={link.label}
+                      className="h-[18px] w-[18px]"
+                    />
                   </a>
                 ))}
+              <a
+                href="https://bettergov.ph"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="BetterGov.ph"
+                className="ml-1 flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
+              >
+                <img
+                  src="/logos/bettergov-white.svg"
+                  alt=""
+                  className="h-12 w-12"
+                />
+              </a>
             </div>
           </div>
 
           {footerNavigation.mainSections.map(section => (
             <div key={section.title}>
-              <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
-              <ul className="space-y-2">
+              <h3 className="mb-4 font-display text-xl">{section.title}</h3>
+              <ul className="space-y-2.5">
                 {section.links.map(link => (
                   <li key={link.label}>
                     <FooterLink
                       href={link.href}
-                      className="text-gray-400 hover:text-balayong-200 text-sm transition-colors"
+                      className="text-primary-100 underline-offset-4 hover:text-balayong-200 hover:underline"
                     >
                       {link.label}
                     </FooterLink>
@@ -94,22 +96,16 @@ const Footer: React.FC = () => {
           ))}
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              {t('footer.copyright')}
-            </p>
-            <div className="flex space-x-6">
-              <a
-                href="https://github.com/hmcldryl/betterpuertoprincesa"
-                className="text-gray-400 hover:text-balayong-200 text-sm transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Contribute at GitHub
-              </a>
-            </div>
-          </div>
+        <div className="mt-12 flex flex-col gap-2 border-t border-primary-700 pt-6 text-sm text-primary-200 md:flex-row md:items-center md:justify-between">
+          <p>{t('footer.copyright')}</p>
+          <a
+            href={REPO_URL}
+            className="text-primary-100 underline underline-offset-4 hover:text-balayong-200"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('footer.suggestFix')}
+          </a>
         </div>
       </div>
     </footer>

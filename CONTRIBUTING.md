@@ -6,7 +6,7 @@ Thanks for wanting to help. This is a volunteer-built civic transparency portal 
 
 - **React 19 + TypeScript**, built with **Vite 7**, deployed on **Vercel**
 - **React Router v7** for routing
-- **Tailwind CSS v4** (CSS-first `@theme` config in `src/index.css`) + **`@bettergov/kapwa`** (CC0 design system/component library)
+- **Tailwind CSS v4** (CSS-first `@theme` config in `src/index.css`: balayong pink, bay blue, Young Serif + Atkinson Hyperlegible Next)
 - **`content/**/_.md`+`_.yaml`** for service and government department pages, **`src/data/`\*\* for statistics, news, hotlines, and budget data — no database, no CMS; matches how BetterGov.ph and other BetterLGU sites store data
 - **i18next** (English/Filipino) with translation JSON loaded from `public/locales/`
 - **MapLibre GL** + OpenFreeMap vector tiles (no API key) for the maps, **Open-Meteo** for live weather

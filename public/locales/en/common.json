@@ -1,71 +1,109 @@
 {
   "hero": {
-    "subtitle": "A community-run portal to find information of the Puerto Princesa City Government"
+    "subtitle": "Made by volunteers. Find city services, offices, and emergency numbers.",
+    "greeting": "Kumusta, Puerto Princesa.",
+    "browseServices": "Look up a service",
+    "hotlinesLabel": "In an emergency, call"
   },
   "landmark": {
     "calloutText": "Know more about the\n\"Prinsesa ng Baybay\"",
     "title": "Ang Prinsesa ng Baybay",
     "subtitle": "The story behind the statue on the Puerto Princesa Baywalk.",
-    "historyHeading": "History",
-    "triviaHeading": "Did You Know?",
-    "sourcesHeading": "Sources"
+    "historyHeading": "How the statue came to be",
+    "triviaHeading": "A few more details",
+    "sourcesHeading": "Sources",
+    "history": [
+      "Ang Prinsesa ng Baybay (\"The Princess of the Shore\") is the fiberglass statue of a woman with windswept hair, playing with birds, that stands at the far end of the Puerto Princesa Baywalk — the City Coastal Reclamation Area, the city’s own version of Manila’s Roxas Boulevard.",
+      "The statue draws on local folklore about how the city got its name: seafarers were said to see a princess-like maiden walking along the bay late in the afternoon or early evening, who would seem to vanish whenever anyone approached. The Rotary Club of Puerto Princesa commissioned the statue in 2007 as a symbol of that story and of Palaweño life and culture more broadly, unveiling it on December 7, 2007."
+    ],
+    "trivia": [
+      "The Rotary Club of Puerto Princesa initiated the project in 2007, under then-president Bobby Castro, hoping to give the city a landmark on the scale of Singapore’s Merlion or Denmark’s Little Mermaid.",
+      "The design was chosen through a public contest launched on July 13, 2007, under the theme \"Simbolo ng Ating Kultura at Buhay\" (Symbol of Our Culture and Life).",
+      "The winning concept combined designs from two artists: Zaldy Jumawan, then based in Palawan, and Elordie Mesac, a Tagbanua artist trained under Charles Wandag’s Aborlan Arts Program.",
+      "The statue’s face was deliberately sculpted with the flat nose characteristic of the Tagbanua people, Puerto Princesa’s original inhabitants.",
+      "The final 100-kilogram fiberglass statue was executed by Manila-based sculptor Ronel F. Roces and unveiled on December 7, 2007, at the City Coastal Reclamation Area — the Baywalk.",
+      "Both original designers reportedly felt the finished sculpture strayed from their concept of a princess watching the sunset with birds in the background."
+    ],
+    "figureCaption": "Fiberglass, by Ronel F. Roces. Unveiled December 7, 2007.",
+    "locationHeading": "Where to find it",
+    "locationBody": "At the east end of the Puerto Princesa Baywalk, facing the bay.",
+    "mapLabel": "Location of the Prinsesa ng Baybay statue",
+    "openInGoogleMaps": "Open in Google Maps"
   },
   "miningWatch": {
     "title": "Mining Watch",
     "subtitle": "Tracking how mining is affecting Palawan's environment, communities, and Indigenous peoples.",
     "disclaimer": "This page is compiled from independent journalism and human-rights/environmental organizations for public awareness. It is not an official statement or position of the City Government of Puerto Princesa.",
-    "contextHeading": "Why This Matters",
+    "contextHeading": "Mining in Palawan, briefly",
     "mapHeading": "Where Mining Is Happening",
     "mapCaveat": "Pins mark known mining sites at the barangay/municipality level, sourced from official MGB records and cited news reporting below — they are approximate locations, not surveyed concession boundaries. Tap a pin for details and sources.",
     "forestLossHeading": "Tree Cover Loss by Dominant Driver",
     "forestLossSubtitle": "What's actually clearing forest across Palawan province, 2001–2025, by dominant cause — from permanent conversion (agriculture, mining, settlements) to temporary disturbances (logging, fire) that can eventually regrow.",
     "forestLossMiningNote": "\"Hard commodities\" — mining and energy infrastructure — clears the least total area of any driver province-wide: about 1,257 hectares of roughly 224,000 lost since 2001, behind even permanent agriculture and shifting cultivation, which dominate by a wide margin. That number likely understates mining's real footprint: the 11 companies now operating in Palawan hold roughly 29,430 hectares in concessions, most not yet actively cleared, and mining roads open remote forest to logging and farming by others — clearing this chart attributes to those drivers instead, not to mining. Hectares aside, mining also targets old-growth primary forest and protected ancestral domains specifically (Mt. Mantalingahan, Bataraza, Brooke's Point — see the map above), and its damage reaches beyond the cleared footprint through water pollution, like the hexavalent chromium contamination documented near Rio Tuba below.",
     "forestLossSourceLabel": "Source",
-    "articlesHeading": "In the News",
-    "footerNote": "Every article below links to its original, independently published source. If you spot an outdated or broken link, please open an issue on this project's GitHub repository."
+    "articlesHeading": "Reporting on mining in Palawan",
+    "footerNote": "Every article below links to its original, independently published source. If you spot an outdated or broken link, please open an issue on this project's GitHub repository.",
+    "context": [
+      "Palawan is often called the Philippines’ “last ecological frontier” — a UNESCO Man and Biosphere Reserve holding nearly half the country’s remaining old-growth forest, 30 percent of its mangroves, and 40 percent of its coral reefs. It also sits on some of the world’s largest untapped nickel deposits, a mineral in rising global demand for electric-vehicle batteries. That has made large-scale mining one of the most contested issues in the province for decades.",
+      "Puerto Princesa itself carries a cautionary chapter: the city was once home to the Palawan Quicksilver Mines Inc. mercury mine, shuttered since 1976, near which residents were later found to test positive for mercury poisoning. In March 2025, the provincial government responded to decades of advocacy by signing a 50-year moratorium on new mining agreements and exploration permits — but the ban doesn’t apply to Puerto Princesa (a highly urbanized city outside provincial jurisdiction), doesn’t affect the 11 mining operations already permitted elsewhere in the province, and leaves the Palawan Council for Sustainable Development able to grant clearances that critics warn could still open the door to new projects.",
+      "The articles below — independent journalism and reporting from human-rights and environmental organizations — track how that fight is playing out: in the courts, in Indigenous ancestral domains, and in the rivers and coral reefs downstream of mining operations."
+    ],
+    "map": {
+      "toggleForestLoss": "Tree cover loss",
+      "legendActive": "Active mining operation",
+      "legendHistorical": "Historical / abandoned site",
+      "legendForestLoss": "Tree cover loss, 2001–2024",
+      "popupOperator": "Operator",
+      "popupActive": "Active operation",
+      "popupHistorical": "Historical / abandoned site",
+      "sourcesBefore": "Sources: mining sites — MGB and cited news (see each pin); tree cover loss — Hansen/UMD/Google/USGS/NASA, 30m resolution, via",
+      "sourcesAfter": ". The tree cover loss layer shows all detected loss in the area — not all of it is attributable to mining; logging, agriculture, and natural causes also clear tree cover."
+    }
   },
   "services": {
-    "title": "Services & Information",
-    "description": "Access official government services quickly and easily. Find what you need for citizenship, business, education, and more.",
+    "title": "City services",
+    "description": "How to get permits, certificates, aid, and other help from the city, in plain words.",
     "viewAllCard": "View All Services and Information",
     "loading": "Loading services...",
-    "categoryNotFoundTitle": "Category not found",
-    "categoryNotFoundDescription": "The category you are looking for does not exist."
+    "categoryNotFoundTitle": "We couldn't find that category",
+    "categoryNotFoundDescription": "Check the link, or pick one from the list of city services.",
+    "viewAll": "See every service"
   },
   "governmentActivity": {
-    "title": "Government Activity",
-    "description": "Stay updated with the latest government activities and announcements.",
-    "viewAllCard": "View All Government Activities"
+    "title": "Inside city hall",
+    "description": "Which office handles what, what they have announced, and the rules they work under.",
+    "viewAllCard": "View All Government Activities",
+    "viewAll": "See every office"
   },
   "document": {
-    "loading": "Loading document...",
-    "notFoundTitle": "Document Not Found"
+    "loading": "Loading the page…",
+    "notFoundTitle": "We couldn't find that page"
   },
   "statistics": {
-    "title": "City Statistics",
+    "title": "Population, land, and budget",
     "subtitle": "Demographics, competitiveness, and fiscal data for {{city}}, {{province}}.",
     "populationLabel": "Population",
     "barangaysLabel": "Barangays",
-    "administrativeUnits": "Administrative Units",
+    "administrativeUnits": "Smallest units of local government",
     "landAreaLabel": "Land Area (km²)",
     "landAreaShortLabel": "Land Area",
-    "totalCityArea": "Total City Area",
-    "incomeClassLabel": "Income Class",
-    "incomeClassificationLabel": "Income Classification",
+    "totalCityArea": "One of the country's largest cities by land",
+    "incomeClassLabel": "City income class",
+    "incomeClassificationLabel": "City income class",
     "competitivenessTitle": "Competitiveness Index",
     "overallRank": "Overall rank",
     "cmciYear": "CMCI",
     "score": "Score",
     "source": "Source",
-    "fiscalTitle": "Budget Transparency",
+    "fiscalTitle": "Where the money goes",
     "fiscalTeaser": "See Puerto Princesa's full FY2026 budget breakdown, National Tax Allotment, and infrastructure spending.",
-    "viewTransparency": "View Budget Transparency",
+    "viewTransparency": "See the full budget",
     "barangaysHeading": "Barangays ({{count}})",
-    "barangayMapHeading": "Explore the Barangays",
-    "barangayMapSubtitle": "Hover to preview, click a barangay for its name, or search below.",
+    "barangayMapHeading": "Find your barangay",
+    "barangayMapSubtitle": "Tap a barangay to see its name and population, or search for it by name.",
     "searchBarangayPlaceholder": "Search barangay...",
     "selectedBarangay": "Barangay",
-    "mapHint": "Click any barangay on the map to select it.",
+    "mapHint": "Tap a barangay on the map to see its details.",
     "barangayPopulation": "Pop. {{population}} (2024 Census)",
     "mapSourcesLabel": "Sources",
     "mapSourceBoundaries": "Barangay boundaries (NAMRIA/PSGC)",
@@ -76,10 +114,19 @@
     "tableStatus": "Status",
     "contractorLabel": "Contractor",
     "ongoingUnspecified": "Ongoing/unspecified",
-    "viewFullProfile": "View Full Profile"
+    "viewFullProfile": "More city figures",
+    "details": {
+      "population": "Population (2024)",
+      "landArea": "Area (from map)",
+      "density": "People per km²",
+      "rank": "Size by population",
+      "rankValue": "No. {{rank}} of {{total}}",
+      "share": "Home to {{percent}}% of the city's people.",
+      "showCity": "Show the whole city"
+    }
   },
   "transparency": {
-    "title": "Budget Transparency",
+    "title": "Where the city's money goes",
     "subtitle": "Puerto Princesa City's official budget and National Tax Allotment, sourced from the City Government's Full Disclosure documents, plus DPWH infrastructure spending sourced from DPWH's public project database.",
     "budgetTitle": "FY{{year}} City Budget",
     "totalAppropriations": "Total Appropriations",
@@ -100,36 +147,51 @@
     "infrastructureNote": "Only the 5 highest-cost projects per category are itemized above; category totals and counts cover every matching project, including ones still at the procurement stage with no awarded contract cost yet.",
     "viewAllProjects": "View all {{count}} projects on transparency.bettergov.ph",
     "asOf": "as of",
-    "documentsTitle": "Official Source Documents",
+    "documentsTitle": "The original documents",
     "documentsSubtitle": "Primary documents published by the City Government of Puerto Princesa's Full Disclosure Board.",
-    "disclaimerTitle": "About This Data",
-    "disclaimerBody": "Budget figures on this page are sourced directly from Puerto Princesa's official budget documents; infrastructure project figures are sourced from DPWH's public project database. Both are updated periodically, not in real time. Some figures (like the National Tax Allotment total) are derived from other stated figures where the source document doesn't state them outright — see the notes next to each figure for details."
+    "disclaimerTitle": "Where these numbers come from",
+    "disclaimerBody": "Budget figures on this page are sourced directly from Puerto Princesa's official budget documents; infrastructure project figures are sourced from DPWH's public project database. Both are updated periodically, not in real time. Some figures (like the National Tax Allotment total) are derived from other stated figures where the source document doesn't state them outright — see the notes next to each figure for details.",
+    "status": {
+      "Completed": "Completed",
+      "On-Going": "Ongoing",
+      "For Procurement": "For procurement",
+      "Terminated": "Terminated"
+    }
   },
   "glance": {
-    "title": "Puerto Princesa at a Glance"
+    "title": "How big is Puerto Princesa?",
+    "subtitle": "Basic facts about the city. Population is from the 2024 census.",
+    "cmciTitle": "No. {{rank}} among highly urbanized cities",
+    "cmciBody": "In the {{year}} DTI competitiveness index. Strongest in {{pillar}}, where it ranks No. {{rank}}.",
+    "budgetTitle": "{{amount}} city budget for {{year}}",
+    "budgetBody": "The biggest share goes to {{sector}}: {{amount}}."
   },
   "news": {
-    "title": "News & Updates",
-    "subtitle": "Latest announcements from the City Government of Puerto Princesa.",
-    "viewAll": "View All News"
+    "title": "What's new at city hall",
+    "subtitle": "Recent announcements from the city government, each linked to the original post.",
+    "viewAll": "Read older news",
+    "opensOriginal": "Opens the original article"
   },
   "hotlines": {
-    "title": "Emergency Hotlines"
+    "title": "Emergency numbers"
   },
   "weatherMap": {
-    "title": "Weather & Map",
-    "weatherHeading": "Weather in Puerto Princesa",
-    "mapHeading": "Map",
+    "title": "Today's weather and city map",
+    "weatherHeading": "Weather",
+    "mapHeading": "Around the city proper",
     "today": "Today",
-    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "subtitle": "Weather now and for the next 5 days, sunrise and sunset, today's peso exchange rates, and a map of all 66 barangays."
   },
   "directory": {
-    "title": "Official Directory",
-    "subtitle": "Find contact information for Puerto Princesa officials, offices, and barangays.",
-    "viewDirectory": "View Directory"
+    "title": "Looking for someone at city hall?",
+    "subtitle": "Names and contact details for city officials, offices, and barangays.",
+    "viewDirectory": "Open the directory"
   },
   "footer": {
-    "copyright": "© 2026 BetterPuertoPrincesa. All content is public domain unless otherwise specified."
+    "copyright": "© 2026 BetterPuertoPrincesa. All content is public domain unless otherwise specified.",
+    "tagline": "Run by volunteers in Puerto Princesa, Palawan.",
+    "suggestFix": "Suggest a fix on GitHub"
   },
   "navbar": {
     "home": "Home",
@@ -140,6 +202,74 @@
     "statistics": "Statistics",
     "transparency": "Transparency",
     "news": "News",
-    "miningwatch": "Mining Watch"
+    "miningwatch": "Mining Watch",
+    "joinUs": "Help build this site",
+    "officialSite": "Official city website",
+    "importantBadge": "Important"
+  },
+  "home": {
+    "findTitle": "What do you need to get done?",
+    "findSubtitle": "Pick a topic to see what the city offers and how to get it."
+  },
+  "volunteer": {
+    "title": "Help us build this site",
+    "subtitle": "This site is made and kept up to date by volunteers. Share your skills with the community.",
+    "lead": "We are looking for people from Puerto Princesa who can help with:",
+    "roles": {
+      "dev": "Software development",
+      "uiux": "UI/UX design",
+      "graphic": "Graphic design",
+      "content": "Writing content",
+      "marketing": "Social media",
+      "translation": "Filipino or Cuyonon translation"
+    },
+    "cta": "I want to volunteer",
+    "later": "Maybe later",
+    "close": "Close"
+  },
+  "weather": {
+    "conditions": {
+      "clear": "Clear sky",
+      "mainlyClear": "Mostly clear",
+      "partlyCloudy": "Partly cloudy",
+      "overcast": "Cloudy",
+      "fog": "Foggy",
+      "drizzle": "Drizzle",
+      "lightRain": "Light rain",
+      "rain": "Rain",
+      "heavyRain": "Heavy rain",
+      "showers": "Rain showers",
+      "thunderstorm": "Thunderstorm"
+    },
+    "nearby": {
+      "sabang": "Sabang (Underground River)",
+      "hondaBay": "Honda Bay"
+    },
+    "cityProper": "City proper",
+    "high": "High",
+    "low": "Low",
+    "wind": "Wind",
+    "forecast": "Next 5 days",
+    "nearbyTitle": "Nearby spots",
+    "todayTitle": "Today",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "rainChance": "Chance of rain",
+    "uv": "UV index",
+    "uvLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "veryHigh": "Very high",
+      "extreme": "Extreme"
+    },
+    "currencyTitle": "Peso exchange rates",
+    "currencyCol": "Currency",
+    "rateCol": "In pesos",
+    "ratesSource": "Rates from open.er-api.com, updated daily.",
+    "weatherSource": "Weather from Open-Meteo.",
+    "infoWeather": "Weather in Puerto Princesa",
+    "infoRates": "Exchange rate",
+    "infoTime": "Philippine time"
   }
 }

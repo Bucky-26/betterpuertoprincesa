@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const STATUS_STYLES: Record<string, string> = {
   Completed: 'bg-green-50 text-green-700',
   'On-Going': 'bg-amber-50 text-amber-700',
@@ -13,6 +15,7 @@ const STATUS_DOTS: Record<string, string> = {
 };
 
 export function StatusBadge({ status }: { status: string }) {
+  const { t } = useTranslation('common');
   const pillClass = STATUS_STYLES[status] ?? 'bg-gray-100 text-gray-600';
   const dotClass = STATUS_DOTS[status] ?? 'bg-gray-400';
 
@@ -21,7 +24,7 @@ export function StatusBadge({ status }: { status: string }) {
       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap ${pillClass}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />
-      {status}
+      {t(`transparency.status.${status}`, { defaultValue: status })}
     </span>
   );
 }

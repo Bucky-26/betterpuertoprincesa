@@ -1,49 +1,71 @@
 {
   "hero": {
-    "subtitle": "Isang portal na pinapatakbo ng komunidad para sa impormasyon tungkol sa Pamahalaang Lungsod ng Puerto Princesa"
+    "subtitle": "Gawa ng mga boluntaryo. Hanapin dito ang mga serbisyo, tanggapan, at emergency number ng lungsod.",
+    "greeting": "Kumusta, Puerto Princesa.",
+    "browseServices": "Maghanap ng serbisyo",
+    "hotlinesLabel": "Sa oras ng emergency, tumawag sa"
   },
   "landmark": {
     "calloutText": "Alamin pa ang tungkol sa\n\"Prinsesa ng Baybay\"",
     "title": "Ang Prinsesa ng Baybay",
     "subtitle": "Ang kwento sa likod ng estatwa sa Puerto Princesa Baywalk.",
-    "historyHeading": "Kasaysayan",
-    "triviaHeading": "Alam Ba Ninyo?",
-    "sourcesHeading": "Mga Pinagmulan"
+    "historyHeading": "Paano nabuo ang estatwa",
+    "triviaHeading": "Ilan pang detalye",
+    "sourcesHeading": "Mga Pinagmulan",
+    "history": [
+      "Ang Prinsesa ng Baybay ay isang estatwang fiberglass ng isang babaeng nililipad ng hangin ang buhok at nakikipaglaro sa mga ibon. Nakatayo ito sa dulo ng Puerto Princesa Baywalk, ang City Coastal Reclamation Area, na sariling bersyon ng lungsod ng Roxas Boulevard sa Maynila.",
+      "Hango ang estatwa sa alamat kung paano nakuha ng lungsod ang pangalan nito: sinasabing may nakikitang dalagang parang prinsesa ang mga mandaragat na naglalakad sa baybayin tuwing hapon o maagang gabi, at bigla raw itong nawawala kapag may lumalapit. Ipinagawa ng Rotary Club of Puerto Princesa ang estatwa noong 2007 bilang simbolo ng alamat na iyon at ng buhay at kultura ng mga Palaweño, at pinasinayaan ito noong Disyembre 7, 2007."
+    ],
+    "trivia": [
+      "Sinimulan ng Rotary Club of Puerto Princesa ang proyekto noong 2007, sa pamumuno ng noo’y pangulong si Bobby Castro, sa pag-asang magkaroon ang lungsod ng palatandaang kasingtanyag ng Merlion ng Singapore o Little Mermaid ng Denmark.",
+      "Pinili ang disenyo sa isang pampublikong patimpalak na inilunsad noong Hulyo 13, 2007, na may temang \"Simbolo ng Ating Kultura at Buhay.\"",
+      "Pinagsama ng nanalong konsepto ang mga disenyo ng dalawang alagad ng sining: si Zaldy Jumawan, na noo’y nakabase sa Palawan, at si Elordie Mesac, isang Tagbanuang alagad ng sining na sinanay sa Aborlan Arts Program ni Charles Wandag.",
+      "Sadyang inukit ang mukha ng estatwa na may pangong ilong na katangian ng mga Tagbanua, ang mga orihinal na naninirahan sa Puerto Princesa.",
+      "Ang huling estatwang fiberglass na may bigat na 100 kilo ay ginawa ng iskultor na si Ronel F. Roces na taga-Maynila, at pinasinayaan noong Disyembre 7, 2007, sa City Coastal Reclamation Area, ang Baywalk.",
+      "Ayon sa mga ulat, kapwa naramdaman ng dalawang orihinal na nagdisenyo na lumayo ang natapos na eskultura sa kanilang konsepto ng isang prinsesang nanonood ng paglubog ng araw habang may mga ibon sa likuran."
+    ],
+    "figureCaption": "Fiberglass, gawa ni Ronel F. Roces. Pinasinayaan noong Disyembre 7, 2007.",
+    "locationHeading": "Saan ito makikita",
+    "locationBody": "Sa silangang dulo ng Puerto Princesa Baywalk, nakaharap sa baybayin.",
+    "mapLabel": "Lokasyon ng estatwang Prinsesa ng Baybay",
+    "openInGoogleMaps": "Buksan sa Google Maps"
   },
   "services": {
-    "title": "Mga Serbisyo at Impormasyon",
-    "description": "Mabilis at madaling ma-access ang mga opisyal na serbisyo ng pamahalaan. Hanapin ang kailangan mo para sa pagkamamamayan, negosyo, edukasyon, at marami pa.",
+    "title": "Mga serbisyo ng lungsod",
+    "description": "Paano kumuha ng permit, sertipiko, ayuda, at iba pang tulong mula sa lungsod, sa simpleng salita.",
     "viewAllCard": "Tingnan Lahat ng Serbisyo at Impormasyon",
     "loading": "Naglo-load ng mga serbisyo...",
-    "categoryNotFoundTitle": "Hindi natagpuan ang kategorya",
-    "categoryNotFoundDescription": "Ang kategoryang hinahanap mo ay hindi umiiral."
+    "categoryNotFoundTitle": "Hindi namin makita ang kategoryang iyan",
+    "categoryNotFoundDescription": "Suriin ang link, o pumili mula sa listahan ng mga serbisyo.",
+    "viewAll": "Tingnan ang lahat ng serbisyo"
   },
   "governmentActivity": {
-    "title": "Mga Gawain ng Pamahalaan",
-    "description": "Manatiling updated sa pinakabagong mga gawain at anunsyo ng pamahalaan.",
-    "viewAllCard": "Tingnan Lahat ng Gawain ng Pamahalaan"
+    "title": "Sa loob ng city hall",
+    "description": "Aling tanggapan ang humahawak ng ano, ang kanilang mga anunsyo, at ang mga patakarang sinusunod nila.",
+    "viewAllCard": "Tingnan Lahat ng Gawain ng Pamahalaan",
+    "viewAll": "Tingnan ang lahat ng tanggapan"
   },
   "document": {
-    "loading": "Naglo-load ng dokumento...",
-    "notFoundTitle": "Hindi Natagpuan ang Dokumento"
+    "loading": "Binubuksan ang pahina…",
+    "notFoundTitle": "Hindi namin makita ang pahinang iyan"
   },
   "statistics": {
-    "title": "Estadistika ng Lungsod",
+    "title": "Populasyon, lupa, at budget",
     "subtitle": "Demograpiya, kompetitibidad, at datos pinansyal para sa {{city}}, {{province}}.",
     "populationLabel": "Populasyon",
     "barangaysLabel": "Mga Barangay",
-    "administrativeUnits": "Mga Yunit Administratibo",
+    "administrativeUnits": "Pinakamaliit na yunit ng lokal na pamahalaan",
     "landAreaLabel": "Lawak ng Lupa (km²)",
     "landAreaShortLabel": "Lawak ng Lupa",
-    "totalCityArea": "Kabuuang Sukat ng Lungsod",
-    "incomeClassLabel": "Klase ng Kita",
-    "incomeClassificationLabel": "Klasipikasyon ng Kita",
+    "totalCityArea": "Isa sa pinakamalalaking lungsod sa bansa ayon sa lupa",
+    "incomeClassLabel": "Klase ng kita ng lungsod",
+    "incomeClassificationLabel": "Klase ng kita ng lungsod",
     "competitivenessTitle": "Indeks ng Kompetitibidad",
     "overallRank": "Pangkalahatang ranggo",
     "cmciYear": "CMCI",
     "score": "Iskor",
     "source": "Pinagmulan",
-    "fiscalTitle": "Transparensiyang Piskal",
+    "fiscalTitle": "Saan napupunta ang pera",
     "annualBudget": "Taunang Badyet",
     "balancedBudgetNote": "Kabuuang kita = kabuuang gastos (balanseng badyet)",
     "barangaysHeading": "Mga Barangay ({{count}})",
@@ -55,33 +77,69 @@
     "tableStatus": "Katayuan",
     "contractorLabel": "Kontratista",
     "ongoingUnspecified": "Isinasagawa/hindi tinukoy",
-    "viewFullProfile": "Tingnan ang Buong Profile"
+    "viewFullProfile": "Iba pang datos ng lungsod",
+    "fiscalTeaser": "Tingnan ang buong hati-hati ng FY2026 budget ng Puerto Princesa, ang National Tax Allotment, at ang gastos sa imprastraktura.",
+    "viewTransparency": "Tingnan ang buong budget",
+    "barangayMapHeading": "Hanapin ang iyong barangay",
+    "barangayMapSubtitle": "Pindutin ang isang barangay para makita ang pangalan at populasyon nito, o hanapin ito ayon sa pangalan.",
+    "searchBarangayPlaceholder": "Hanapin ang barangay...",
+    "selectedBarangay": "Barangay",
+    "mapHint": "Pindutin ang isang barangay sa mapa para makita ang mga detalye nito.",
+    "barangayPopulation": "Populasyon: {{population}} (2024 Census)",
+    "mapSourcesLabel": "Mga pinagmulan",
+    "mapSourceBoundaries": "Hangganan ng mga barangay (NAMRIA/PSGC)",
+    "mapSourcePopulation": "Populasyon ng barangay, 2024 Census (PSA)",
+    "details": {
+      "population": "Populasyon (2024)",
+      "landArea": "Sukat (mula sa mapa)",
+      "density": "Tao bawat km²",
+      "rank": "Laki ayon sa populasyon",
+      "rankValue": "Ika-{{rank}} sa {{total}}",
+      "share": "Tirahan ng {{percent}}% ng mga tao sa lungsod.",
+      "showCity": "Ipakita ang buong lungsod"
+    }
   },
   "glance": {
-    "title": "Puerto Princesa sa Isang Sulyap"
+    "title": "Gaano kalaki ang Puerto Princesa?",
+    "subtitle": "Mga pangunahing datos tungkol sa lungsod. Ang populasyon ay mula sa 2024 census.",
+    "cmciTitle": "Ika-{{rank}} sa mga highly urbanized city",
+    "cmciBody": "Sa {{year}} competitiveness index ng DTI. Pinakamalakas sa {{pillar}}, kung saan ika-{{rank}} ito.",
+    "budgetTitle": "{{amount}} na budget ng lungsod para sa {{year}}",
+    "budgetBody": "Pinakamalaking bahagi ang napupunta sa {{sector}}: {{amount}}."
   },
   "news": {
-    "title": "Balita at mga Update",
-    "subtitle": "Pinakabagong mga anunsyo mula sa Pamahalaang Lungsod ng Puerto Princesa.",
-    "viewAll": "Tingnan Lahat ng Balita"
+    "title": "Bago sa city hall",
+    "subtitle": "Mga kamakailang anunsyo ng pamahalaang lungsod, may link sa orihinal na post.",
+    "viewAll": "Basahin ang mas lumang balita",
+    "summaries": {
+      "mayor-bayron-supports-lgsf-initiatives": "Muling ipinahayag ni Mayor Lucilo R. Bayron ang suporta ng Pamahalaang Lungsod ng Puerto Princesa sa mga pambansang prayoridad na programa matapos dumalo sa Cities Information Session tungkol sa Local Government Support Fund (LGSF).",
+      "puerto-princesa-cmci-2024-ranking": "Nakuha ng Puerto Princesa ang ika-16 na puwesto sa pangkalahatan sa mga Highly Urbanized City sa Cities and Municipalities Competitiveness Index (CMCI), na may iskor na 40.23."
+    },
+    "categories": {
+      "Announcement": "Anunsyo"
+    },
+    "opensOriginal": "Bubuksan ang orihinal na artikulo"
   },
   "hotlines": {
-    "title": "Mga Hotline sa Emergency"
+    "title": "Mga numero sa emergency"
   },
   "weatherMap": {
-    "title": "Panahon at Mapa",
-    "weatherHeading": "Panahon sa Puerto Princesa",
-    "mapHeading": "Mapa",
+    "title": "Panahon ngayon at mapa ng lungsod",
+    "weatherHeading": "Panahon",
+    "mapHeading": "Sa paligid ng poblacion",
     "today": "Ngayon",
-    "weekdays": ["Lin", "Lun", "Mar", "Miy", "Huw", "Biy", "Sab"]
+    "weekdays": ["Lin", "Lun", "Mar", "Miy", "Huw", "Biy", "Sab"],
+    "subtitle": "Panahon ngayon at sa susunod na 5 araw, pagsikat at paglubog ng araw, palitan ng piso ngayon, at mapa ng 66 na barangay."
   },
   "directory": {
-    "title": "Opisyal na Direktoryo",
-    "subtitle": "Hanapin ang impormasyon sa pakikipag-ugnayan sa mga opisyal, opisina, at barangay ng Puerto Princesa.",
-    "viewDirectory": "Tingnan ang Direktoryo"
+    "title": "May hinahanap ka ba sa city hall?",
+    "subtitle": "Mga pangalan at contact ng mga opisyal, tanggapan, at barangay ng lungsod.",
+    "viewDirectory": "Buksan ang direktoryo"
   },
   "footer": {
-    "copyright": "© 2026 BetterPuertoPrincesa. Ang lahat ng nilalaman ay pampublikong domain maliban kung nakasaad."
+    "copyright": "© 2026 BetterPuertoPrincesa. Ang lahat ng nilalaman ay pampublikong domain maliban kung nakasaad.",
+    "tagline": "Pinapatakbo ng mga boluntaryo sa Puerto Princesa, Palawan.",
+    "suggestFix": "Magmungkahi ng pagwawasto sa GitHub"
   },
   "navbar": {
     "home": "Tahanan",
@@ -91,6 +149,174 @@
     "holidays": "Mga Pista Opisyal",
     "statistics": "Estadistika",
     "news": "Balita",
-    "miningwatch": "Pagbabantay sa Pagmimina"
+    "miningwatch": "Pagbabantay sa Pagmimina",
+    "joinUs": "Tumulong sa site na ito",
+    "officialSite": "Opisyal na website ng lungsod",
+    "transparency": "Transparensiya",
+    "importantBadge": "Mahalaga"
+  },
+  "home": {
+    "findTitle": "Ano ang kailangan mong asikasuhin?",
+    "findSubtitle": "Pumili ng paksa para makita ang serbisyo ng lungsod at kung paano ito makukuha."
+  },
+  "miningWatch": {
+    "title": "Pagbabantay sa Pagmimina",
+    "subtitle": "Sinusubaybayan kung paano naaapektuhan ng pagmimina ang kalikasan, mga komunidad, at mga katutubo ng Palawan.",
+    "disclaimer": "Ang pahinang ito ay tinipon mula sa malayang pamamahayag at mga organisasyong pang-karapatang pantao at pangkalikasan para sa kaalaman ng publiko. Hindi ito opisyal na pahayag o posisyon ng Pamahalaang Lungsod ng Puerto Princesa.",
+    "contextHeading": "Ang pagmimina sa Palawan, sa madaling salita",
+    "mapHeading": "Saan may pagmimina",
+    "mapCaveat": "Ang mga pin ay nagmamarka ng mga kilalang minahan sa antas ng barangay o munisipyo, batay sa opisyal na rekord ng MGB at sa mga balitang nakalista sa ibaba. Tinatayang lokasyon lamang ang mga ito, hindi sinukat na hangganan ng konsesyon. Pindutin ang pin para sa mga detalye at pinagmulan.",
+    "forestLossHeading": "Pagkawala ng puno ayon sa pangunahing sanhi",
+    "forestLossSubtitle": "Ano talaga ang umuubos sa kagubatan ng lalawigan ng Palawan mula 2001 hanggang 2025, ayon sa pangunahing sanhi: mula sa permanenteng pagbabago ng gamit ng lupa (agrikultura, pagmimina, pamayanan) hanggang sa pansamantalang pinsala (pagtotroso, sunog) na maaaring tumubo muli.",
+    "forestLossMiningNote": "Ang \"hard commodities\" (pagmimina at imprastrakturang pang-enerhiya) ang may pinakamaliit na kabuuang lawak na nakalbo sa buong lalawigan: mga 1,257 ektarya mula sa humigit-kumulang 224,000 na nawala mula 2001, mas mababa pa sa permanenteng agrikultura at kaingin, na siyang nangunguna nang malayo. Malamang na kulang ang bilang na ito sa tunay na epekto ng pagmimina: ang 11 kumpanyang kasalukuyang nagmimina sa Palawan ay may hawak na humigit-kumulang 29,430 ektarya ng konsesyon, karamihan ay hindi pa nakakalbo, at binubuksan ng mga daan ng minahan ang malalayong kagubatan sa pagtotroso at pagsasaka ng iba, na ibinibilang ng tsart na ito sa mga sanhing iyon at hindi sa pagmimina. Bukod sa ektarya, partikular na tinatarget ng pagmimina ang matatandang kagubatan at mga protektadong lupaing ninuno (Mt. Mantalingahan, Bataraza, Brooke's Point; tingnan ang mapa sa itaas), at lumalampas ang pinsala nito sa nakalbong lugar dahil sa polusyon sa tubig, gaya ng kontaminasyon ng hexavalent chromium na naitala malapit sa Rio Tuba sa ibaba.",
+    "forestLossSourceLabel": "Pinagmulan",
+    "articlesHeading": "Mga ulat tungkol sa pagmimina sa Palawan",
+    "footerNote": "Bawat artikulo sa ibaba ay naka-link sa orihinal at malayang inilathalang pinagmulan nito. Kung may makita kang luma o sirang link, mag-open ng issue sa GitHub repository ng proyektong ito.",
+    "context": [
+      "Madalas tawagin ang Palawan na “huling ekolohikal na hangganan” ng Pilipinas: isang UNESCO Man and Biosphere Reserve na may halos kalahati ng natitirang matatandang kagubatan ng bansa, 30 porsyento ng bakawan nito, at 40 porsyento ng bahura nito. Nakapatong din ito sa ilan sa pinakamalalaking hindi pa nagagalaw na deposito ng nickel sa mundo, isang mineral na lalong hinahanap para sa baterya ng mga de-kuryenteng sasakyan. Kaya ang malawakang pagmimina ay isa sa pinakamainit na usapin sa lalawigan sa loob ng ilang dekada.",
+      "May sariling babala ang Puerto Princesa: dito dati ang minahan ng mercury ng Palawan Quicksilver Mines Inc., sarado mula 1976, at kalaunan ay natuklasang may mercury poisoning ang mga residenteng nakatira malapit dito. Noong Marso 2025, tumugon ang pamahalaang panlalawigan sa ilang dekadang adbokasiya sa pamamagitan ng 50-taong moratorium sa mga bagong kasunduan sa pagmimina at permit sa eksplorasyon. Ngunit hindi saklaw ng pagbabawal ang Puerto Princesa (isang highly urbanized city na labas sa hurisdiksyon ng lalawigan), hindi nito naaapektuhan ang 11 minahang may permit na sa ibang bahagi ng lalawigan, at maaari pa ring magbigay ng clearance ang Palawan Council for Sustainable Development, na ayon sa mga kritiko ay maaaring magbukas pa rin ng daan sa mga bagong proyekto.",
+      "Ang mga artikulo sa ibaba, mula sa malayang pamamahayag at mga organisasyong pang-karapatang pantao at pangkalikasan, ay sumusubaybay kung paano nagaganap ang laban na iyon: sa mga korte, sa mga lupaing ninuno ng mga katutubo, at sa mga ilog at bahura sa ibaba ng mga minahan."
+    ],
+    "map": {
+      "toggleForestLoss": "Pagkawala ng puno",
+      "legendActive": "Aktibong minahan",
+      "legendHistorical": "Dati o inabandonang minahan",
+      "legendForestLoss": "Pagkawala ng puno, 2001–2024",
+      "popupOperator": "Operator",
+      "popupActive": "Aktibong operasyon",
+      "popupHistorical": "Dati o inabandonang minahan",
+      "sourcesBefore": "Mga pinagmulan: mga minahan — MGB at mga nabanggit na balita (tingnan ang bawat pin); pagkawala ng puno — Hansen/UMD/Google/USGS/NASA, 30m resolution, mula sa",
+      "sourcesAfter": ". Ipinapakita ng layer ng pagkawala ng puno ang lahat ng natukoy na pagkawala sa lugar. Hindi lahat nito ay dahil sa pagmimina; nakakaubos din ng puno ang pagtotroso, agrikultura, at mga natural na sanhi."
+    },
+    "tags": {
+      "Indigenous Peoples' Rights": "Karapatan ng mga Katutubo",
+      "Analysis": "Pagsusuri",
+      "Environment": "Kalikasan",
+      "Health": "Kalusugan",
+      "History": "Kasaysayan",
+      "Human Rights": "Karapatang Pantao",
+      "Policy": "Patakaran"
+    },
+    "articleSummaries": {
+      "brookes-point-barricade-dismantled": "Halos tatlong buwang nagbarikada ang mga katutubong Pala'wan ng Sitio Linao para pigilan ang pagpasok ng mabibigat na kagamitan sa kanilang lupaing ninuno, bago ito binuwag noong Hunyo 29 para maituloy ang Infanta Nickel Project ng CALMIA Nickel, Inc. Ayon sa mga grupong pangkarapatan, itinuloy ang proyekto nang walang malaya, nauna, at may-kabatirang pahintulot ng komunidad.",
+      "critical-minerals-boom-losing-ground": "Kahit may moratorium na noong 2025, 11 kumpanya ng pagmimina ang patuloy na pinapayagang mag-operate, na patuloy na nagbabanta sa mga lupaing ninuno at mga lugar na mayaman sa biodiversity gaya ng Mt. Mantalingahan. Inilalarawan ng mga may-akda kung paano naiugnay ang pagmimina para sa pandaigdigang green-energy transition sa humigit-kumulang ikatlo ng lahat ng pagpatay sa mga tagapagtanggol ng kalikasan at karapatang pantao sa Pilipinas.",
+      "last-ecological-frontier-nickel-demand": "Nasa Palawan ang halos kalahati ng matatandang kagubatan ng Pilipinas, 30% ng bakawan nito, at 40% ng bahura nito — mga serbisyong pang-ekosistema na tinatayang nagkakahalaga ng humigit-kumulang $5 bilyon ayon sa mga grupong pangkalikasan at mga obispo, na ayon sa kanila ay mas malaki kaysa sa kita ng pagmimina. Inaasahang tataas nang 65% pagsapit ng 2030 ang pandaigdigang demand sa nickel para sa baterya ng EV, kaya patuloy ang presyon sa lalawigan kahit may bagong moratorium.",
+      "foe-japan-chromium-petition": "Nagpetisyon ang 86 na organisasyon ng civil society sa Sumitomo Metal Mining na suspindihin ang pagmimina at pagproseso ng nickel malapit sa Rio Tuba, matapos matuklasan sa 15 taon ng pagsubaybay sa tubig na paulit-ulit na lumalampas sa pamantayan ng kaligtasan ang hexavalent chromium — isang kemikal na nagdudulot ng kanser — sa Ilog Togpon tuwing tag-ulan, at naitala noong Setyembre 2024 ang pinakamataas na antas.",
+      "palawan-50-year-moratorium": "Nilagdaan ng pamahalaang panlalawigan ng Palawan ang Ordinance No. 3646, isang 50-taong moratorium na maaaring palawigin, na nagbabawal sa mga barangay at munisipyo na mag-endorso ng mga bagong aplikasyon sa malakihan o maliitang pagmimina. Hindi apektado ang mga kasalukuyang operasyon, at maaari pa ring magbigay ng clearance ang Palawan Council for Sustainable Development, na ayon sa mga grupong pangkalikasan ay maaaring maging butas.",
+      "amnesty-nickel-mining-consultation": "Itinala ng Amnesty International kung paano inaprubahan ang mga proyekto ng pagmimina ng nickel sa Zambales at Palawan nang walang sapat na konsultasyon sa mga katutubo at mga komunidad sa kanayunan, sa kabila ng ebidensya ng pagkakalbo ng kagubatan, kontaminasyon ng heavy metal, at sakit sa baga. Malaking bahagi ng nakukuhang nickel ay napupunta sa supply chain ng baterya ng mga de-kuryenteng sasakyan.",
+      "mantalingahan-writ-of-kalikasan": "Naglabas ang Korte Suprema ng writ of kalikasan — isang natatanging remedyong legal para sa kalikasan — na nag-uutos sa mga kumpanya ng pagmimina at ahensya ng pamahalaan na sagutin ang mga reklamo ng komunidad ng Pala'wan tungkol sa mga operasyon sa Mount Mantalingahan Protected Landscape. Hiwalay ding iniutos ng National Commission on Indigenous Peoples na itigil ng mga minero ang trabaho hangga't hindi nila napapatunayan ang pahintulot ng komunidad.",
+      "puerto-princesa-pqmi-cautionary-tale": "Sa loob mismo ng Puerto Princesa, natuklasan noong 2017 na positibo sa mercury poisoning ang mga residenteng nakatira malapit sa inabandonang minahan ng Palawan Quicksilver Mines Inc., na sarado mula 1976, na may mga sintomas na katulad ng Minamata disease. Itinuturing ng artikulo ang lugar na babala habang muling binubuksan ng pambansang patakaran ang mga lugar para sa bagong pagmimina."
+    },
+    "siteDescriptions": {
+      "rio-tuba": "Ang pinakamalaking prodyuser ng lateritic nickel sa Pilipinas, open-pit na pagmimina mula 1975. Pag-aari ng Nickel Asia Corporation.",
+      "coral-bay": "Planta ng hydrometallurgical processing (HPAL) na nagpoproseso ng nickel-cobalt ore mula 2005. Sa 15 taon ng pagsubaybay sa tubig, paulit-ulit na natuklasang lumalampas sa pamantayan ng kaligtasan ang hexavalent chromium — isang kemikal na nagdudulot ng kanser — sa kalapit na Ilog Togpon tuwing tag-ulan.",
+      "ipilan": "Iniugnay ng mga pag-aaral pangkalusugan ang matagal na pagkakalantad sa nickel at chromium malapit sa minahang ito sa mga sakit sa baga at balat ng mga kalapit na komunidad ng magsasaka at mangingisda.",
+      "infanta-calmia": "Halos tatlong buwang binarikadahan ng mga katutubong Pala'wan ang lugar na ito noong 2026 para pigilan ang kagamitan sa pagmimina, dahil itinuloy umano ang proyekto nang walang malaya, nauna, at may-kabatirang pahintulot nila. Binuwag ng mga ahensya ng pamahalaan ang barikada noong Hunyo 2026.",
+      "citinickel": "Operasyon ng pagmimina ng nickel na sumasaklaw sa dalawang munisipyo sa timog Palawan.",
+      "pqmi": "Inabandonang minahan ng mercury na nag-operate mula 1954 hanggang 1976. Natuklasan noong 2017 na positibo sa mercury poisoning ang mga residenteng nakatira malapit dito, na may mga sintomas na katulad ng Minamata disease — isang babala sa loob mismo ng Puerto Princesa."
+    },
+    "drivers": {
+      "Permanent agriculture": "Permanenteng agrikultura",
+      "Shifting cultivation": "Kaingin",
+      "Logging": "Pagtotroso",
+      "Other natural disturbances": "Iba pang natural na pinsala",
+      "Wildfire": "Sunog sa gubat",
+      "Settlements & infrastructure": "Pamayanan at imprastraktura",
+      "Hard commodities": "Hard commodities (pagmimina at enerhiya)"
+    }
+  },
+  "transparency": {
+    "title": "Saan napupunta ang pera ng lungsod",
+    "subtitle": "Ang opisyal na budget at National Tax Allotment ng Lungsod ng Puerto Princesa, mula sa mga dokumento ng Full Disclosure ng Pamahalaang Lungsod, kasama ang gastos sa imprastraktura ng DPWH mula sa pampublikong database ng mga proyekto ng DPWH.",
+    "budgetTitle": "Budget ng Lungsod sa FY{{year}}",
+    "totalAppropriations": "Kabuuang Apropriyasyon",
+    "currentOperating": "Kasalukuyang Gastos sa Operasyon",
+    "capitalOutlay": "Capital Outlay",
+    "sectorTitle": "Apropriyasyon ayon sa Sektor",
+    "ntaTitle": "National Tax Allotment (NTA)",
+    "ntaNote": "Tinantya mula sa sapilitang 20% Development Fund na nakalaan, dahil nakalista sa budget workbook ng lungsod ang nakalaang halaga pero hindi ang kabuuang NTA.",
+    "ldrrmfNote": "{{percent}}% ng NTA, nakalaan para sa pagbabawas at pamamahala ng panganib sa sakuna.",
+    "annualBudgetTitle": "Taunang Budget",
+    "annualBudgetDescription": "Kung paano nagbago ang kabuuang aprobadong budget ng Puerto Princesa bawat taon.",
+    "byYearCaption": "Budget bawat taon (2016–2025), kabuuan ng lahat ng tugmang proyekto sa taong iyon, hindi lamang ang mga nakalista sa ibaba.",
+    "floodControlTitle": "Mga Proyekto sa Flood Control at Drainage",
+    "floodControlDescription": "{{count}} proyekto sa flood control at drainage sa Lungsod ng Puerto Princesa (₱{{cost}} kabuuan), ipinatupad ng DPWH.",
+    "infrastructureTitle": "Iba pang Proyektong Pang-imprastraktura",
+    "infrastructureDescription": "{{count}} karagdagang proyekto ng DPWH sa Lungsod ng Puerto Princesa (₱{{cost}} kabuuan), sa mga kalsada, tulay, gusali, at sistema ng tubig.",
+    "categoryProjectCount": "{{count}} proyekto",
+    "infrastructureNote": "Ang 5 pinakamahal na proyekto lamang bawat kategorya ang nakalista sa itaas; saklaw ng kabuuan at bilang ng bawat kategorya ang lahat ng tugmang proyekto, kasama ang mga nasa yugto pa ng procurement at wala pang halaga ng kontrata.",
+    "viewAllProjects": "Tingnan ang lahat ng {{count}} proyekto sa transparency.bettergov.ph",
+    "asOf": "noong",
+    "documentsTitle": "Ang mga orihinal na dokumento",
+    "documentsSubtitle": "Mga pangunahing dokumentong inilathala ng Full Disclosure Board ng Pamahalaang Lungsod ng Puerto Princesa.",
+    "disclaimerTitle": "Saan galing ang mga numerong ito",
+    "disclaimerBody": "Ang mga numero ng budget sa pahinang ito ay direktang galing sa mga opisyal na dokumento ng budget ng Puerto Princesa; ang mga numero ng proyektong pang-imprastraktura ay galing sa pampublikong database ng DPWH. Pareho silang ina-update paminsan-minsan, hindi real time. May ilang numero (gaya ng kabuuang National Tax Allotment) na kinuwenta mula sa ibang nakasaad na numero kapag hindi ito direktang nakasaad sa dokumento. Tingnan ang mga tala sa tabi ng bawat numero para sa detalye.",
+    "status": {
+      "Completed": "Tapos na",
+      "On-Going": "Ginagawa pa",
+      "For Procurement": "Para sa procurement",
+      "Terminated": "Itinigil"
+    }
+  },
+  "volunteer": {
+    "title": "Tulungan kaming buuin ang site na ito",
+    "subtitle": "Mga boluntaryo ang gumagawa at nag-a-update ng site na ito. Ibahagi ang iyong galing sa komunidad.",
+    "lead": "Naghahanap kami ng mga taga-Puerto Princesa na makakatulong sa:",
+    "roles": {
+      "dev": "Software development",
+      "uiux": "UI/UX design",
+      "graphic": "Graphic design",
+      "content": "Pagsusulat ng nilalaman",
+      "marketing": "Social media",
+      "translation": "Pagsasalin sa Filipino o Cuyonon"
+    },
+    "cta": "Gusto kong mag-boluntaryo",
+    "later": "Mamaya na lang",
+    "close": "Isara"
+  },
+  "weather": {
+    "conditions": {
+      "clear": "Maaliwalas",
+      "mainlyClear": "Halos maaliwalas",
+      "partlyCloudy": "Bahagyang maulap",
+      "overcast": "Maulap",
+      "fog": "Mahamog",
+      "drizzle": "Ambon",
+      "lightRain": "Mahinang ulan",
+      "rain": "Ulan",
+      "heavyRain": "Malakas na ulan",
+      "showers": "Pabugso-bugsong ulan",
+      "thunderstorm": "May kulog at kidlat"
+    },
+    "nearby": {
+      "sabang": "Sabang (Underground River)",
+      "hondaBay": "Honda Bay"
+    },
+    "cityProper": "Poblacion",
+    "high": "Pinakamataas",
+    "low": "Pinakamababa",
+    "wind": "Hangin",
+    "forecast": "Susunod na 5 araw",
+    "nearbyTitle": "Mga kalapit na lugar",
+    "todayTitle": "Ngayong araw",
+    "sunrise": "Pagsikat ng araw",
+    "sunset": "Paglubog ng araw",
+    "rainChance": "Tsansa ng ulan",
+    "uv": "UV index",
+    "uvLevels": {
+      "low": "Mababa",
+      "moderate": "Katamtaman",
+      "high": "Mataas",
+      "veryHigh": "Napakataas",
+      "extreme": "Sukdulan"
+    },
+    "currencyTitle": "Palitan ng piso",
+    "currencyCol": "Pera",
+    "rateCol": "Sa piso",
+    "ratesSource": "Palitan mula sa open.er-api.com, ina-update araw-araw.",
+    "weatherSource": "Panahon mula sa Open-Meteo.",
+    "infoWeather": "Panahon sa Puerto Princesa",
+    "infoRates": "Palitan ng pera",
+    "infoTime": "Oras sa Pilipinas"
   }
 }

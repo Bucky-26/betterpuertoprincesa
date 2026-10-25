@@ -1,130 +1,103 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Landmark, Thermometer, Calendar, Clock } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Banknote, Clock } from 'lucide-react';
+import { Ticker } from '../ui/Ticker';
+import { pesoRate, useRates, useWeather, weatherInfo } from '../../lib/weather';
 
-// Puerto Princesa City coordinates
-const LAT = 9.7392;
-const LON = 118.7353;
+// Currencies visitors and residents check most, with a sensible unit for
+// small-value ones (₩1 or ¥1 would round to centavos).
+const CURRENCIES = [
+  { code: 'USD', symbol: 'US$', unit: 1 },
+  { code: 'KRW', symbol: '₩', unit: 1000 },
+  { code: 'JPY', symbol: '¥', unit: 100 },
+  { code: 'CNY', symbol: 'CN¥', unit: 1 },
+  { code: 'EUR', symbol: '€', unit: 1 },
+];
+
+const numberFormat = new Intl.NumberFormat('en-US');
+
+function useManilaClock(locale: string) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 15_000);
+    return () => clearInterval(id);
+  }, []);
+  return {
+    date: now.toLocaleDateString(locale, {
+      timeZone: 'Asia/Manila',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    }),
+    time: now.toLocaleTimeString(locale, {
+      timeZone: 'Asia/Manila',
+      hour: 'numeric',
+      minute: '2-digit',
+    }),
+  };
+}
 
 export default function InfoBar() {
-  const [rate, setRate] = useState('1 USD = ₱ --');
-  const [temp, setTemp] = useState('--°C');
-  const [dateStr, setDateStr] = useState('--- --, ----');
-  const [timeStr, setTimeStr] = useState('--:-- --');
+  const { t, i18n } = useTranslation('common');
+  const locale = i18n.resolvedLanguage === 'fil' ? 'fil-PH' : 'en-US';
+  const weather = useWeather();
+  const rates = useRates();
+  const { date, time } = useManilaClock(locale);
+  const info = weatherInfo(weather?.code);
+  const Icon = info.icon;
 
-  const updateClock = useCallback(() => {
-    const now = new Date(
-      new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' })
-    );
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    setDateStr(
-      `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`
-    );
-    let h = now.getHours();
-    const m = now.getMinutes();
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    setTimeStr(`${h}:${m < 10 ? '0' + m : m} ${ampm}`);
-  }, []);
-
-  useEffect(() => {
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, [updateClock]);
-
-  useEffect(() => {
-    fetch('https://open.er-api.com/v6/latest/USD')
-      .then(r => r.json())
-      .then(data => {
-        if (data?.rates?.PHP) setRate(`1 USD = ₱ ${data.rates.PHP.toFixed(2)}`);
-      })
-      .catch(() => {});
-
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true`
-    )
-      .then(r => r.json())
-      .then(data => {
-        if (data?.current_weather?.temperature != null) {
-          setTemp(`${Math.round(data.current_weather.temperature)}°C`);
-        }
-      })
-      .catch(() => {});
-  }, []);
+  const rateItems = CURRENCIES.map(c => {
+    const rate = pesoRate(rates, c.code);
+    return rate
+      ? `${c.symbol}${numberFormat.format(c.unit)} = ₱${(rate * c.unit).toFixed(2)}`
+      : `${c.symbol}${numberFormat.format(c.unit)} = ₱--`;
+  });
 
   return (
     <div
-      className="bg-gray-900 text-gray-300 text-xs"
+      className="border-b border-primary-100 bg-primary-50 text-[0.8125rem] text-primary-900"
       role="complementary"
-      aria-label="Real-time information"
+      aria-label={t('weather.infoWeather')}
     >
-      <div className="container mx-auto px-4">
-        <div
-          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 py-1.5"
-          aria-live="polite"
-          aria-atomic="false"
+      <div className="container mx-auto flex items-center justify-between gap-6 px-4 py-2">
+        <p
+          className="flex min-w-0 items-center gap-2"
+          aria-label={t('weather.infoWeather')}
         >
-          <div
-            className="flex items-center gap-1.5"
-            aria-label="Exchange rates"
-          >
-            <Landmark
-              className="h-3.5 w-3.5"
-              strokeWidth={2.5}
-              aria-hidden="true"
-            />
-            <span>{rate}</span>
-          </div>
-          <span className="text-gray-600" aria-hidden="true">
-            |
+          <Icon
+            className={`h-4 w-4 shrink-0 ${info.color}`}
+            aria-hidden="true"
+          />
+          <span className="font-bold">Puerto Princesa</span>
+          <span className="tabular-nums">
+            {weather?.temp != null ? `${Math.round(weather.temp)}°C` : '--°C'}
           </span>
-          <div
-            className="flex items-center gap-1.5"
-            aria-label="Current weather in Puerto Princesa"
+          {info.key && (
+            <span className="hidden truncate text-primary-700 sm:inline">
+              {t(`weather.conditions.${info.key}`)}
+            </span>
+          )}
+        </p>
+
+        <div className="flex shrink-0 items-center gap-6">
+          <p
+            className="hidden items-center gap-2 md:flex"
+            aria-label={t('weather.infoRates')}
           >
-            <Thermometer
-              className="h-3.5 w-3.5"
-              strokeWidth={2.5}
+            <Banknote
+              className="h-4 w-4 text-balayong-600"
               aria-hidden="true"
             />
-            <span>Puerto Princesa</span>
-            <span>{temp}</span>
-          </div>
-          <span className="text-gray-600" aria-hidden="true">
-            |
-          </span>
-          <div
-            className="flex items-center gap-1.5"
-            aria-label="Philippine Date and Time"
+            <Ticker items={rateItems} intervalMs={4000} />
+          </p>
+          <p
+            className="flex items-center gap-2"
+            aria-label={t('weather.infoTime')}
           >
-            <Calendar
-              className="h-3.5 w-3.5"
-              strokeWidth={2.5}
-              aria-hidden="true"
-            />
-            <span>{dateStr}</span>
-            <span aria-hidden="true">•</span>
-            <Clock
-              className="h-3.5 w-3.5"
-              strokeWidth={2.5}
-              aria-hidden="true"
-            />
-            <span>{timeStr}</span>
-            <span>PHT</span>
-          </div>
+            <Clock className="h-4 w-4 text-balayong-600" aria-hidden="true" />
+            <span className="hidden sm:inline">{date}</span>
+            <span className="font-bold">{time}</span>
+          </p>
         </div>
       </div>
     </div>

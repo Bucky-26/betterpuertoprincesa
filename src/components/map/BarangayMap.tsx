@@ -17,15 +17,16 @@ import {
 } from 'maplibre-gl';
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson';
 import { Search, MapPin, Users } from 'lucide-react';
-// Barangay boundary polygons: NAMRIA administrative-boundary shapefiles
-// enriched with PSA PSGC codes, from the "barangay-boundaries-repository"
-// hierarchical release (snapshot 2023-10-24, v2026.4.13.0), filtered to
-// Puerto Princesa City (ADM3_PCODE PH1705316), 66 features:
-// https://github.com/bendlikeabamboo/barangay-boundaries-repository
+// Barangay boundary polygons: NAMRIA/PSA 2023 administrative boundaries,
+// high-resolution city file (bgysubmuns-municity-1731500000.0.1) from
+// faeldon/philippines-json-maps, 66 features. Coordinates rounded to 5
+// decimals (~1 m); names/pcodes kept from the earlier PSGC-matched set:
+// https://github.com/faeldon/philippines-json-maps
 import barangayBoundaries from '../../data/geo/puerto-princesa-barangays.json';
 import { barangayPopulation2024 } from '../../data/barangayPopulation';
 import { normalizeBarangayName } from '../../lib/barangayNames';
 import { createMap, withOverlays } from '../../lib/mapStyle';
+import { demographics } from '../../data/statistics';
 
 const numberFormat = new Intl.NumberFormat('en-US');
 
@@ -61,20 +62,20 @@ const MAP_STYLE = withOverlays(
         'fill-color': [
           'case',
           isOn('highlighted'),
-          '#66a3f3',
+          '#e66f9b', // balayong-400
           isOn('selected'),
-          '#0066eb',
-          '#66a3f3',
+          '#d94b7f', // balayong-500
+          '#f09dbc', // balayong-300
         ],
         'fill-opacity': [
           'case',
           isOn('highlighted'),
-          0.6,
+          0.55,
           isOn('selected'),
-          0.75,
+          0.7,
           isOn('hover'),
-          0.6,
-          0.35,
+          0.55,
+          0.3,
         ],
       },
     },
@@ -86,10 +87,10 @@ const MAP_STYLE = withOverlays(
         'line-color': [
           'case',
           isOn('highlighted'),
-          '#0052bc',
+          '#9c2652', // balayong-700
           isOn('selected'),
-          '#003d8d',
-          '#0052bc',
+          '#7a1f42', // balayong-800
+          '#bd3266', // balayong-600
         ],
         'line-width': [
           'case',
@@ -162,6 +163,56 @@ const CITY_BOUNDS = (() => {
   ] as LngLatBoundsLike;
 })();
 
+// Geodesic polygon area (same spherical-excess formula as turf's `area`),
+// so each barangay's land area comes from the boundary itself.
+const EARTH_RADIUS_M = 6378137;
+const toRad = (deg: number) => (deg * Math.PI) / 180;
+
+function ringAreaM2(ring: Position[]) {
+  let total = 0;
+  for (let i = 0; i < ring.length; i++) {
+    const p1 = ring[i];
+    const p2 = ring[(i + 1) % ring.length];
+    const p3 = ring[(i + 2) % ring.length];
+    total += (toRad(p3[0]) - toRad(p1[0])) * Math.sin(toRad(p2[1]));
+  }
+  return Math.abs((total * EARTH_RADIUS_M * EARTH_RADIUS_M) / 2);
+}
+
+function polygonAreaM2(rings: Position[][]) {
+  const [outer, ...holes] = rings;
+  return holes.reduce((a, h) => a - ringAreaM2(h), ringAreaM2(outer));
+}
+
+function geometryAreaKm2(geometry: Geometry) {
+  if (geometry.type === 'Polygon')
+    return polygonAreaM2(geometry.coordinates) / 1e6;
+  if (geometry.type === 'MultiPolygon') {
+    return geometry.coordinates.reduce((a, p) => a + polygonAreaM2(p), 0) / 1e6;
+  }
+  return 0;
+}
+
+// Per-barangay figures for the details card, computed once.
+const CITY_POPULATION = demographics.population.total;
+const AREA_KM2 = new Map(
+  boundaries.features.map(f => [
+    f.properties.pcode,
+    geometryAreaKm2(f.geometry),
+  ])
+);
+const POPULATION_RANK = new Map(
+  boundaries.features
+    .map(f => f.properties.name)
+    .filter(n => barangayPopulation2024[normalizeBarangayName(n)] != null)
+    .sort(
+      (a, b) =>
+        barangayPopulation2024[normalizeBarangayName(b)] -
+        barangayPopulation2024[normalizeBarangayName(a)]
+    )
+    .map((name, i) => [normalizeBarangayName(name), i + 1])
+);
+
 function pcodeByName(name: string | null) {
   if (!name) return undefined;
   return boundaries.features.find(
@@ -225,6 +276,15 @@ const BarangayMap = forwardRef<BarangayMapHandle, BarangayMapProps>(
     const activePopulation = activeName
       ? barangayPopulation2024[normalizeBarangayName(activeName)]
       : undefined;
+    const activeArea = AREA_KM2.get(pcodeByName(activeName) ?? '');
+    const activeRank = activeName
+      ? POPULATION_RANK.get(normalizeBarangayName(activeName))
+      : undefined;
+
+    function showWholeCity() {
+      setSelected(null);
+      mapRef.current?.fitBounds(CITY_BOUNDS, { padding: 24 });
+    }
 
     function focusBarangay(feature: Feature<Geometry, BarangayProperties>) {
       setSelected(feature.properties.name);
@@ -335,7 +395,7 @@ const BarangayMap = forwardRef<BarangayMapHandle, BarangayMapProps>(
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder={t('statistics.searchBarangayPlaceholder')}
-              className="w-full rounded-md border border-gray-300 py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full rounded-full border border-gray-300 bg-white py-2 pl-9 pr-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
             />
             {matches.length > 0 && (
               <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
@@ -358,35 +418,107 @@ const BarangayMap = forwardRef<BarangayMapHandle, BarangayMapProps>(
         <div className="relative z-0">
           <div
             ref={containerRef}
-            className="h-96 w-full rounded-md lg:h-[28rem]"
+            className="h-96 w-full overflow-hidden rounded-xl lg:h-[28rem]"
           />
         </div>
 
-        <div className="mt-3 flex items-center gap-2 rounded-md border border-primary-100 bg-primary-50 px-4 py-3 text-sm text-gray-700">
-          <MapPin className="h-4 w-4 shrink-0 text-primary-600" />
+        <div
+          className="mt-3 rounded-xl border border-balayong-200 bg-white px-4 py-3 text-sm text-gray-700"
+          aria-live="polite"
+        >
           {activeName ? (
-            <span className="flex flex-wrap items-center gap-x-2">
-              <span>
-                {t('statistics.selectedBarangay')} <strong>{activeName}</strong>
-              </span>
+            <>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 shrink-0 text-balayong-600" />
+                  <span>
+                    {t('statistics.selectedBarangay')}{' '}
+                    <strong className="text-base text-gray-900">
+                      {activeName}
+                    </strong>
+                  </span>
+                </p>
+                {selected && !highlightedName && (
+                  <button
+                    type="button"
+                    onClick={showWholeCity}
+                    className="rounded-full px-3 py-1 text-sm font-bold text-primary-700 hover:bg-primary-50"
+                  >
+                    {t('statistics.details.showCity')}
+                  </button>
+                )}
+              </div>
+              <dl className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div>
+                  <dt className="flex items-center gap-1 text-xs text-gray-500">
+                    <Users className="h-3.5 w-3.5" aria-hidden="true" />
+                    {t('statistics.details.population')}
+                  </dt>
+                  <dd className="font-bold text-gray-900 tabular-nums">
+                    {activePopulation != null
+                      ? numberFormat.format(activePopulation)
+                      : '--'}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-gray-500">
+                    {t('statistics.details.landArea')}
+                  </dt>
+                  <dd className="font-bold text-gray-900 tabular-nums">
+                    {activeArea != null
+                      ? `${activeArea.toFixed(activeArea < 10 ? 2 : 1)} km²`
+                      : '--'}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-gray-500">
+                    {t('statistics.details.density')}
+                  </dt>
+                  <dd className="font-bold text-gray-900 tabular-nums">
+                    {activePopulation != null && activeArea
+                      ? numberFormat.format(
+                          Math.round(activePopulation / activeArea)
+                        )
+                      : '--'}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-gray-500">
+                    {t('statistics.details.rank')}
+                  </dt>
+                  <dd className="font-bold text-gray-900 tabular-nums">
+                    {activeRank != null
+                      ? t('statistics.details.rankValue', {
+                          rank: activeRank,
+                          total: POPULATION_RANK.size,
+                        })
+                      : '--'}
+                  </dd>
+                </div>
+              </dl>
               {activePopulation != null && (
-                <span className="inline-flex items-center gap-1 text-gray-500">
-                  <Users className="h-3.5 w-3.5" />
-                  {t('statistics.barangayPopulation', {
-                    population: numberFormat.format(activePopulation),
+                <p className="mt-2 text-xs text-gray-500">
+                  {t('statistics.details.share', {
+                    percent: (
+                      (activePopulation / CITY_POPULATION) *
+                      100
+                    ).toFixed(1),
                   })}
-                </span>
+                </p>
               )}
-            </span>
+            </>
           ) : (
-            <span>{t('statistics.mapHint')}</span>
+            <p className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-balayong-600" />
+              {t('statistics.mapHint')}
+            </p>
           )}
         </div>
 
-        <p className="mt-2 text-xs text-gray-400">
+        <p className="mt-2 text-xs text-gray-600">
           {t('statistics.mapSourcesLabel')}:{' '}
           <a
-            href="https://github.com/bendlikeabamboo/barangay-boundaries-repository"
+            href="https://github.com/faeldon/philippines-json-maps"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-primary-600"

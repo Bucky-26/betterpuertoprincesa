@@ -9,13 +9,13 @@ import {
 
 // Custom basemap drawn from OpenFreeMap's free OpenMapTiles vector tiles
 // (no API key — CARTO's basemaps now require one). Colors follow the site
-// palette in src/index.css: primary blues for water, cool grays for
-// roads/labels, so overlays (barangays, pins) read on top.
+// palette in src/index.css: bay blues for water, cool grays for
+// roads/labels, so balayong-pink overlays (barangays, pins) read on top.
 const COLORS = {
   land: '#f8f9fa', // gray-50
-  water: '#cce0fb', // primary-100
-  waterLine: '#99c2f7', // primary-200
-  waterLabel: '#003d8d', // primary-700
+  water: '#d6e7f3', // primary-100
+  waterLine: '#adcfe6', // primary-200
+  waterLabel: '#134a71', // primary-700
   green: '#e4efdf',
   greenDark: '#d6e7cf',
   residential: '#f1f3f5', // gray-100
@@ -26,8 +26,8 @@ const COLORS = {
   track: '#ced4da', // gray-400
   building: '#e9ecef', // gray-200
   boundary: '#adb5bd', // gray-500
-  label: '#212529', // gray-900
-  labelSoft: '#495057', // gray-700
+  label: '#17212b', // gray-900
+  labelSoft: '#45505b', // gray-700
   halo: '#ffffff',
 };
 
@@ -344,6 +344,19 @@ export function createMap(
     ...options,
   });
   map.touchZoomRotate.disableRotation();
+  // Compact attribution opens itself once the source's attribution text
+  // arrives; collapse it to the (i) button the first time that happens.
+  const collapseAttribution = () => {
+    const attrib = map
+      .getContainer()
+      .querySelector('.maplibregl-ctrl-attrib.maplibregl-compact');
+    if (!attrib) return;
+    attrib.classList.remove('maplibregl-compact-show');
+    map.off('styledata', collapseAttribution);
+    map.off('sourcedata', collapseAttribution);
+  };
+  map.on('styledata', collapseAttribution);
+  map.on('sourcedata', collapseAttribution);
   map.addControl(new NavigationControl({ showCompass: false }), 'top-left');
   return map;
 }

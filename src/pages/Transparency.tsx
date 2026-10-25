@@ -18,7 +18,7 @@ import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
-import Breadcrumbs from '../components/ui/Breadcrumbs';
+import PageHeader from '../components/ui/PageHeader';
 import { BarChart } from '../components/ui/BarChart';
 import { LineChart } from '../components/ui/LineChart';
 import { StatusBadge } from '../components/ui/StatusBadge';
@@ -90,20 +90,10 @@ const Transparency: React.FC = () => {
         keywords="transparency, budget, national tax allotment, NTA, GAO, Puerto Princesa, DPWH projects, public spending"
       />
       <main className="flex-grow">
-        <Section className="!py-6 !bg-gray-50">
-          <Breadcrumbs />
-        </Section>
-
-        <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12">
-          <div className="container mx-auto px-4">
-            <Heading level={1} className="!text-white !mb-2">
-              {t('transparency.title')}
-            </Heading>
-            <Text className="!text-primary-50 !max-w-2xl">
-              {t('transparency.subtitle')}
-            </Text>
-          </div>
-        </div>
+        <PageHeader
+          title={t('transparency.title')}
+          subtitle={t('transparency.subtitle')}
+        />
 
         <Section>
           <div className="flex items-center gap-2 mb-2">

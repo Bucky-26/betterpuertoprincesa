@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/layout/Navbar';
 import InfoBar from './components/layout/InfoBar';
 import Footer from './components/layout/Footer';
+import VolunteerPopup from './components/layout/VolunteerPopup';
 import Home from './pages/Home';
 import ScrollToTop from './components/ui/ScrollToTop';
 import Services from './pages/Services';
@@ -50,6 +51,7 @@ function App() {
               <Route path="/:documentSlug" element={<Document />} />
             </Routes>
             <Footer />
+            <VolunteerPopup />
           </div>
         </NuqsAdapter>
       </Router>

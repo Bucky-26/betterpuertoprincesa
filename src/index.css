@@ -2,22 +2,26 @@
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 
-@source '../node_modules/@bettergov/kapwa/dist';
-@import '@bettergov/kapwa/styles';
-
 @theme {
-  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans:
+    'Atkinson Hyperlegible Next', ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
 
-  --color-primary-50: #e6f0fd;
-  --color-primary-100: #cce0fb;
-  --color-primary-200: #99c2f7;
-  --color-primary-300: #66a3f3;
-  --color-primary-400: #3385ef;
-  --color-primary-500: #0066eb;
-  --color-primary-600: #0052bc;
-  --color-primary-700: #003d8d;
-  --color-primary-800: #00295e;
-  --color-primary-900: #00142f;
+  /* Bay blue — Puerto Princesa Bay and Honda Bay. Interactive color:
+     links, buttons, focus, map water. */
+  --color-primary-50: #eef5fa;
+  --color-primary-100: #d6e7f3;
+  --color-primary-200: #adcfe6;
+  --color-primary-300: #7fb3d6;
+  --color-primary-400: #4c92c2;
+  --color-primary-500: #1f73ab;
+  --color-primary-600: #185d8d;
+  --color-primary-700: #134a71;
+  --color-primary-800: #0e3755;
+  --color-primary-900: #08233a;
 
   --color-secondary-50: #ffede6;
   --color-secondary-100: #ffdbcc;
@@ -42,9 +46,8 @@
   --color-accent-900: #311b00;
 
   /* Balayong pink — from the blossoms of Puerto Princesa's city tree.
-     The site's local accent alongside the Kapwa primary blue: borders,
-     hover states, highlights. Primary actions and semantic states stay
-     on the Kapwa colors. */
+     The site's signature color: page grounds, highlights, the hero.
+     Bay blue stays the color of things you can click. */
   --color-balayong-50: #fdf2f6;
   --color-balayong-100: #fbe3ec;
   --color-balayong-200: #f7c6d8;
@@ -89,16 +92,18 @@
   --color-error-800: #5a1212;
   --color-error-900: #2d0909;
 
+  /* Cool ink grays, pulled slightly toward the bay so text sits with
+     the blue rather than against it. */
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f1f3f5;
-  --color-gray-200: #e9ecef;
-  --color-gray-300: #dee2e6;
-  --color-gray-400: #ced4da;
-  --color-gray-500: #adb5bd;
-  --color-gray-600: #868e96;
-  --color-gray-700: #495057;
-  --color-gray-800: #343a40;
-  --color-gray-900: #212529;
+  --color-gray-200: #e6e9ec;
+  --color-gray-300: #d5dade;
+  --color-gray-400: #b3bbc2;
+  --color-gray-500: #87919a;
+  --color-gray-600: #626d77;
+  --color-gray-700: #45505b;
+  --color-gray-800: #2c3640;
+  --color-gray-900: #17212b;
 
   --animate-fade-in: fadeIn 0.5s ease-in-out;
   --animate-slide-in: slideIn 0.5s ease-out;
@@ -124,9 +129,28 @@
   }
 }
 
-@theme inline {
-  --font-sans: var(--font-kapwa-sans);
-  --font-mono: var(--font-kapwa-mono);
+/* In a layer so Tailwind utilities (e.g. font-sans on an h3) still win. */
+@layer base {
+  body {
+    background: #fff;
+    color: var(--color-gray-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-balayong-400);
+    outline-offset: 2px;
+  }
 }
 
 ::selection {
@@ -138,9 +162,9 @@
    container utility has no max-width cap / generous padding, which reads
    as edge-to-edge/bulky on wide screens) */
 .container {
-  max-width: 1200px;
+  max-width: 1180px;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1rem;
 }
 
 /* MapLibre controls and popups, restyled to the site palette. */

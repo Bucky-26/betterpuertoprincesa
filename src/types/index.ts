@@ -6,4 +6,6 @@ export interface NavigationItem {
   label: string;
   href: string;
   children?: NavigationItem[];
+  // Shows a small "important" badge next to the label.
+  highlight?: boolean;
 }

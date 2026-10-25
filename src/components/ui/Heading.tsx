@@ -5,38 +5,23 @@ interface HeadingProps {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   children: React.ReactNode;
   className?: string;
-  // Short balayong-pink bar under the heading, for top-level page sections.
-  accent?: boolean;
 }
 
+// h1–h3 are set in Young Serif (see index.css); h4–h6 stay in the body
+// face, bold, so small headings inside lists and cards don't compete.
 const headingStyles = {
-  1: 'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-relaxed',
-  2: 'text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-relaxed',
-  3: 'text-xl md:text-2xl lg:text-3xl font-bold mb-4 leading-relaxed',
-  4: 'text-lg md:text-xl lg:text-2xl font-bold mb-4 leading-relaxed',
-  5: 'text-base md:text-lg lg:text-xl font-bold mb-4 leading-relaxed',
-  6: 'text-sm md:text-base lg:text-lg font-bold mb-4 leading-relaxed',
+  1: 'text-4xl md:text-5xl leading-[1.1] mb-4 text-gray-900',
+  2: 'text-3xl md:text-[2.5rem] leading-[1.15] mb-3 text-gray-900',
+  3: 'text-2xl md:text-[1.75rem] leading-snug mb-3 text-gray-900',
+  4: 'text-lg font-bold leading-snug mb-2 text-gray-900',
+  5: 'text-base font-bold leading-snug mb-2 text-gray-900',
+  6: 'text-sm font-bold leading-snug mb-2 text-gray-700',
 };
 
-export function Heading({
-  level = 1,
-  children,
-  className,
-  accent = false,
-}: HeadingProps) {
-  const baseClasses = headingStyles[level];
-  const combinedClasses = cn(
-    baseClasses,
-    accent &&
-      'after:mt-2 after:block after:h-1 after:w-12 after:rounded-full after:bg-balayong-400',
-    className
-  );
-
-  const HeadingTag = `h${level}`;
-
+export function Heading({ level = 1, children, className }: HeadingProps) {
   return React.createElement(
-    HeadingTag,
-    { className: combinedClasses },
+    `h${level}`,
+    { className: cn(headingStyles[level], className) },
     children
   );
 }

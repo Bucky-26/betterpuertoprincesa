@@ -1,24 +1,35 @@
 import { useTranslation } from 'react-i18next';
+import { MapPin } from 'lucide-react';
 import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
-import { Text } from '../components/ui/Text';
-import Breadcrumbs from '../components/ui/Breadcrumbs';
+import PageHeader from '../components/ui/PageHeader';
+import { LandmarkMap } from '../components/map/LazyMaps';
 
-// Sourced from:
-// - Palawanderer, "Ang Prinsesa ng Baybay: The Story Behind It" — https://palawanderer.net/ang-prinsesa-ng-baybay-the-story-behind-it/
-// - Manila-Mania, "The Princess of the Sea" (2009) — http://manila-mania.blogspot.com/2009/03/princess-of-sea.html
-const trivia = [
-  'The Rotary Club of Puerto Princesa initiated the project in 2007, under then-president Bobby Castro, hoping to give the city a landmark on the scale of Singapore’s Merlion or Denmark’s Little Mermaid.',
-  'The design was chosen through a public contest launched on July 13, 2007, under the theme "Simbolo ng Ating Kultura at Buhay" (Symbol of Our Culture and Life).',
-  'The winning concept combined designs from two artists: Zaldy Jumawan, then based in Palawan, and Elordie Mesac, a Tagbanua artist trained under Charles Wandag’s Aborlan Arts Program.',
-  'The statue’s face was deliberately sculpted with the flat nose characteristic of the Tagbanua people, Puerto Princesa’s original inhabitants.',
-  'The final 100-kilogram fiberglass statue was executed by Manila-based sculptor Ronel F. Roces and unveiled on December 7, 2007, at the City Coastal Reclamation Area — the Baywalk.',
-  'Both original designers reportedly felt the finished sculpture strayed from their concept of a princess watching the sunset with birds in the background.',
+// East end of the Baywalk footway (OSM way 1044151898); matches the
+// statue's Google Maps pin and an unnamed historic=memorial node there.
+const STATUE_LOCATION: [number, number] = [118.734173, 9.744341];
+const GOOGLE_MAPS_URL = `https://www.google.com/maps?q=${STATUE_LOCATION[1]},${STATUE_LOCATION[0]}`;
+
+// Text sourced from:
+// - Palawanderer, "Ang Prinsesa ng Baybay: The Story Behind It"
+// - Manila-Mania, "The Princess of the Sea" (2009)
+const SOURCES = [
+  {
+    label: 'Palawanderer — Ang Prinsesa ng Baybay: The Story Behind It',
+    href: 'https://palawanderer.net/ang-prinsesa-ng-baybay-the-story-behind-it/',
+  },
+  {
+    label: 'Manila-Mania — The Princess of the Sea',
+    href: 'http://manila-mania.blogspot.com/2009/03/princess-of-sea.html',
+  },
 ];
 
 export default function PrinsesaNgBaybay() {
   const { t } = useTranslation('common');
+  const history = t('landmark.history', { returnObjects: true }) as string[];
+  const trivia = t('landmark.trivia', { returnObjects: true }) as string[];
+
   return (
     <>
       <SEO
@@ -27,85 +38,105 @@ export default function PrinsesaNgBaybay() {
         keywords="Prinsesa ng Baybay, Puerto Princesa Baywalk, Puerto Princesa landmark, city history"
       />
       <main className="flex-grow">
-        <Section className="!py-6 !bg-gray-50">
-          <Breadcrumbs />
-        </Section>
-
-        <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12">
-          <div className="container mx-auto px-4">
-            <Heading level={1} className="!text-white !mb-2">
-              {t('landmark.title')}
-            </Heading>
-            <Text className="!text-primary-50 !max-w-2xl">
-              {t('landmark.subtitle')}
-            </Text>
-          </div>
-        </div>
+        <PageHeader
+          title={t('landmark.title')}
+          subtitle={t('landmark.subtitle')}
+          breadcrumbs={[
+            { label: t('navbar.home'), href: '/' },
+            { label: t('landmark.title') },
+          ]}
+        />
 
         <Section>
-          <div className="max-w-3xl space-y-10">
-            <div>
-              <Heading level={2}>{t('landmark.historyHeading')}</Heading>
-              <div className="mt-4 space-y-4 text-gray-700">
-                <p>
-                  Ang Prinsesa ng Baybay ("The Princess of the Shore") is the
-                  fiberglass statue of a woman with windswept hair, playing with
-                  birds, that stands at the far end of the Puerto Princesa
-                  Baywalk — the City Coastal Reclamation Area, the city&rsquo;s
-                  own version of Manila&rsquo;s Roxas Boulevard.
-                </p>
-                <p>
-                  The statue draws on local folklore about how the city got its
-                  name: seafarers were said to see a princess-like maiden
-                  walking along the bay late in the afternoon or early evening,
-                  who would seem to vanish whenever anyone approached. The
-                  Rotary Club of Puerto Princesa commissioned the statue in 2007
-                  as a symbol of that story and of Palaweño life and culture
-                  more broadly, unveiling it on December 7, 2007.
-                </p>
+          <div className="grid gap-12 lg:grid-cols-[1fr_20rem] lg:gap-16">
+            <div className="max-w-prose space-y-10">
+              <div>
+                <Heading level={2}>{t('landmark.historyHeading')}</Heading>
+                <div className="mt-4 space-y-4 text-lg leading-relaxed text-gray-700">
+                  {Array.isArray(history) &&
+                    history.map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+              </div>
+
+              <div>
+                <Heading level={2}>{t('landmark.triviaHeading')}</Heading>
+                <ul className="mt-4 space-y-3">
+                  {Array.isArray(trivia) &&
+                    trivia.map((fact, i) => (
+                      <li key={i} className="flex gap-3 text-gray-700">
+                        <span
+                          className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-balayong-400"
+                          aria-hidden="true"
+                        />
+                        <span className="leading-relaxed">{fact}</span>
+                      </li>
+                    ))}
+                </ul>
               </div>
             </div>
 
-            <div>
-              <Heading level={2}>{t('landmark.triviaHeading')}</Heading>
-              <ul className="mt-4 space-y-3">
-                {trivia.map((fact, i) => (
-                  <li key={i} className="flex gap-3 text-gray-700">
-                    <span
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-600"
-                      aria-hidden="true"
-                    />
-                    <span>{fact}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* The statue on its own patch of shore: pink ground, bay band. */}
+            <figure className="order-first lg:order-none lg:sticky lg:top-36 lg:self-start">
+              <div className="overflow-hidden rounded-xl bg-balayong-100">
+                <img
+                  src="/prinsesa-ng-baybay.svg"
+                  alt={t('landmark.title')}
+                  className="mx-auto h-80 w-auto pt-8 lg:h-[26rem]"
+                />
+                <div className="h-6 bg-primary-800" />
+              </div>
+              <figcaption className="mt-3 text-sm text-gray-600">
+                {t('landmark.figureCaption')}
+              </figcaption>
+            </figure>
+          </div>
+        </Section>
 
-            <div className="border-t border-gray-200 pt-6">
-              <Heading level={3}>{t('landmark.sourcesHeading')}</Heading>
-              <ul className="mt-2 space-y-1 text-sm text-gray-500">
-                <li>
-                  <a
-                    href="https://palawanderer.net/ang-prinsesa-ng-baybay-the-story-behind-it/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary-600 underline"
-                  >
-                    Palawanderer — Ang Prinsesa ng Baybay: The Story Behind It
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://manila-mania.blogspot.com/2009/03/princess-of-sea.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary-600 underline"
-                  >
-                    Manila-Mania — The Princess of the Sea
-                  </a>
-                </li>
-              </ul>
+        <Section className="bg-balayong-50">
+          <div className="grid gap-8 lg:grid-cols-[20rem_1fr] lg:gap-16">
+            <div>
+              <Heading level={2}>{t('landmark.locationHeading')}</Heading>
+              <p className="flex gap-2 text-lg leading-relaxed text-gray-700">
+                <MapPin
+                  className="mt-1.5 h-5 w-5 shrink-0 text-balayong-600"
+                  aria-hidden="true"
+                />
+                {t('landmark.locationBody')}
+              </p>
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex rounded-full bg-primary-700 px-5 py-2.5 font-bold text-white transition-colors hover:bg-primary-800"
+              >
+                {t('landmark.openInGoogleMaps')}
+              </a>
             </div>
+            <LandmarkMap
+              center={STATUE_LOCATION}
+              label={t('landmark.mapLabel')}
+              zoom={15}
+            />
+          </div>
+        </Section>
+
+        <Section>
+          <div className="max-w-prose">
+            <Heading level={3}>{t('landmark.sourcesHeading')}</Heading>
+            <ul className="mt-2 space-y-1 text-sm text-gray-600">
+              {SOURCES.map(s => (
+                <li key={s.href}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-primary-700"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </Section>
       </main>

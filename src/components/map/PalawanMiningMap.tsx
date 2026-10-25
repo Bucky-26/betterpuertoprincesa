@@ -8,6 +8,7 @@ import {
   type Map as MapLibreMap,
 } from 'maplibre-gl';
 import { ExternalLink, Trees } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { miningSites, type MiningSite } from '../../data/miningSites';
 import { createMap, withOverlays } from '../../lib/mapStyle';
 
@@ -79,11 +80,14 @@ const PALAWAN_BOUNDS: LngLatBoundsLike = [
 ];
 
 function SitePopup({ site }: { site: MiningSite }) {
+  const { t } = useTranslation('common');
   return (
     <div className="min-w-[220px] space-y-1">
       <p className="font-semibold text-gray-900">{site.name}</p>
       {site.operator && (
-        <p className="text-xs text-gray-500">Operator: {site.operator}</p>
+        <p className="text-xs text-gray-500">
+          {t('miningWatch.map.popupOperator')}: {site.operator}
+        </p>
       )}
       <p className="text-xs text-gray-500">
         {site.barangay}, {site.municipality}
@@ -95,10 +99,14 @@ function SitePopup({ site }: { site: MiningSite }) {
       </p>
       <p className="text-xs font-medium text-gray-700">
         {site.status === 'active'
-          ? 'Active operation'
-          : 'Historical / abandoned site'}
+          ? t('miningWatch.map.popupActive')
+          : t('miningWatch.map.popupHistorical')}
       </p>
-      <p className="text-sm text-gray-700">{site.description}</p>
+      <p className="text-sm text-gray-700">
+        {t(`miningWatch.siteDescriptions.${site.id}`, {
+          defaultValue: site.description,
+        })}
+      </p>
       <a
         href={site.sourceUrl}
         target="_blank"
@@ -113,6 +121,7 @@ function SitePopup({ site }: { site: MiningSite }) {
 }
 
 export default function PalawanMiningMap() {
+  const { t } = useTranslation('common');
   const [showForestLoss, setShowForestLoss] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -187,7 +196,7 @@ export default function PalawanMiningMap() {
           }`}
         >
           <Trees className="h-3.5 w-3.5" strokeWidth={2.5} />
-          Tree cover loss
+          {t('miningWatch.map.toggleForestLoss')}
         </button>
         <div
           ref={containerRef}
@@ -200,22 +209,21 @@ export default function PalawanMiningMap() {
       <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-gray-500">
         <span className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full border border-white bg-red-600 shadow" />
-          Active mining operation
+          {t('miningWatch.map.legendActive')}
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full border border-white bg-stone-500 shadow" />
-          Historical / abandoned site
+          {t('miningWatch.map.legendHistorical')}
         </span>
         {showForestLoss && (
           <span className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-sm bg-amber-800/80" />
-            Tree cover loss, 2001–2024
+            {t('miningWatch.map.legendForestLoss')}
           </span>
         )}
       </div>
       <p className="mt-2 text-xs text-gray-400">
-        Sources: mining sites — MGB and cited news (see each pin); tree cover
-        loss — Hansen/UMD/Google/USGS/NASA, 30m resolution, via{' '}
+        {t('miningWatch.map.sourcesBefore')}{' '}
         <a
           href="https://www.globalforestwatch.org/"
           target="_blank"
@@ -224,9 +232,7 @@ export default function PalawanMiningMap() {
         >
           Global Forest Watch
         </a>
-        . The tree cover loss layer shows all detected loss in the area — not
-        all of it is attributable to mining; logging, agriculture, and natural
-        causes also clear tree cover.
+        {t('miningWatch.map.sourcesAfter')}
       </p>
     </div>
   );

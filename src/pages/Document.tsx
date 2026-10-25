@@ -2,7 +2,7 @@ import Section from '../components/ui/Section';
 import Breadcrumbs from '../components/ui/Breadcrumbs';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
-import { Banner } from '@bettergov/kapwa/banner';
+import { Banner } from '../components/ui/Banner';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -12,7 +12,7 @@ import {
   type MarkdownContent,
 } from '../lib/markdownLoader';
 import { createMarkdownComponents } from '../lib/markdownComponents';
-import { Card, CardContent, CardHeader } from '@bettergov/kapwa/card';
+import { Card, CardContent, CardHeader } from '../components/ui/Card';
 import { getTypographyTheme } from '../lib/typographyThemes';
 import { useTranslation } from 'react-i18next';
 import {

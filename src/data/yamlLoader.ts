@@ -117,6 +117,27 @@ export async function getCategorySubcategories(
   return result;
 }
 
+// Synchronous lookup of a category's pages. The index YAML is bundled as
+// raw text, so lists (e.g. the home page) can show real example pages
+// without waiting on the async loader.
+const pagesCache = new Map<string, Subcategory[]>();
+
+export function getCategoryPages(categorySlug: string): Subcategory[] {
+  if (!pagesCache.has(categorySlug)) {
+    const yamlContent = categoryIndexMap[categorySlug];
+    let pages: Subcategory[] = [];
+    try {
+      pages = yamlContent
+        ? ((yaml.load(yamlContent) as CategoryIndexData).pages ?? [])
+        : [];
+    } catch {
+      pages = [];
+    }
+    pagesCache.set(categorySlug, pages);
+  }
+  return pagesCache.get(categorySlug)!;
+}
+
 /** Returns true if a slug has a registered index in categoryIndexMap */
 export function isNestedCategory(slug: string): boolean {
   return slug in categoryIndexMap;

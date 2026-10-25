@@ -5,11 +5,11 @@ import type { BarangayMapHandle } from './BarangayMap';
 // chunk and only downloaded on pages that actually render one.
 const BarangayMapImpl = lazy(() => import('./BarangayMap'));
 const PalawanMiningMapImpl = lazy(() => import('./PalawanMiningMap'));
-const PuertoPrincesaMapImpl = lazy(() => import('../home/PuertoPrincesaMap'));
+const LandmarkMapImpl = lazy(() => import('./LandmarkMap'));
 
 function MapFallback() {
   return (
-    <div className="h-96 w-full animate-pulse rounded-md bg-gray-100 lg:h-[28rem]" />
+    <div className="h-96 w-full animate-pulse rounded-xl bg-gray-100 lg:h-[28rem]" />
   );
 }
 
@@ -33,10 +33,10 @@ export function PalawanMiningMap() {
   );
 }
 
-export function PuertoPrincesaMap() {
+export function LandmarkMap(props: ComponentProps<typeof LandmarkMapImpl>) {
   return (
     <Suspense fallback={<MapFallback />}>
-      <PuertoPrincesaMapImpl />
+      <LandmarkMapImpl {...props} />
     </Suspense>
   );
 }

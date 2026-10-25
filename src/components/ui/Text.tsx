@@ -1,22 +1,23 @@
+import { cn } from '../../lib/utils';
+
+const sizes = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+};
+
 export function Text({
   size = 'md',
-  transform = 'none',
-  className = '',
+  className,
   children,
 }: {
   size?: 'sm' | 'md' | 'lg';
-  transform?: 'none' | 'uppercase' | 'lowercase';
   className?: string;
   children: React.ReactNode;
 }) {
-  const transformClasses = {
-    none: '',
-    uppercase: 'uppercase',
-    lowercase: 'lowercase',
-  };
   return (
     <p
-      className={`text-${size} mb-2 max-w-lg ${transformClasses[transform]} ${className}`}
+      className={cn(sizes[size], 'mb-2 max-w-prose leading-relaxed', className)}
     >
       {children}
     </p>

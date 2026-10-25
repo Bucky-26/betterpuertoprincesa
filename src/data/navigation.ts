@@ -33,7 +33,7 @@ export const mainNavigation: NavigationItem[] = [
   { label: 'Statistics', href: '/statistics' },
   { label: 'Transparency', href: '/transparency' },
   { label: 'News', href: '/news' },
-  { label: 'Mining Watch', href: '/mining-watch' },
+  { label: 'Mining Watch', href: '/mining-watch', highlight: true },
 ];
 
 export const footerNavigation = {
@@ -41,7 +41,7 @@ export const footerNavigation = {
     {
       title: 'Services',
       links: [
-        { label: 'All Services', href: '/services' },
+        { label: 'Every service', href: '/services' },
         ...(servicesData.categories as Category[])
           .slice(0, 5)
           .map(category => ({
@@ -58,9 +58,9 @@ export const footerNavigation = {
           href: 'https://puertoprincesa.ph/citizens-charter/',
         },
         { label: 'City Government Website', href: 'https://puertoprincesa.ph' },
-        { label: 'City Statistics', href: '/statistics' },
-        { label: 'Budget Transparency', href: '/transparency' },
-        { label: 'News & Updates', href: '/news' },
+        { label: 'Population and land', href: '/statistics' },
+        { label: 'Where the money goes', href: '/transparency' },
+        { label: 'City hall news', href: '/news' },
         { label: 'Mining Watch', href: '/mining-watch' },
       ],
     },

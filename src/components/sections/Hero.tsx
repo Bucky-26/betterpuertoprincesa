@@ -1,52 +1,69 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Heading } from '../ui/Heading';
-import { Text } from '../ui/Text';
+import { Phone } from 'lucide-react';
+import BalayongBranch from '../ui/BalayongBranch';
+import { hotlines } from '../../data/hotlines';
 
+// Pink field for the balayong, a bay-blue band along the bottom for the
+// Baywalk, and the Prinsesa ng Baybay statue standing at the water's edge.
 export default function Hero() {
   const { t } = useTranslation();
   return (
-    <div className="relative overflow-hidden border-b-4 border-balayong-400 bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12 md:py-24">
-      <div className="pointer-events-none absolute inset-0 container mx-auto px-4">
-        <div className="relative h-full">
-          <div className="pointer-events-auto absolute left-3/4 -translate-x-1/2 top-8 bottom-0 hidden lg:block">
+    <section className="relative overflow-hidden bg-balayong-100">
+      <BalayongBranch className="pointer-events-none absolute -right-16 -top-6 w-[22rem] opacity-60 sm:w-[28rem] lg:right-auto lg:left-[52%] lg:w-[31rem] lg:opacity-100" />
+
+      <div className="container relative mx-auto px-4">
+        <div className="grid items-end gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="pt-16 pb-12 md:pt-24 md:pb-16">
+            <h1 className="font-display text-5xl leading-[1.02] text-gray-900 sm:text-6xl lg:text-7xl">
+              {t('hero.greeting')}
+            </h1>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-gray-700">
+              {t('hero.subtitle')}
+            </p>
             <Link
-              to="/prinsesa-ng-baybay"
-              aria-label={t('landmark.calloutText')}
-              className="group relative block h-full"
+              to="/services"
+              className="mt-8 inline-flex items-center rounded-full bg-primary-700 px-6 py-3 font-bold text-white transition-colors hover:bg-primary-800"
             >
-              <img
-                src="/prinsesa-ng-baybay.svg"
-                alt=""
-                className="h-full w-auto"
-              />
-              <div
-                role="tooltip"
-                aria-hidden="true"
-                className="pointer-events-none absolute right-[75%] top-1/2 w-48 -translate-y-1/2 whitespace-pre-line rounded-lg bg-white px-3 py-2 text-center text-xs font-medium text-gray-900 opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100"
-              >
-                {t('landmark.calloutText')}
-                <span
-                  className="absolute left-full top-1/2 h-0 w-0 -translate-y-1/2 border-y-8 border-l-8 border-y-transparent border-l-white"
-                  aria-hidden="true"
-                />
-              </div>
+              {t('hero.browseServices')}
             </Link>
           </div>
+
+          <Link
+            to="/prinsesa-ng-baybay"
+            aria-label={t('landmark.title')}
+            className="group relative hidden h-[26rem] self-end lg:block"
+          >
+            <img
+              src="/prinsesa-ng-baybay.svg"
+              alt=""
+              className="absolute bottom-0 left-1/2 h-full w-auto -translate-x-1/2 drop-shadow-[0_2px_0_rgb(14_55_85/0.25)]"
+            />
+          </Link>
         </div>
       </div>
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Left section with title and search */}
-          <div className="animate-fade-in">
-            <Text transform="uppercase" className="text-balayong-200">
-              Welcome to
-            </Text>
-            <Heading>BetterPuertoPrincesa.org</Heading>
-            <Text>{t('hero.subtitle')}</Text>
-          </div>
+
+      <div className="relative bg-primary-800 text-white">
+        <div className="container mx-auto flex flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:gap-6">
+          <p className="flex shrink-0 items-center gap-2 text-sm text-primary-100">
+            <Phone className="h-4 w-4" aria-hidden="true" />
+            {t('hero.hotlinesLabel')}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {hotlines.map(h => (
+              <li key={h.label}>
+                <a
+                  href={`tel:${h.tel}`}
+                  className="text-sm whitespace-nowrap hover:text-balayong-200"
+                >
+                  <span className="font-bold">{h.label}</span>{' '}
+                  <span className="text-primary-100">{h.number}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

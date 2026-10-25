@@ -1,105 +1,31 @@
 import Section from '../ui/Section';
-import * as LucideIcons from 'lucide-react';
-import { ArrowRight } from 'lucide-react';
 import { Heading } from '../ui/Heading';
 import { Text } from '../ui/Text';
+import CategoryList, { type CategoryItem } from '../ui/CategoryList';
 import { useTranslation } from '../../hooks/useTranslation';
-import { Card, CardContent } from '@bettergov/kapwa/card';
-import { Link } from 'react-router-dom';
 
 import { serviceCategories } from '../../data/yamlLoader';
-
-interface Subcategory {
-  name: string;
-  slug: string;
-}
-
-interface Category {
-  category: string;
-  slug: string;
-  subcategories: Subcategory[];
-  description: string;
-  icon: string;
-}
 
 export default function ServicesSection({
   title,
   description,
-  limit,
-  showViewAll = true,
 }: {
   title?: string;
   description?: string;
-  limit?: number;
-  showViewAll?: boolean;
 }) {
   const { t } = useTranslation();
 
-  const getIcon = (category: string) => {
-    const IconComponent = LucideIcons[
-      category as keyof typeof LucideIcons
-    ] as React.ComponentType<{ className?: string }>;
-    return IconComponent ? <IconComponent className="h-6 w-6" /> : null;
-  };
-
-  const allCategories = serviceCategories.categories as Category[];
-  const displayedCategories = limit
-    ? allCategories.slice(0, limit)
-    : allCategories;
-
   return (
     <Section>
-      <Heading level={2} accent>
-        {title || t('services.title')}
-      </Heading>
-      <Text className="text-gray-600 mb-6">
+      <Heading level={1}>{title || t('services.title')}</Heading>
+      <Text className="mb-8 text-lg text-gray-600">
         {description || t('services.description')}
       </Text>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {displayedCategories.map(category => (
-          <Card
-            key={category.slug}
-            hoverable
-            className="border-t-4 border-primary-500"
-          >
-            <Link
-              to={`/services/${category.slug}`}
-              className="mt-auto text-primary-600 hover:text-primary-700 font-medium transition-colors inline-flex items-center"
-            >
-              <CardContent className="flex flex-col h-full p-6">
-                <div className="flex gap-2">
-                  <div className="bg-primary-100 text-primary-600 p-3 rounded-md mb-4 self-start">
-                    {getIcon(category.icon)}
-                  </div>
-
-                  <h3 className="text-lg font-semibold mb-4 text-gray-900 self-center">
-                    {category.category}
-                  </h3>
-                </div>
-                <Text className="text-gray-800">{category.description}</Text>
-              </CardContent>
-            </Link>
-          </Card>
-        ))}
-        {showViewAll && (
-          <Card hoverable className="border-t-4 border-primary-500">
-            <Link
-              to="/services"
-              className="mt-auto text-primary-600 hover:text-primary-700 font-medium transition-colors inline-flex items-center"
-            >
-              <CardContent className="flex flex-col items-center justify-center h-full p-6 text-center">
-                <div className="bg-primary-100 text-primary-600 p-3 rounded-md mb-4">
-                  <ArrowRight className="h-6 w-6" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t('services.viewAllCard')}
-                </h3>
-              </CardContent>
-            </Link>
-          </Card>
-        )}
-      </div>
+      <CategoryList
+        items={serviceCategories.categories as CategoryItem[]}
+        basePath="/services"
+        columns={2}
+      />
     </Section>
   );
 }

@@ -1,8 +1,6 @@
 import Hero from '../components/sections/Hero';
-import ServicesSection from '../components/home/ServicesSection';
-import GovernmentActivitySection from '../components/home/GovernmentActivitySection';
+import FindSection from '../components/home/FindSection';
 import AtAGlanceSection from '../components/home/AtAGlanceSection';
-import HotlinesSection from '../components/home/HotlinesSection';
 import WeatherMapSection from '../components/home/WeatherMapSection';
 import HomeNewsSection from '../components/home/HomeNewsSection';
 import DirectoryBanner from '../components/home/DirectoryBanner';
@@ -18,10 +16,8 @@ const Home: React.FC = () => {
       />
       <main className="flex-grow">
         <Hero />
-        <ServicesSection limit={3} />
-        <GovernmentActivitySection limit={3} />
+        <FindSection />
         <AtAGlanceSection />
-        <HotlinesSection />
         <WeatherMapSection />
         <HomeNewsSection />
         <DirectoryBanner />

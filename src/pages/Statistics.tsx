@@ -13,7 +13,7 @@ import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
-import Breadcrumbs from '../components/ui/Breadcrumbs';
+import PageHeader from '../components/ui/PageHeader';
 import type { BarangayMapHandle } from '../components/map/BarangayMap';
 import { BarangayMap } from '../components/map/LazyMaps';
 import { demographics, competitiveIndex } from '../data/statistics';
@@ -61,23 +61,13 @@ const Statistics: React.FC = () => {
         keywords="statistics, demographics, population, barangays, competitiveness index, fiscal transparency, Puerto Princesa"
       />
       <main className="flex-grow">
-        <Section className="!py-6 !bg-gray-50">
-          <Breadcrumbs />
-        </Section>
-
-        <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12">
-          <div className="container mx-auto px-4">
-            <Heading level={1} className="!text-white !mb-2">
-              {t('statistics.title')}
-            </Heading>
-            <Text className="!text-primary-50 !max-w-2xl">
-              {t('statistics.subtitle', {
-                city: demographics.city,
-                province: demographics.province,
-              })}
-            </Text>
-          </div>
-        </div>
+        <PageHeader
+          title={t('statistics.title')}
+          subtitle={t('statistics.subtitle', {
+            city: demographics.city,
+            province: demographics.province,
+          })}
+        />
 
         <Section>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
