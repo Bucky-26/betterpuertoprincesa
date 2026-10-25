@@ -50,5 +50,13 @@ Issued after construction is completed and inspected, confirming the structure i
 City Government of Puerto Princesa
 
 **Website:** [ocbo.puertoprincesa.ph](https://ocbo.puertoprincesa.ph)
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone:** (048) 717-8087 (direct) or (048) 717-8000 (main line)
+**Email:** citybuildingofficial@puertoprincesa.ph
+
+**City Planning and Development Coordinating Office** (zoning and land use)
+**Telephone:** (048) 717-8014 (direct) or (048) 717-8000 (main line)
+**Email:** citycpdo@puertoprincesa.ph
+
+## Apply or pay online
+
+Building permit and certificate of occupancy applications, application tracking, and permit fee payments are available on the city's [Filipizen page](https://www.filipizen.com/partners/palawan_puertoprincesa), under **Building and Construction**.

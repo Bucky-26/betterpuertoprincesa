@@ -58,4 +58,4 @@ Ground Floor, Old City Hall Building, Barangay Sta. Monica, Puerto Princesa City
 **City Disaster Risk Reduction and Management Office (CDRRMO)**
 **Hotline:** 0965 314 8399
 
-**Email:** info@puertoprincesa.ph
+**Email:** citycswd@puertoprincesa.ph

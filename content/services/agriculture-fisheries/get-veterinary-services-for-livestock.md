@@ -32,5 +32,9 @@ If you notice unusual livestock deaths or signs of disease outbreak (e.g., in po
 **Office of the City Agriculturist**
 City Government of Puerto Princesa
 
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone:** (048) 717-8020 (direct) or (048) 717-8000 (main line)
+**Email:** cityagriculture@puertoprincesa.ph
+
+**Office of the City Veterinarian**
+**Telephone:** (048) 434-0631
+**Email:** cityveterinary@puertoprincesa.ph

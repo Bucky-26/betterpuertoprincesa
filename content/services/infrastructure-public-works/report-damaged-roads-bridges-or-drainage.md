@@ -35,8 +35,8 @@ If damage poses an immediate danger (e.g., a large pothole causing accidents, a 
 
 ## Contact Information
 
-**City Government of Puerto Princesa**
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**City Engineering Office**
+**Telephone:** (048) 717-8013 (direct) or (048) 717-8000 (main line)
+**Email:** cityengineering@puertoprincesa.ph
 
 **CDRRMO Hotline:** 0965 314 8399

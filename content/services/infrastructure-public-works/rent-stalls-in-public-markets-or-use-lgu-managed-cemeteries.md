@@ -41,4 +41,6 @@ The city government manages public markets and public cemeteries in Puerto Princ
 **Telephone:** (048) 717-8000
 **Email:** info@puertoprincesa.ph
 
+Market stall rent can be paid online on the city's [Filipizen page](https://www.filipizen.com/partners/palawan_puertoprincesa), under **Market Rental**.
+
 For specific market or cemetery locations and current rates, visit the relevant on-site administration office — these vary by market/cemetery.

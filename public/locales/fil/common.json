@@ -133,7 +133,7 @@
   },
   "directory": {
     "title": "May hinahanap ka ba sa city hall?",
-    "subtitle": "Mga pangalan at contact ng mga opisyal, tanggapan, at barangay ng lungsod.",
+    "subtitle": "Mga numero at email ng bawat tanggapan ng lungsod, sa sariling direktoryo ng pamahalaang lungsod.",
     "viewDirectory": "Buksan ang direktoryo"
   },
   "footer": {
@@ -321,5 +321,42 @@
     "infoWeather": "Panahon sa Puerto Princesa",
     "infoRates": "Palitan ng pera",
     "infoTime": "Oras sa Pilipinas"
+  },
+  "onlineServices": {
+    "title": "Gawin online",
+    "subtitle": "Tumatakbo ang mga ito sa sariling sistema ng pamahalaang lungsod. Itinuturo lang namin kung alin ang tama para sa kailangan mo.",
+    "help": "May tanong? Tumawag sa",
+    "otherOffices": "Ibang tanggapan ang hinahanap mo?",
+    "directoryLink": "Tingnan ang direktoryo ng lungsod",
+    "items": {
+      "business": {
+        "title": "Mag-renew ng business permit o magbayad ng buwis sa negosyo",
+        "body": "Mag-apply para sa bagong negosyo, mag-renew, o bayaran ang buwis sa iyong negosyo."
+      },
+      "realty": {
+        "title": "Magbayad ng amilyar (real property tax)",
+        "body": "Hanapin at bayaran ang buwis sa iyong lupa o bahay."
+      },
+      "building": {
+        "title": "Mag-apply ng building permit",
+        "body": "Mag-apply ng building permit o certificate of occupancy, magbayad ng bayarin, at subaybayan ang iyong aplikasyon."
+      },
+      "market": {
+        "title": "Magbayad ng upa sa puwesto sa palengke",
+        "body": "Bayaran ang upa sa iyong puwesto sa pampublikong palengke ng lungsod."
+      },
+      "ordinances": {
+        "title": "Hanapin ang isang ordinansa o resolusyon",
+        "body": "Hanapin ang mga ipinasa o tinatalakay ng Sangguniang Panlungsod."
+      },
+      "bids": {
+        "title": "Tingnan ang mga bidding at iginawad na kontrata",
+        "body": "Basahin ang mga paanyaya sa bidding at abiso ng award para sa mga proyekto ng lungsod."
+      },
+      "abroad": {
+        "title": "Nasa ibang bansa?",
+        "body": "Mga serbisyo at impormasyon ng lungsod para sa mga taga-Puerto Princesa na nagtatrabaho o nakatira sa ibang bansa."
+      }
+    }
   }
 }

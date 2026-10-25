@@ -23,7 +23,7 @@ Go to the **Puerto Princesa City BPLO** (Business Permit and Licensing Office) t
 - Occupancy Permit (if owner) OR Lease Contract (if renting)
 - Community Tax Certificate (CTC)
 
-Apply in person at City Hall or online via the [Puerto Princesa City Government Portal](https://puertoprincesa.ph/).
+Apply in person at City Hall, or online through **New Business Application** on the city's [Filipizen page](https://www.filipizen.com/partners/palawan_puertoprincesa). For questions, call the BPLO at (048) 717-8008.
 
 > Note: Inspections may include zoning, sanitary, and fire safety checks.
 

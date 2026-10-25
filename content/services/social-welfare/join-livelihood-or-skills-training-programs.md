@@ -48,5 +48,6 @@ Ground Floor, Old City Hall Building, Barangay Sta. Monica, Puerto Princesa City
 Room 202, 2nd Floor, Old City Hall Building, Puerto Princesa City
 Facebook: [City Peso of Puerto Princesa](https://www.facebook.com/p/City-Peso-of-Puerto-Princesa-100064794756222/)
 
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone (City PESO):** (048) 717-8079
+**Telephone (main line):** (048) 717-8000
+**Email:** citycswd@puertoprincesa.ph

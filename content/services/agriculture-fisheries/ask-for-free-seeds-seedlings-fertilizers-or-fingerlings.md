@@ -35,6 +35,6 @@ The **Office of the City Agriculturist** distributes free agricultural and fishe
 **Office of the City Agriculturist**
 City Government of Puerto Princesa
 
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone:** (048) 717-8020 (direct) or (048) 717-8000 (main line)
+**Email:** cityagriculture@puertoprincesa.ph
 **Website:** [puertoprincesa.ph](https://puertoprincesa.ph)

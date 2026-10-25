@@ -40,9 +40,17 @@ Illegal logging, quarrying, and fishing (including dynamite/cyanide fishing) are
 
 **Office of the City Environment and Natural Resources Officer (CENRO)**
 Unit 19, Mercado de San Miguel, National Highway, Barangay San Miguel, Puerto Princesa City 5300
-**Telephone:** (048) 717-8000
+**Telephone:** (048) 717-8016 (direct) or (048) 717-8000 (main line)
+**Email:** cityenro@puertoprincesa.ph
 
-**City Government of Puerto Princesa**
-**Email:** info@puertoprincesa.ph
+**Bantay Dagat** (illegal fishing)
+**Telephone:** (048) 717-8069
+**Email:** bantaydagat.ppc@gmail.com
+
+**Bantay Gubat** (illegal logging)
+**Email:** bantaygubat.ppc@gmail.com
+
+**Bantay Bakawan** (mangrove cutting)
+**Email:** bantaybakawan.ppc@gmail.com
 
 For safety threats during reporting, also contact the **Philippine National Police (PNP)** or **911**.

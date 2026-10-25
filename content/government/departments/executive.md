@@ -157,7 +157,7 @@ Barangay Sta. Monica, Puerto Princesa City, Palawan 5300
 (048) 717-8000
 
 **Email:**
-info@puertoprincesa.ph
+citymayor@puertoprincesa.ph
 
 **Website:**
 [puertoprincesa.ph](https://puertoprincesa.ph)

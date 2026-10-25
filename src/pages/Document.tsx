@@ -7,6 +7,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+// Content files put one field per line (e.g. contact blocks); keep those
+// line breaks instead of collapsing them into one paragraph.
+import remarkBreaks from 'remark-breaks';
 import {
   loadMarkdownContent,
   type MarkdownContent,
@@ -230,7 +233,7 @@ export default function Document({
               <CardContent>{markdownContent.description}</CardContent>
             )}
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[remarkGfm, remarkBreaks]}
               components={markdownComponents}
             >
               {markdownContent.content}

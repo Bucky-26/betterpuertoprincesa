@@ -63,7 +63,8 @@ Proper waste segregation is **mandatory** in Puerto Princesa City under **Republ
 
 - **Office of the City Environment and Natural Resources Officer (CENRO)**  
   Unit 19, Mercado de San Miguel, National Highway, Brgy. San Miguel, Puerto Princesa City 5300  
-  Phone: (048) 717-8000 (ask for CENRO)  
+  Phone: (048) 717-8016 (direct) or (048) 717-8000 (main line, ask for CENRO)  
+  Email: cityenro@puertoprincesa.ph  
   Updates via: [Puerto Princesa City Information Office Facebook Page](https://www.facebook.com/cio.puertoprincesa)
 
 ---

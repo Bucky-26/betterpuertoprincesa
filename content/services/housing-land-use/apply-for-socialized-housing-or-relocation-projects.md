@@ -34,6 +34,9 @@ Socialized housing programs for low-income and informal settler families are coo
 **City Social Welfare and Development Office (CSWDO)**
 Ground Floor, Old City Hall Building, Barangay Sta. Monica, Puerto Princesa City
 
-**City Government of Puerto Princesa**
 **Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Email:** citycswd@puertoprincesa.ph
+
+**City Housing Office**
+**Telephone:** (048) 717-8082 (direct) or (048) 717-8000 (main line)
+**Email:** cudho2021@gmail.com

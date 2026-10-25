@@ -188,7 +188,7 @@
   },
   "directory": {
     "title": "Looking for someone at city hall?",
-    "subtitle": "Names and contact details for city officials, offices, and barangays.",
+    "subtitle": "Phone numbers and emails for every city office, in the city government's own directory.",
     "viewDirectory": "Open the directory"
   },
   "footer": {
@@ -274,5 +274,42 @@
     "infoWeather": "Weather in Puerto Princesa",
     "infoRates": "Exchange rate",
     "infoTime": "Philippine time"
+  },
+  "onlineServices": {
+    "title": "Do it online",
+    "subtitle": "These run on the city government's own systems. We point you to the right one for what you need to do.",
+    "help": "Questions? Call",
+    "otherOffices": "Looking for a different office?",
+    "directoryLink": "See the city's contact directory",
+    "items": {
+      "business": {
+        "title": "Renew a business permit or pay business tax",
+        "body": "Apply for a new business, renew, or pay your business tax bill."
+      },
+      "realty": {
+        "title": "Pay real property tax",
+        "body": "Look up and pay the tax on your land or house."
+      },
+      "building": {
+        "title": "Apply for a building permit",
+        "body": "Apply for a building permit or certificate of occupancy, pay the fees, and track your application."
+      },
+      "market": {
+        "title": "Pay market stall rent",
+        "body": "Pay the rent on your stall in a city-run public market."
+      },
+      "ordinances": {
+        "title": "Look up an ordinance or resolution",
+        "body": "Search what the City Council has passed or is working on."
+      },
+      "bids": {
+        "title": "See bids and awarded contracts",
+        "body": "Read invitations to bid and notices of award for city projects."
+      },
+      "abroad": {
+        "title": "Living abroad?",
+        "body": "City services and information for Puerto Princesa residents working or living overseas."
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BalayongBranch from '../ui/BalayongBranch';
+import { CITY_DIRECTORY_URL } from '../../data/onlineServices';
 
 export default function DirectoryBanner() {
   const { t } = useTranslation('common');
@@ -16,12 +16,14 @@ export default function DirectoryBanner() {
             {t('directory.subtitle')}
           </p>
         </div>
-        <Link
-          to="/government/departments"
+        <a
+          href={CITY_DIRECTORY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="shrink-0 rounded-full bg-primary-700 px-6 py-3 font-bold text-white transition-colors hover:bg-primary-800"
         >
           {t('directory.viewDirectory')}
-        </Link>
+        </a>
       </div>
     </div>
   );

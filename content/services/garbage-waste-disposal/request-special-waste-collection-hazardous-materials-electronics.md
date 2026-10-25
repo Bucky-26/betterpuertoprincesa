@@ -45,7 +45,8 @@ Hazardous and electronic wastes (e-waste) cannot be disposed of with regular gar
 
 - **Office of the City Environment and Natural Resources Officer (CENRO)**  
   Unit 19, Mercado de San Miguel, National Highway, Brgy. San Miguel, Puerto Princesa City 5300  
-  Phone: (048) 717-8000 (City trunkline, ask for CENRO)  
+  Phone: (048) 717-8016 (direct) or (048) 717-8000 (main line, ask for CENRO)  
+  Email: cityenro@puertoprincesa.ph  
   Updates: [City Government of Puerto Princesa Facebook Page](https://www.facebook.com/puertoprincesaph)
 
 - **Barangay Halls** — Environment/Solid Waste desk for barangay-level pickup scheduling.

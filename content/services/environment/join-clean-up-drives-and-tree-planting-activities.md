@@ -29,5 +29,5 @@ The **Office of the City Environment and Natural Resources Officer (CENRO)**, to
 **Office of the City Environment and Natural Resources Officer (CENRO)**
 Unit 19, Mercado de San Miguel, National Highway, Barangay San Miguel, Puerto Princesa City 5300
 
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone:** (048) 717-8016 (direct) or (048) 717-8000 (main line)
+**Email:** cityenro@puertoprincesa.ph

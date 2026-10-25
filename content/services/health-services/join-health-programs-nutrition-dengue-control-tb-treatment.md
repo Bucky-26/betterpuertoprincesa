@@ -68,7 +68,7 @@ Below are city-led and national programs you can join through your **Barangay He
 ## Contact & Updates
 
 - **Barangay Health Centers** — First point of contact for nutrition, dengue, and TB programs.
-- **Puerto Princesa City Health Office (CHO)** — Unit 9, Mercado de San Miguel, National Highway, Barangay San Miguel; (048) 717-8000. Main office for program schedules and services.
+- **Puerto Princesa City Health Office (CHO)** — Unit 9, Mercado de San Miguel, National Highway, Barangay San Miguel; (048) 717-8084, cityhealth@puertoprincesa.ph. Main office for program schedules and services. For nutrition programs, the City Nutrition Division is at (048) 717-8081.
 - **City Information Office** — Posts updates on city-wide campaigns and health events.
 
 ---

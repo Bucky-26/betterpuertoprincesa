@@ -54,10 +54,13 @@ New City Hall Complex, Sta. Monica Heights
 Barangay Sta. Monica, Puerto Princesa City, Palawan 5300
 
 **Telephone:**
-(048) 717-8000
+(048) 717-8004 (Secretary to the Sangguniang Panlungsod) or (048) 717-8000 (main line)
 
 **Email:**
-info@puertoprincesa.ph
+citysanggunian@puertoprincesa.ph
+
+**Track ordinances and resolutions:**
+[Legislative Tracking System](https://puertoprincesa.ph/legislative-tracking-system/)
 
 **Website:**
 [puertoprincesa.ph](https://puertoprincesa.ph)

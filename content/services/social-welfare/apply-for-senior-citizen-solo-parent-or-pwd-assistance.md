@@ -68,5 +68,10 @@ The **City Social Welfare and Development Office (CSWDO)** processes ID applicat
 Ground Floor, Old City Hall Building, Barangay Sta. Monica, Puerto Princesa City, Palawan
 
 **Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Email:** citycswd@puertoprincesa.ph
+
+**Senior Citizen Assistance Program (OSCA) and Persons with Disability Affairs Office (PDAO)**
+**Telephone:** (048) 717-8071 (direct) or (048) 717-8000 (main line)
+**Email (OSCA):** oscapuertoprincesa2022@gmail.com
+**Email (PDAO):** pdao.ppc@gmail.com
 **Website:** [puertoprincesa.ph](https://puertoprincesa.ph)

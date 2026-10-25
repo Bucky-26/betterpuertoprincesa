@@ -75,13 +75,16 @@ Use this guide to renew your **Mayor's/Business Permit** and **Local Business Ta
 
 ---
 
-## (If Available) Online / Hybrid Filing
+## Renew and Pay Online
 
-- Some transactions may be done via the city's **online business portal at [puertoprincesa.ph](https://puertoprincesa.ph)** or **pre-assessment** channels (if announced). Online payment is available for business owners with Landbank accounts.
+- The city's [Filipizen page](https://www.filipizen.com/partners/palawan_puertoprincesa) has **Renew Business Application** and **Business Online Billing and Payment** under **Business**.
 - Prepare **scanned PDFs** of your documents (clear, legible; 1 file per requirement).
-- After online assessment, proceed to **payment** (e-payment or onsite) and **permit releasing** per instructions.
+- After online assessment, pay online or at City Hall, then follow the instructions for permit release.
 
-> If unsure, confirm at the start of the renewal period if **online pre-filing** is open for your business type.
+**Need help?**
+
+- Business Permits and Licensing Office (BPLO): (048) 717-8008
+- City Treasurer's Office, Business Tax and Fees Division: (048) 717-8028, citytreasurer@puertoprincesa.ph
 
 ---
 

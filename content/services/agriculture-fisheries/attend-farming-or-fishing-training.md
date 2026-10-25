@@ -39,5 +39,5 @@ The **Office of the City Agriculturist** organizes training programs for farmers
 **Office of the City Agriculturist**
 City Government of Puerto Princesa
 
-**Telephone:** (048) 717-8000
-**Email:** info@puertoprincesa.ph
+**Telephone:** (048) 717-8020 (direct) or (048) 717-8000 (main line)
+**Email:** cityagriculture@puertoprincesa.ph
