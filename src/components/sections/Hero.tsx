@@ -10,7 +10,10 @@ export default function Hero() {
   const { t } = useTranslation();
   return (
     <section className="relative overflow-hidden bg-balayong-100">
-      <BalayongBranch className="pointer-events-none absolute -right-16 -top-6 w-[22rem] opacity-60 sm:w-[28rem] lg:right-auto lg:left-[52%] lg:w-[31rem] lg:opacity-100" />
+      <BalayongBranch className="pointer-events-none absolute -right-16 -top-6 w-[26rem] opacity-60 sm:w-[34rem] lg:-right-4 lg:w-[42rem] lg:opacity-100" />
+      {/* A smaller branch reaching in from the left edge, mirrored, to
+          balance the one behind the statue. */}
+      <BalayongBranch className="pointer-events-none absolute bottom-10 -left-28 hidden w-[24rem] -scale-x-100 rotate-[200deg] opacity-50 md:block lg:w-[30rem] lg:opacity-80" />
 
       <div className="container relative mx-auto px-4">
         <div className="grid items-end gap-10 lg:grid-cols-[1.2fr_0.8fr]">
