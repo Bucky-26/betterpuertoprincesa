@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.0.0...v1.1.0) (2026-10-25)
+
+### Features
+
+- **ui:** redesign site around balayong pink and bay blue ([#6](https://github.com/hmcldryl/betterpuertoprincesa/issues/6)) ([13e81a5](https://github.com/hmcldryl/betterpuertoprincesa/commit/13e81a55a1f031a4871f1ed8aa79fccb3ee7ab66))
+
 ## 1.0.0 (2026-10-04)
 
 ### Features
