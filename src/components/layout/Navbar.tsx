@@ -155,11 +155,17 @@ const Navbar: React.FC = () => {
       {/* Main navigation */}
       <div className="border-b border-gray-200">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          <Link to="/" className="flex items-center" onClick={closeMenu}>
+          {/* -mb-3 cancels the bar's bottom padding so the statue's base
+              sits on the bar's bottom edge. */}
+          <Link
+            to="/"
+            className="-mb-3 flex items-end self-end"
+            onClick={closeMenu}
+          >
             <img
               src="/logos/logo.svg"
               alt="Better Puerto Princesa — home"
-              className="h-14 w-auto"
+              className="block h-16 w-auto md:h-20"
             />
           </Link>
 
