@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.1.0...v1.2.0) (2026-10-25)
+
+### Features
+
+- add Discord community link and update invite in docs ([#8](https://github.com/hmcldryl/betterpuertoprincesa/issues/8)) ([fbb1616](https://github.com/hmcldryl/betterpuertoprincesa/commit/fbb16161821b4df2312f7bd7613fbe1364eeefd8))
+
 ## [1.1.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.0.0...v1.1.0) (2026-10-25)
 
 ### Features
