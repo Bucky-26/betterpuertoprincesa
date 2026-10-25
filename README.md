@@ -30,7 +30,7 @@ Want to help? See [CONTRIBUTING.md](CONTRIBUTING.md) for the tech stack, how to 
 Follow BetterPuertoPrincesa.org on Facebook for updates, and join our Discord to ask questions or help build the site. The wider BetterGov.ph Discord is where people building BetterLGU sites like this one hang out:
 
 [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/betterpuertoprincesa)
-[![Discord](https://img.shields.io/badge/Discord-BetterPuertoPrincesa-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CTtjDCUgca)
+[![Discord](https://img.shields.io/badge/Discord-BetterPuertoPrincesa-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/DzwTq7MjfS)
 [![Discord](https://img.shields.io/badge/Discord-BetterGov.ph-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/bettergovph)
 
 ## Contributors

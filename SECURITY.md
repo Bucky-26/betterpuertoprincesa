@@ -84,7 +84,7 @@ Out of scope:
 
 Report privately via [GitHub Security Advisories](https://github.com/hmcldryl/betterpuertoprincesa/security/advisories).
 
-General inquiries: open a GitHub issue or join the [BetterPuertoPrincesa Discord](https://discord.gg/CTtjDCUgca).
+General inquiries: open a GitHub issue or join the [BetterPuertoPrincesa Discord](https://discord.gg/DzwTq7MjfS).
 
 ---
 
