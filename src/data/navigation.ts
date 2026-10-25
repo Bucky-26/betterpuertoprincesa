@@ -83,7 +83,7 @@ export const footerNavigation = {
   socialLinks: [
     {
       label: 'Facebook',
-      href: 'https://facebook.com/betterpuertoprincesa.org',
+      href: 'https://www.facebook.com/betterpuertoprincesa',
     },
     {
       label: 'GitHub',

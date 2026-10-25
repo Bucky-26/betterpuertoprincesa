@@ -1,6 +1,6 @@
 # BetterPuertoPrincesa.org
 
-Civic transparency portal for Puerto Princesa City, Palawan — government services directory, department/office pages, city statistics, weather + map, and local news.
+A community-made guide to city services in Puerto Princesa, Palawan.
 
 [![Created Badge](https://badges.pufler.dev/created/hmcldryl/betterpuertoprincesa)](https://github.com/hmcldryl/betterpuertoprincesa/)
 [![Updated Badge](https://badges.pufler.dev/updated/hmcldryl/betterpuertoprincesa)](https://github.com/hmcldryl/betterpuertoprincesa/)
@@ -9,25 +9,27 @@ Civic transparency portal for Puerto Princesa City, Palawan — government servi
 ![Version](https://img.shields.io/github/package-json/v/hmcldryl/betterpuertoprincesa?color=green)
 ![License](https://img.shields.io/badge/license-CC0%201.0-blue)
 
-## What this is
+## About
 
-BetterPuertoPrincesa.org is a volunteer-built website that brings Puerto Princesa City's government information into one easy-to-use place — services offered by each office, government departments, city statistics, hotlines, and local news, all reachable from a single homepage instead of scattered across Facebook posts, PDFs, and paper notices.
+BetterPuertoPrincesa.org is a volunteer project. We wanted a simple place where anyone in the city can look up how to get a permit, which office to visit, who to call in an emergency, and what's been happening around town. You'll find step-by-step service guides, office contacts, hotlines, city statistics, weather, maps and local news, in English and Filipino.
 
-It's built by residents and volunteers, for residents — the goal is to make it simple for anyone, including people who aren't especially tech-savvy, to quickly find what they need from their local government. It's available in English and Filipino, and modeled after [BetterGov.ph](https://bettergov.ph), an open, community-run civic transparency project.
+The City Government of Puerto Princesa already does a lot of work to keep people informed, through [puertoprincesa.ph](https://puertoprincesa.ph), its online services and the Facebook pages of each office. This site doesn't replace any of that. It's a companion, put together by residents, that points back to those official sources and tries to make them easier to find. If something here ever differs from what the city has announced, go with the city.
 
-The site is a living project — services, data, and features get added and improved over time as more volunteers and verified information come in.
+Everything here is collected by volunteers from public information, and we keep adding and correcting things as we go. If you spot something wrong or out of date, please let us know.
 
 ## Origins
 
-This project was initially forked from [betterlocalgov](https://github.com/iyanski/betterlocalgov), the open-source BetterLGU website starter kit for Philippine Local Government Units, part of the [BetterGov.ph](https://bettergov.ph) movement. If you're looking to build a civic transparency site for your own LGU, consider starting from that template — it saves you from building the whole stack from scratch, and you can browse existing/planned portals at the [BetterLGU directory](https://lgu.bettergov.ph/).
+The site started as a fork of [betterlocalgov](https://github.com/iyanski/betterlocalgov), an open-source starter kit for local government sites from the [BetterGov.ph](https://bettergov.ph) community. If you'd like to build one for your own town or city, that template is a good place to start, and the [BetterLGU directory](https://lgu.bettergov.ph/) lists the sites that already exist or are in progress.
 
 ## Contributing
 
-Want to help? See [CONTRIBUTING.md](CONTRIBUTING.md) for the tech stack, how to run the project locally, branching/commit conventions, and how to submit a PR. Not a developer? Content can be edited straight from GitHub's web UI — see [docs/content-management.md](docs/content-management.md) and [docs/content-guide.md](docs/content-guide.md). Also see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and, if you find a security issue, [SECURITY.md](SECURITY.md) for how to report it responsibly.
+You don't have to be a developer to help. Most of the content is plain Markdown that can be edited straight from GitHub's website. [docs/content-management.md](docs/content-management.md) and [docs/content-guide.md](docs/content-guide.md) explain how.
+
+If you want to work on the code, [CONTRIBUTING.md](CONTRIBUTING.md) covers the tech stack, running the site locally, and how we handle branches, commits and pull requests. Please also read the [Code of Conduct](CODE_OF_CONDUCT.md). If you find a security issue, report it the way [SECURITY.md](SECURITY.md) describes rather than opening a public issue.
 
 ## Community
 
-Follow BetterPuertoPrincesa.org on Facebook for updates, and join our Discord to ask questions or help build the site. The wider BetterGov.ph Discord is where people building BetterLGU sites like this one hang out:
+Follow us on Facebook for updates, or come say hi on Discord if you have questions or want to help out. The BetterGov.ph Discord is where people building sites like this one for other LGUs hang out.
 
 [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/betterpuertoprincesa)
 [![Discord](https://img.shields.io/badge/Discord-BetterPuertoPrincesa-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/DzwTq7MjfS)
