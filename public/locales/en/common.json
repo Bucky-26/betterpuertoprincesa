@@ -35,30 +35,33 @@
     "subtitle": "Tracking how mining is affecting Palawan's environment, communities, and Indigenous peoples.",
     "disclaimer": "This page is compiled from independent journalism and human-rights/environmental organizations for public awareness. It is not an official statement or position of the City Government of Puerto Princesa.",
     "contextHeading": "Mining in Palawan, briefly",
-    "mapHeading": "Where Mining Is Happening",
-    "mapCaveat": "Pins mark known mining sites at the barangay/municipality level, sourced from official MGB records and cited news reporting below — they are approximate locations, not surveyed concession boundaries. Tap a pin for details and sources.",
-    "forestLossHeading": "Tree Cover Loss by Dominant Driver",
-    "forestLossSubtitle": "What's actually clearing forest across Palawan province, 2001–2025, by dominant cause — from permanent conversion (agriculture, mining, settlements) to temporary disturbances (logging, fire) that can eventually regrow.",
-    "forestLossMiningNote": "\"Hard commodities\" — mining and energy infrastructure — clears the least total area of any driver province-wide: about 1,257 hectares of roughly 224,000 lost since 2001, behind even permanent agriculture and shifting cultivation, which dominate by a wide margin. That number likely understates mining's real footprint: the 11 companies now operating in Palawan hold roughly 29,430 hectares in concessions, most not yet actively cleared, and mining roads open remote forest to logging and farming by others — clearing this chart attributes to those drivers instead, not to mining. Hectares aside, mining also targets old-growth primary forest and protected ancestral domains specifically (Mt. Mantalingahan, Bataraza, Brooke's Point — see the map above), and its damage reaches beyond the cleared footprint through water pollution, like the hexavalent chromium contamination documented near Rio Tuba below.",
+    "mapHeading": "Where mining is happening",
+    "mapCaveat": "Each pin marks a known mining site at the barangay or town level, based on MGB records and the news reports listed below. Locations are approximate, not exact concession boundaries. Tap a pin for details and sources.",
+    "forestLossHeading": "What is clearing Palawan's forests",
+    "forestLossSubtitle": "Tree cover lost across Palawan from 2001 to 2025, grouped by main cause. Some causes remove forest for good, like farms, mines and settlements. Others, like logging and fire, leave land that can grow back.",
+    "forestLossMiningNote": "Mining and energy projects (shown as \"Hard commodities\") cleared the least forest of any cause: about 1,257 of the roughly 224,000 hectares lost since 2001. Farming and shifting cultivation cleared far more. That figure likely understates what mining does. The 11 companies now operating in Palawan hold about 29,430 hectares in concessions, and most of it is not cleared yet. Mining roads also open remote forest to logging and farming, and this chart counts that clearing under those causes instead. Mining also targets old-growth forest and protected ancestral land, including Mt. Mantalingahan, Bataraza and Brooke's Point (see the map above). Its damage spreads past the cleared area through polluted water, like the hexavalent chromium found near Rio Tuba (see the articles below).",
     "forestLossSourceLabel": "Source",
     "articlesHeading": "Reporting on mining in Palawan",
     "footerNote": "Every article below links to its original, independently published source. If you spot an outdated or broken link, please open an issue on this project's GitHub repository.",
     "context": [
-      "Palawan is often called the Philippines’ “last ecological frontier” — a UNESCO Man and Biosphere Reserve holding nearly half the country’s remaining old-growth forest, 30 percent of its mangroves, and 40 percent of its coral reefs. It also sits on some of the world’s largest untapped nickel deposits, a mineral in rising global demand for electric-vehicle batteries. That has made large-scale mining one of the most contested issues in the province for decades.",
-      "Puerto Princesa itself carries a cautionary chapter: the city was once home to the Palawan Quicksilver Mines Inc. mercury mine, shuttered since 1976, near which residents were later found to test positive for mercury poisoning. In March 2025, the provincial government responded to decades of advocacy by signing a 50-year moratorium on new mining agreements and exploration permits — but the ban doesn’t apply to Puerto Princesa (a highly urbanized city outside provincial jurisdiction), doesn’t affect the 11 mining operations already permitted elsewhere in the province, and leaves the Palawan Council for Sustainable Development able to grant clearances that critics warn could still open the door to new projects.",
-      "The articles below — independent journalism and reporting from human-rights and environmental organizations — track how that fight is playing out: in the courts, in Indigenous ancestral domains, and in the rivers and coral reefs downstream of mining operations."
+      "Palawan is often called the Philippines' last ecological frontier. It is a UNESCO Man and Biosphere Reserve with nearly half of the country's remaining old-growth forest, 30 percent of its mangroves, and 40 percent of its coral reefs. It also sits on some of the world's largest untapped nickel deposits, and demand for nickel keeps rising because of electric-vehicle batteries. That is why large-scale mining has been one of the most disputed issues in the province for decades.",
+      "Puerto Princesa has its own warning story. The city was home to the Palawan Quicksilver Mines Inc. mercury mine, closed since 1976, and residents living near it were later found to have mercury poisoning. In March 2025, after decades of campaigning, the provincial government signed a 50-year moratorium on new mining agreements and exploration permits. The ban has limits. It does not cover Puerto Princesa, which as a highly urbanized city is outside provincial control. It does not affect the 11 mines already operating elsewhere in Palawan. And the Palawan Council for Sustainable Development can still grant clearances, which critics say could let new projects through.",
+      "The articles below, from independent journalists and from human-rights and environmental groups, follow how that fight is going: in the courts, on Indigenous ancestral land, and in the rivers and reefs downstream of the mines."
     ],
     "map": {
       "toggleForestLoss": "Tree cover loss",
       "legendActive": "Active mining operation",
       "legendHistorical": "Historical / abandoned site",
-      "legendForestLoss": "Tree cover loss, 2001–2024",
+      "legendForestLoss": "Tree cover loss, 2001 to 2024",
       "popupOperator": "Operator",
       "popupActive": "Active operation",
       "popupHistorical": "Historical / abandoned site",
-      "sourcesBefore": "Sources: mining sites — MGB and cited news (see each pin); tree cover loss — Hansen/UMD/Google/USGS/NASA, 30m resolution, via",
-      "sourcesAfter": ". The tree cover loss layer shows all detected loss in the area — not all of it is attributable to mining; logging, agriculture, and natural causes also clear tree cover."
-    }
+      "sourcesBefore": "Sources: mining sites from MGB and the news reports linked in each pin. Tree cover loss from Hansen/UMD/Google/USGS/NASA (30 m resolution), via",
+      "sourcesAfter": ". The tree cover loss layer shows all loss detected in the area. Not all of it comes from mining; logging, farming and natural causes also clear trees.",
+      "sizeLabel": "Area",
+      "permitLabel": "Permit"
+    },
+    "forestLossSourceName": "Global Nature Watch, Palawan dashboard"
   },
   "services": {
     "title": "City services",

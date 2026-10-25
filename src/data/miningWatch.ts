@@ -43,7 +43,7 @@ export const miningNews: MiningNewsItem[] = [
     date: '2025-07-30',
     tag: 'Environment',
     summary:
-      "Palawan holds nearly half the Philippines' old-growth forest, 30% of its mangroves, and 40% of its coral reefs — ecosystem services environmental groups and local bishops value at roughly $5 billion, which they argue outweighs mining profits. Global nickel demand for EV batteries is projected to rise 65% by 2030, keeping pressure on the province even after its new moratorium.",
+      "Palawan holds nearly half the Philippines' old-growth forest, 30% of its mangroves, and 40% of its coral reefs. Environmental groups and local bishops value these ecosystems at roughly $5 billion, which they argue is worth more than mining profits. Global nickel demand for EV batteries is expected to rise 65% by 2030, keeping pressure on the province even after its new moratorium.",
     url: 'https://www.context.news/nature/philippines-last-ecological-frontier-battles-demand-for-nickel',
   },
   {
@@ -54,7 +54,7 @@ export const miningNews: MiningNewsItem[] = [
     date: '2025-04-14',
     tag: 'Health',
     summary:
-      '86 civil society organizations petitioned Sumitomo Metal Mining to suspend nickel mining and processing near Rio Tuba after 15 years of water monitoring found hexavalent chromium — a cancer-causing chemical — repeatedly exceeding safety standards in the Togpon River during the rainy season, with September 2024 recording the highest levels yet observed.',
+      '86 civil society organizations asked Sumitomo Metal Mining to suspend nickel mining and processing near Rio Tuba. Fifteen years of water monitoring found hexavalent chromium, a chemical that causes cancer, repeatedly above safety limits in the Togpon River during the rainy season. September 2024 had the highest levels yet.',
     url: 'https://foejapan.org/en/issue/20250414/23643/',
   },
   {
@@ -86,7 +86,7 @@ export const miningNews: MiningNewsItem[] = [
     date: '2023-09-25',
     tag: "Indigenous Peoples' Rights",
     summary:
-      "The Philippine Supreme Court issued a writ of kalikasan — an unprecedented environmental legal remedy — compelling mining companies and government agencies to answer Pala'wan community complaints over operations in the Mount Mantalingahan Protected Landscape. The National Commission on Indigenous Peoples separately ordered the miners to halt work until they could prove community consent.",
+      "The Philippine Supreme Court issued a writ of kalikasan, a rare legal remedy for environmental harm. It requires mining companies and government agencies to answer Pala'wan community complaints about operations in the Mount Mantalingahan Protected Landscape. Separately, the National Commission on Indigenous Peoples ordered the miners to stop work until they could prove the community agreed.",
     url: 'https://news.mongabay.com/2023/09/indigenous-community-fighting-a-mine-in-palawan-win-a-milestone-legal-verdict/',
   },
   {
@@ -97,7 +97,7 @@ export const miningNews: MiningNewsItem[] = [
     date: '2021-10-27',
     tag: 'History',
     summary:
-      "Within Puerto Princesa's own city limits, residents living near the abandoned Palawan Quicksilver Mines Inc. site — shuttered since 1976 — were found in 2017 to test positive for mercury poisoning, with symptoms consistent with Minamata disease. The piece holds up the site as a warning as national policy reopened areas to new mining.",
+      'In 2017, residents living near the abandoned Palawan Quicksilver Mines Inc. site, inside Puerto Princesa and closed since 1976, tested positive for mercury poisoning, with symptoms like those of Minamata disease. The article presents the site as a warning as national policy reopens areas to new mining.',
     url: 'https://pcij.org/2021/10/27/puerto-princesa-cautionary-tale-as-duterte-opens-new-mining-areas/',
   },
 ];

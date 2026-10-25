@@ -114,7 +114,7 @@ export default function MiningWatch() {
                 rel="noopener noreferrer"
                 className="underline hover:text-primary-600"
               >
-                Global Nature Watch — Palawan
+                {t('miningWatch.forestLossSourceName')}
               </a>
             </p>
           </div>

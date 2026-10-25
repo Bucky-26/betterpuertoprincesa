@@ -54,7 +54,7 @@ export const miningSites: MiningSite[] = [
     commodity: 'Nickel-cobalt (processed)',
     status: 'active',
     description:
-      'Hydrometallurgical (HPAL) plant processing nickel-cobalt ore since 2005. Fifteen years of water monitoring have repeatedly found hexavalent chromium — a cancer-causing chemical — exceeding safety standards in the nearby Togpon River during the rainy season.',
+      'Hydrometallurgical (HPAL) plant processing nickel-cobalt ore since 2005. Fifteen years of water monitoring have repeatedly found hexavalent chromium, a chemical that causes cancer, above safety limits in the nearby Togpon River during the rainy season.',
     lat: 8.529,
     lng: 117.441,
     sourceLabel: 'Friends of the Earth Japan (2025)',
@@ -121,7 +121,7 @@ export const miningSites: MiningSite[] = [
     commodity: 'Mercury (historical)',
     status: 'historical',
     description:
-      "Abandoned mercury mine that operated from 1954 to 1976. Residents living near the site were later found in 2017 to test positive for mercury poisoning, with symptoms consistent with Minamata disease — a warning example within Puerto Princesa's own city limits.",
+      "Abandoned mercury mine that operated from 1954 to 1976. In 2017, residents living near the site tested positive for mercury poisoning, with symptoms like those of Minamata disease. It is a warning inside Puerto Princesa's own city limits.",
     lat: 9.838,
     lng: 118.772,
     sourceLabel: 'PCIJ (2021)',

@@ -25,8 +25,13 @@ import { createMap, withOverlays } from '../../lib/mapStyle';
 // tile after its first request, so repeat views of this same bounded area
 // are fast (~0.1-0.2s) — an acceptable trade for one more year of data than
 // the older pre-rendered v1.11 static tiles.
+//
+// render_type=true_color is required: without it the endpoint returns
+// data-encoded tiles (red = loss intensity, other channels = year) that
+// GFW's own site decodes in the browser. Drawn raw, those show up as a
+// dark red-black blanket over the whole island instead of actual loss.
 const FOREST_LOSS_TILE_URL =
-  'https://tiles.globalforestwatch.org/umd_tree_cover_loss/v1.13/dynamic/{z}/{x}/{y}.png?implementation=tcd_30';
+  'https://tiles.globalforestwatch.org/umd_tree_cover_loss/v1.13/dynamic/{z}/{x}/{y}.png?implementation=tcd_30&start_year=2001&end_year=2024&render_type=true_color';
 
 // Slightly padded past the map's own PALAWAN_BOUNDS so tiles at the edge of
 // the viewport aren't clipped mid-pan. [west, south, east, north].
@@ -34,9 +39,9 @@ const FOREST_LOSS_BOUNDS: [number, number, number, number] = [
   116.7, 7.8, 119.7, 10.7,
 ];
 
-// GFW's loss tiles render in a bright magenta/red that reads as an alarm
-// color and clashes with the red mining-site pins on the same map — shift
-// it toward an orange/brown "scorched earth" tone instead.
+// GFW renders loss in pink, which would read as the site's balayong pink
+// and sit too close to the red mining-site pins — shift it toward an
+// orange "scorched earth" tone instead.
 const MAP_STYLE = withOverlays(
   {
     'forest-loss': {
@@ -55,10 +60,9 @@ const MAP_STYLE = withOverlays(
       source: 'forest-loss',
       layout: { visibility: 'none' },
       paint: {
-        'raster-opacity': 0.8,
-        'raster-hue-rotate': 50,
-        'raster-saturation': -0.1,
-        'raster-brightness-max': 0.85,
+        'raster-opacity': 0.9,
+        'raster-hue-rotate': 60,
+        'raster-brightness-max': 0.8,
       },
     },
   ]
@@ -92,11 +96,18 @@ function SitePopup({ site }: { site: MiningSite }) {
       <p className="text-xs text-gray-500">
         {site.barangay}, {site.municipality}
       </p>
-      <p className="text-xs text-gray-500">
-        {site.commodity}
-        {site.areaHa ? ` · ${numberFormat.format(site.areaHa)} ha` : ''}
-        {site.tenement ? ` · ${site.tenement}` : ''}
-      </p>
+      <p className="text-xs text-gray-500">{site.commodity}</p>
+      {site.areaHa ? (
+        <p className="text-xs text-gray-500">
+          {t('miningWatch.map.sizeLabel')}: {numberFormat.format(site.areaHa)}{' '}
+          ha
+        </p>
+      ) : null}
+      {site.tenement && (
+        <p className="text-xs text-gray-500">
+          {t('miningWatch.map.permitLabel')}: {site.tenement}
+        </p>
+      )}
       <p className="text-xs font-medium text-gray-700">
         {site.status === 'active'
           ? t('miningWatch.map.popupActive')
@@ -191,7 +202,7 @@ export default function PalawanMiningMap() {
           aria-pressed={showForestLoss}
           className={`absolute right-2.5 top-2.5 z-10 flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-semibold shadow transition-colors ${
             showForestLoss
-              ? 'border-red-700 bg-red-600 text-white'
+              ? 'border-orange-700 bg-orange-600 text-white'
               : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
           }`}
         >
@@ -217,7 +228,7 @@ export default function PalawanMiningMap() {
         </span>
         {showForestLoss && (
           <span className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-sm bg-amber-800/80" />
+            <span className="h-2.5 w-2.5 rounded-sm bg-orange-500/80" />
             {t('miningWatch.map.legendForestLoss')}
           </span>
         )}
