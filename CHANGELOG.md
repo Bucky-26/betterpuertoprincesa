@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.2.0...v1.2.1) (2026-10-25)
+
+### Bug Fixes
+
+- **mining-watch:** show real tree cover loss and rewrite page copy ([#9](https://github.com/hmcldryl/betterpuertoprincesa/issues/9)) ([e1cbdab](https://github.com/hmcldryl/betterpuertoprincesa/commit/e1cbdab85c954b9f1ff9b8bc636a395f7b029187))
+
 ## [1.2.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.1.0...v1.2.0) (2026-10-25)
 
 ### Features
