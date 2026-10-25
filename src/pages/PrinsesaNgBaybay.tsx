@@ -75,9 +75,10 @@ export default function PrinsesaNgBaybay() {
               </div>
             </div>
 
-            {/* The statue on its own patch of shore: pink ground, bay band. */}
+            {/* The statue on its own patch of shore: bay-blue ground so the
+                white statue stands out, deeper bay band below. */}
             <figure className="order-first lg:order-none lg:sticky lg:top-36 lg:self-start">
-              <div className="overflow-hidden rounded-xl bg-balayong-100">
+              <div className="overflow-hidden rounded-xl bg-primary-600">
                 <img
                   src="/prinsesa-ng-baybay.svg"
                   alt={t('landmark.title')}
