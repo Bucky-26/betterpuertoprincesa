@@ -162,11 +162,12 @@ When you do add a real value, cite where it came from — a source note next to 
 ## Community
 
 - **Facebook:** https://www.facebook.com/betterpuertoprincesa
-- **Discord:** https://discord.com/invite/mHtThpN8bT (BetterGov.ph)
+- **Discord:** https://discord.gg/CTtjDCUgca (BetterPuertoPrincesa)
+- **BetterGov.ph Discord:** https://discord.gg/bettergovph
 
 ## Questions?
 
-Open an issue, message us on Facebook, or ask on the BetterGov.ph Discord — happy to help.
+Open an issue, message us on Facebook, or ask on our Discord — happy to help.
 
 ---
 

@@ -31,7 +31,7 @@ BetterPuertoPrincesa.org is a civic-tech project built for the people of Puerto 
 This Code of Conduct applies to all project spaces, including:
 
 - The GitHub repository (issues, pull requests, discussions)
-- Project social media (Facebook) and community spaces the project takes part in (e.g. the BetterGov.ph Discord)
+- Project social media (Facebook, the BetterPuertoPrincesa Discord) and community spaces the project takes part in (e.g. the BetterGov.ph Discord)
 - Any public representation of the project
 
 ## Enforcement
