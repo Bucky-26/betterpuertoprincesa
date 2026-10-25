@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.2.1...v1.3.0) (2026-10-25)
+
+### Features
+
+- route online services and give each guide its office contacts ([#10](https://github.com/hmcldryl/betterpuertoprincesa/issues/10)) ([cabf475](https://github.com/hmcldryl/betterpuertoprincesa/commit/cabf4758e2a9059edbda0e746a012e2aa060585e))
+
 ## [1.2.1](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.2.0...v1.2.1) (2026-10-25)
 
 ### Bug Fixes
