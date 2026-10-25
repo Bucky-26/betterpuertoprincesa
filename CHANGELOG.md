@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.3.0...v1.3.1) (2026-10-25)
+
+### Bug Fixes
+
+- use the final BetterPuertoPrincesa Discord invite ([#11](https://github.com/hmcldryl/betterpuertoprincesa/issues/11)) ([7e2e62d](https://github.com/hmcldryl/betterpuertoprincesa/commit/7e2e62d09d39dd2b72bdfb8b924b6d663e2f5e47))
+
 ## [1.3.0](https://github.com/hmcldryl/betterpuertoprincesa/compare/v1.2.1...v1.3.0) (2026-10-25)
 
 ### Features
