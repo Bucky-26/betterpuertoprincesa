@@ -18,6 +18,7 @@ export const mainNavigation: NavigationItem[] = [
     label: 'Services',
     href: '/services',
     children: [
+      { label: 'PALECO & PPCWD Advisories', href: '/advisories' },
       { label: 'Public Markets in PPC', href: '/markets' },
       { label: 'Tricycle Fare Calculator', href: '/fare-calculator' },
       { label: 'Emergency & Utility Hotlines', href: '/hotlines' },
@@ -49,6 +50,7 @@ export const footerNavigation = {
       title: 'Services',
       links: [
         { label: 'Every service', href: '/services' },
+        { label: 'Utility Advisories (PALECO & PPCWD)', href: '/advisories' },
         { label: 'Public Markets in PPC', href: '/markets' },
         { label: 'Tricycle Fare Calculator', href: '/fare-calculator' },
         { label: 'Emergency Hotlines', href: '/hotlines' },

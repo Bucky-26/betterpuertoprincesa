@@ -9,3 +9,5 @@ export interface NavigationItem {
   // Shows a small "important" badge next to the label.
   highlight?: boolean;
 }
+
+export * from './utilityAdvisory';

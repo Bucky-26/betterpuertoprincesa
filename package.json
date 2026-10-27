@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
+    "scrape:utilities": "node scripts/scrape-utilities.js",
     "prepare": "husky",
     "release:dry-run": "semantic-release --dry-run --no-ci"
   },

@@ -1,0 +1,40 @@
+name: Scrape Utility Advisories
+
+on:
+  schedule:
+    # Run every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions UI
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Scrape PALECO and PPCWD
+        run: npm run scrape:utilities
+
+      - name: Commit and push updated advisories
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/utilityAdvisories.json
+          if git diff --staged --quiet; then
+            echo "No new utility advisories found."
+          else
+            git commit -m "chore(utilities): update PALECO and PPCWD advisories [skip ci]"
+            git push
+          fi

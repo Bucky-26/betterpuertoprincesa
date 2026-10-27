@@ -18,6 +18,7 @@ import Markets from './pages/Markets';
 import FareCalculator from './pages/FareCalculator';
 import Hotlines from './pages/Hotlines';
 import MinimumWage from './pages/MinimumWage';
+import UtilityAdvisories from './pages/UtilityAdvisories';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/advisories" element={<UtilityAdvisories />} />
               <Route path="/markets" element={<Markets />} />
               <Route path="/fare-calculator" element={<FareCalculator />} />
               <Route path="/hotlines" element={<Hotlines />} />
