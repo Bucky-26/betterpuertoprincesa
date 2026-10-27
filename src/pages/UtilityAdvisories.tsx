@@ -46,8 +46,9 @@ function formatDate(isoString: string): string {
 }
 
 export default function UtilityAdvisories() {
-  const [advisories, setAdvisories] =
-    useState<UtilityAdvisory[]>(utilityAdvisories);
+  const [advisories, setAdvisories] = useState<UtilityAdvisory[]>(
+    Array.isArray(utilityAdvisories) ? utilityAdvisories : []
+  );
   const [metadata, setMetadata] = useState(utilityMetadata);
   const [isSyncingLive, setIsSyncingLive] = useState<boolean>(false);
   const [liveSynced, setLiveSynced] = useState<boolean>(false);
@@ -70,39 +71,45 @@ export default function UtilityAdvisories() {
     setLiveNotice(null);
     try {
       const liveData = await fetchLiveUtilityAdvisories();
-      if (liveData.advisories.length > 0) {
-        // Detect how many brand-new items were scraped
-        const previousIds = new Set(advisories.map(a => a.id));
-        const newCount = liveData.advisories.filter(
-          a => !previousIds.has(a.id)
-        ).length;
+      if (
+        Array.isArray(liveData?.advisories) &&
+        liveData.advisories.length > 0
+      ) {
+        setAdvisories(prevList => {
+          const safePrev = Array.isArray(prevList) ? prevList : [];
+          const previousIds = new Set(safePrev.map(a => a.id));
+          const newCount = liveData.advisories.filter(
+            a => !previousIds.has(a.id)
+          ).length;
 
-        // Map by ID, giving preference to latest scraped records
-        const advisoryMap = new Map<string, UtilityAdvisory>();
-        advisories.forEach(a => advisoryMap.set(a.id, a));
-        liveData.advisories.forEach(a => advisoryMap.set(a.id, a));
+          // Map by ID, giving preference to latest scraped records
+          const advisoryMap = new Map<string, UtilityAdvisory>();
+          safePrev.forEach(a => advisoryMap.set(a.id, a));
+          liveData.advisories.forEach(a => advisoryMap.set(a.id, a));
 
-        const merged = Array.from(advisoryMap.values()).sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-
-        setAdvisories(merged);
-        setMetadata(prev => ({
-          ...prev,
-          lastUpdated: liveData.lastUpdated,
-          palecoCount: merged.filter(a => a.source === 'PALECO').length,
-          ppcwdCount: merged.filter(a => a.source === 'PPCWD').length,
-          totalCount: merged.length,
-        }));
-        setLiveSynced(true);
-
-        if (newCount > 0) {
-          setLiveNotice(
-            `✨ Live scrape synced: Loaded ${newCount} fresh advisory update${
-              newCount > 1 ? 's' : ''
-            } directly from PALECO & PPCWD!`
+          const merged = Array.from(advisoryMap.values()).sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           );
-        }
+
+          setMetadata(prevMeta => ({
+            ...prevMeta,
+            lastUpdated: liveData.lastUpdated,
+            palecoCount: merged.filter(a => a.source === 'PALECO').length,
+            ppcwdCount: merged.filter(a => a.source === 'PPCWD').length,
+            totalCount: merged.length,
+          }));
+          setLiveSynced(true);
+
+          if (newCount > 0) {
+            setLiveNotice(
+              `✨ Live scrape synced: Loaded ${newCount} fresh advisory update${
+                newCount > 1 ? 's' : ''
+              } directly from PALECO & PPCWD!`
+            );
+          }
+
+          return merged;
+        });
       }
     } catch (err) {
       console.warn('Live fetch error:', err);
@@ -114,15 +121,18 @@ export default function UtilityAdvisories() {
   // Automatically fetch live advisories in background on mount
   useEffect(() => {
     void syncLiveAdvisories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Compute all affected zones dynamically based on active advisories
   const allZones = useMemo(() => {
     const zones = new Set<string>();
-    for (const advisory of advisories) {
-      for (const area of advisory.affectedAreas) {
-        zones.add(area);
+    if (Array.isArray(advisories)) {
+      for (const advisory of advisories) {
+        if (Array.isArray(advisory?.affectedAreas)) {
+          for (const area of advisory.affectedAreas) {
+            zones.add(area);
+          }
+        }
       }
     }
     return Array.from(zones).sort();
@@ -156,6 +166,7 @@ export default function UtilityAdvisories() {
 
   // Filtered Advisories
   const filteredAdvisories = useMemo(() => {
+    if (!Array.isArray(advisories)) return [];
     return advisories.filter(advisory => {
       // Source filter
       if (selectedSource !== 'ALL' && advisory.source !== selectedSource) {

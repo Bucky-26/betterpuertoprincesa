@@ -5,11 +5,22 @@ import type {
   UtilitySource,
 } from '../types/utilityAdvisory';
 
-export const utilityData: UtilityAdvisoriesData =
-  rawData as UtilityAdvisoriesData;
+export const utilityData: UtilityAdvisoriesData = (rawData ||
+  {}) as UtilityAdvisoriesData;
 
-export const utilityAdvisories: UtilityAdvisory[] = utilityData.advisories;
-export const utilityMetadata = utilityData.metadata;
+export const utilityAdvisories: UtilityAdvisory[] = Array.isArray(
+  utilityData?.advisories
+)
+  ? utilityData.advisories
+  : [];
+
+export const utilityMetadata = utilityData?.metadata || {
+  lastUpdated: new Date().toISOString(),
+  palecoCount: 0,
+  ppcwdCount: 0,
+  totalCount: 0,
+  sources: [],
+};
 
 /**
  * Filter advisories by utility provider (PALECO vs PPCWD)
