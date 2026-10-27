@@ -11,7 +11,7 @@ A community-made guide to city services in Puerto Princesa, Palawan.
 
 ## About
 
-BetterPuertoPrincesa.org is a volunteer project. We wanted a simple place where anyone in the city can look up how to get a permit, which office to visit, who to call in an emergency, and what's been happening around town. You'll find step-by-step service guides, office contacts, hotlines, city statistics, weather, maps and local news, in English and Filipino.
+BetterPuertoPrincesa.org is a volunteer project. We wanted a simple place where anyone in the city can look up how to get a permit, which office to visit, who to call in an emergency, and what's been happening around town. You'll find step-by-step service guides, a directory of public markets, a tricycle fare calculator, office contacts, emergency & utility hotlines, city statistics, weather, maps, and budget transparency, in English and Filipino.
 
 The City Government of Puerto Princesa already does a lot of work to keep people informed, through [puertoprincesa.ph](https://puertoprincesa.ph), its online services and the Facebook pages of each office. This site doesn't replace any of that. It's a companion, put together by volunteers, that points back to those official sources and tries to make them easier to find. If something here ever differs from what the city has announced, go with the city.
 

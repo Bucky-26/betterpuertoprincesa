@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Menu, ChevronDown, Phone } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Menu, ChevronDown, Phone, Search } from 'lucide-react';
 import { mainNavigation } from '../../data/navigation';
 import type { LanguageType } from '../../types/index';
 import { Link, NavLink } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { LANGUAGES } from '../../i18n/languages';
 import { hotlines } from '../../data/hotlines';
 import { Ticker } from '../ui/Ticker';
 import { cn } from '../../lib/utils';
+import SearchModal from '../search/SearchModal';
 
 const HOTLINE_ITEMS = hotlines.map(h => `${h.label}: ${h.number}`);
 const REPO_URL = 'https://github.com/hmcldryl/betterpuertoprincesa';
@@ -91,7 +92,19 @@ const navLabel = (label: string) =>
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { t, i18n } = useTranslation('common');
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -116,20 +129,55 @@ const Navbar: React.FC = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white">
       {/* Top bar: hotline ticker + meta links + language switcher */}
+      {/* Top bar: hotline ticker + minimum wage + search bar + meta links + language switcher */}
       <div className="bg-primary-800 text-primary-100">
-        <div className="container mx-auto flex h-10 items-center justify-between gap-4 px-4">
-          <a
-            href="tel:911"
-            className="flex min-w-0 items-center gap-2 text-xs font-bold text-white hover:text-balayong-200"
-            aria-label="Emergency hotlines"
-          >
-            <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <Ticker items={HOTLINE_ITEMS} className="truncate" />
-          </a>
-          <div className="flex shrink-0 items-center gap-5">
+        <div className="container mx-auto flex h-11 items-center justify-between gap-2 lg:gap-4 px-4">
+          <div className="flex items-center gap-2 lg:gap-3 shrink-0">
+            <a
+              href="tel:911"
+              className="flex min-w-0 items-center gap-1.5 text-xs font-bold text-white hover:text-balayong-200"
+              aria-label="Emergency hotlines"
+            >
+              <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <Ticker
+                items={HOTLINE_ITEMS}
+                className="max-w-[130px] sm:max-w-[180px] truncate"
+              />
+            </a>
+            <Link
+              to="/minimum-wage"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-balayong-500/20 hover:bg-balayong-500/35 border border-balayong-300/40 px-2.5 py-0.5 text-[11px] font-bold text-white transition-colors shrink-0"
+              title="Official DOLE MIMAROPA Minimum Wage (₱455.00/day)"
+            >
+              <span className="text-balayong-200 font-semibold">
+                Min. Wage:
+              </span>
+              <span className="text-white">₱455/day</span>
+            </Link>
+          </div>
+
+          {/* Quick-Search Bar in Top Bar: Spacious, centered, zero main nav collision */}
+          <div className="hidden md:flex flex-1 justify-center max-w-xs lg:max-w-md px-2">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="flex w-full items-center gap-2 rounded-full border border-white/20 bg-primary-900/60 hover:bg-primary-900 hover:border-balayong-300 px-3.5 py-1 text-xs text-primary-100 transition-all shadow-inner"
+              aria-label="Search city services, public markets, emergency hotlines"
+            >
+              <Search className="h-3.5 w-3.5 text-balayong-200 shrink-0" />
+              <span className="truncate text-left text-primary-100 font-medium">
+                Search services, markets, hotlines...
+              </span>
+              <kbd className="ml-auto shrink-0 rounded border border-white/20 bg-white/10 px-1.5 py-0.2 text-[10px] font-mono text-primary-200">
+                ⌘K
+              </kbd>
+            </button>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-3 lg:gap-5">
             <a
               href={REPO_URL}
-              className="hidden text-xs hover:text-white sm:inline"
+              className="hidden xl:inline text-xs hover:text-white"
               target="_blank"
               rel="noreferrer"
             >
@@ -137,14 +185,14 @@ const Navbar: React.FC = () => {
             </a>
             <a
               href="https://puertoprincesa.ph"
-              className="text-xs hover:text-white"
+              className="hidden sm:inline text-xs hover:text-white"
               target="_blank"
               rel="noreferrer"
             >
               {t('navbar.officialSite')}
             </a>
             <LanguageToggle
-              className="hidden md:inline-flex"
+              className="inline-flex"
               language={i18n.resolvedLanguage ?? i18n.language}
               onChange={changeLanguage}
             />
@@ -155,11 +203,9 @@ const Navbar: React.FC = () => {
       {/* Main navigation */}
       <div className="border-b border-gray-200">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          {/* -mb-3 cancels the bar's bottom padding so the statue's base
-              sits on the bar's bottom edge. */}
           <Link
             to="/"
-            className="-mb-3 flex items-end self-end"
+            className="-mb-3 flex items-end self-end shrink-0"
             onClick={closeMenu}
           >
             <img
@@ -169,8 +215,8 @@ const Navbar: React.FC = () => {
             />
           </Link>
 
-          {/* Desktop navigation */}
-          <div className="hidden items-center gap-1 lg:flex">
+          {/* Desktop navigation links */}
+          <div className="hidden items-center gap-0.5 xl:gap-1 lg:flex shrink-0">
             {mainNavigation.map(item => (
               <div key={item.label} className="group relative">
                 <NavLink
@@ -178,7 +224,7 @@ const Navbar: React.FC = () => {
                   end={item.href === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'relative flex items-center rounded-full px-3.5 py-2 font-bold text-gray-800 transition-colors hover:bg-balayong-50 hover:text-balayong-800',
+                      'relative flex items-center rounded-full px-3 py-2 text-sm font-bold text-gray-800 transition-colors hover:bg-balayong-50 hover:text-balayong-800',
                       isActive && 'bg-balayong-100 text-balayong-800',
                       item.highlight && HIGHLIGHT_CLASSES,
                       item.highlight &&
@@ -215,23 +261,44 @@ const Navbar: React.FC = () => {
                 )}
               </div>
             ))}
+
+            {/* Desktop compact search trigger icon */}
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="ml-1 flex h-8 w-8 items-center justify-center rounded-full text-gray-500 hover:bg-balayong-100 hover:text-balayong-800 transition-colors"
+              aria-label="Search city services"
+              title="Search (⌘K)"
+            >
+              <Search className="h-4 w-4" />
+            </button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={toggleMenu}
-            aria-expanded={isOpen}
-            className="inline-flex items-center justify-center rounded-full p-2 text-gray-800 hover:bg-balayong-50 lg:hidden"
-          >
-            <span className="sr-only">
-              {isOpen ? 'Close main menu' : 'Open main menu'}
-            </span>
-            {isOpen ? (
-              <X className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            )}
-          </button>
+          {/* Mobile actions: 1-tap direct search button + menu toggle */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="rounded-full p-2 text-gray-700 hover:bg-balayong-50 hover:text-balayong-800 transition-colors"
+              aria-label="Search city services"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+            <button
+              onClick={toggleMenu}
+              aria-expanded={isOpen}
+              className="inline-flex items-center justify-center rounded-full p-2 text-gray-800 hover:bg-balayong-50"
+            >
+              <span className="sr-only">
+                {isOpen ? 'Close main menu' : 'Open main menu'}
+              </span>
+              {isOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -243,6 +310,21 @@ const Navbar: React.FC = () => {
         )}
       >
         <div className="container mx-auto space-y-1 px-4 py-3">
+          {/* Mobile search bar */}
+          <div className="pb-2">
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                setSearchOpen(true);
+              }}
+              className="flex w-full items-center gap-2.5 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm font-semibold text-gray-600 hover:bg-balayong-50 hover:text-balayong-800 transition-colors"
+            >
+              <Search className="h-4 w-4 text-gray-400" />
+              <span>Search permits, markets, fare...</span>
+            </button>
+          </div>
+
           {mainNavigation.map(item =>
             item.children ? (
               <div key={item.label}>
@@ -308,6 +390,8 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </nav>
   );
 };

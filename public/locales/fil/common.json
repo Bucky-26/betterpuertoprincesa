@@ -145,6 +145,9 @@
     "home": "Tahanan",
     "government": "Pamahalaan",
     "services": "Mga Serbisyo",
+    "markets": "Mga Pamilihan",
+    "farecalculator": "Kalkulador ng Pamasahe",
+    "minimumwage": "Minimum na Pasahod",
     "hotlines": "Mga Hotline",
     "holidays": "Mga Pista Opisyal",
     "statistics": "Estadistika",
@@ -260,6 +263,27 @@
       "For Procurement": "Para sa procurement",
       "Terminated": "Itinigil"
     }
+  },
+  "footer": {
+    "copyright": "© 2026 BetterPuertoPrincesa. Lahat ng nilalaman ay pampubliko maliban kung iba ang nakasaad.",
+    "tagline": "Pinapatakbo ng mga boluntaryo sa Puerto Princesa, Palawan.",
+    "suggestFix": "Magmungkahi ng pagbabago sa GitHub"
+  },
+  "navbar": {
+    "home": "Home",
+    "government": "Pamahalaan",
+    "services": "Mga Serbisyo",
+    "markets": "Mga Pamilihan",
+    "hotlines": "Mga Hotline",
+    "farecalculator": "Pamasahe sa Tricycle",
+    "holidays": "Mga Piyesta Opisyal",
+    "statistics": "Estadistika",
+    "transparency": "Transparansya",
+    "news": "Balita",
+    "miningwatch": "Mining Watch",
+    "joinUs": "Tumulong sa paggawa ng site",
+    "officialSite": "Opisyal na website ng lungsod",
+    "importantBadge": "Mahalaga"
   },
   "volunteer": {
     "title": "Tulungan kaming buuin ang site na ito",

@@ -85,48 +85,98 @@ const PALAWAN_BOUNDS: LngLatBoundsLike = [
 
 function SitePopup({ site }: { site: MiningSite }) {
   const { t } = useTranslation('common');
+  const areaSites = miningSites.filter(
+    s => s.municipality === site.municipality
+  );
+  const totalSites = miningSites.length;
+  const activeCount = miningSites.filter(s => s.status === 'active').length;
+
   return (
-    <div className="min-w-[220px] space-y-1">
-      <p className="font-semibold text-gray-900">{site.name}</p>
-      {site.operator && (
-        <p className="text-xs text-gray-500">
-          {t('miningWatch.map.popupOperator')}: {site.operator}
-        </p>
-      )}
-      <p className="text-xs text-gray-500">
-        {site.barangay}, {site.municipality}
+    <div className="min-w-[240px] space-y-1.5 p-0.5 text-left">
+      <div className="flex items-center justify-between gap-2 border-b border-gray-100 pb-1.5">
+        <span
+          className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider ${
+            site.status === 'active' ? 'text-red-600' : 'text-stone-600'
+          }`}
+        >
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${
+              site.status === 'active'
+                ? 'bg-red-600 animate-pulse'
+                : 'bg-stone-500'
+            }`}
+          />
+          {site.status === 'active'
+            ? t('miningWatch.map.popupActive')
+            : t('miningWatch.map.popupHistorical')}
+        </span>
+        <span className="rounded-full bg-balayong-100 px-2 py-0.5 text-[10px] font-bold text-balayong-800">
+          {areaSites.length} {areaSites.length === 1 ? 'site' : 'sites'} in{' '}
+          {site.municipality.split('&')[0].trim()}
+        </span>
+      </div>
+
+      <p className="font-bold text-sm text-gray-900 leading-snug">
+        {site.name}
       </p>
-      <p className="text-xs text-gray-500">{site.commodity}</p>
-      {site.areaHa ? (
-        <p className="text-xs text-gray-500">
-          {t('miningWatch.map.sizeLabel')}: {numberFormat.format(site.areaHa)}{' '}
-          ha
+
+      {/* Prominent Operator Box */}
+      <div className="rounded-md border border-gray-200 bg-gray-50/90 p-2 text-xs">
+        <span className="block text-[10px] font-bold uppercase tracking-wider text-gray-500">
+          {t('miningWatch.map.popupOperator')}:
+        </span>
+        <span className="font-bold text-gray-900">
+          {site.operator || 'Not designated'}
+        </span>
+      </div>
+
+      <div className="space-y-0.5 text-xs text-gray-600">
+        <p>
+          <span className="font-medium text-gray-700">Location:</span>{' '}
+          {site.barangay}, {site.municipality}
         </p>
-      ) : null}
-      {site.tenement && (
-        <p className="text-xs text-gray-500">
-          {t('miningWatch.map.permitLabel')}: {site.tenement}
+        <p>
+          <span className="font-medium text-gray-700">Commodity:</span>{' '}
+          {site.commodity}
         </p>
-      )}
-      <p className="text-xs font-medium text-gray-700">
-        {site.status === 'active'
-          ? t('miningWatch.map.popupActive')
-          : t('miningWatch.map.popupHistorical')}
-      </p>
-      <p className="text-sm text-gray-700">
+        {site.areaHa ? (
+          <p>
+            <span className="font-medium text-gray-700">
+              {t('miningWatch.map.sizeLabel')}:
+            </span>{' '}
+            {numberFormat.format(site.areaHa)} ha
+          </p>
+        ) : null}
+        {site.tenement && (
+          <p>
+            <span className="font-medium text-gray-700">
+              {t('miningWatch.map.permitLabel')}:
+            </span>{' '}
+            {site.tenement}
+          </p>
+        )}
+      </div>
+
+      <p className="text-xs text-gray-700 border-t border-gray-100 pt-1.5">
         {t(`miningWatch.siteDescriptions.${site.id}`, {
           defaultValue: site.description,
         })}
       </p>
-      <a
-        href={site.sourceUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-1 text-xs font-medium text-primary-600 hover:text-primary-700"
-      >
-        {site.sourceLabel}
-        <ExternalLink className="h-3 w-3" strokeWidth={2.5} />
-      </a>
+
+      <div className="flex items-center justify-between border-t border-gray-100 pt-1.5">
+        <span className="text-[10px] text-gray-500">
+          Total in Palawan: <strong>{totalSites}</strong> ({activeCount} active)
+        </span>
+        <a
+          href={site.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-primary-600 hover:text-primary-700"
+        >
+          {site.sourceLabel}
+          <ExternalLink className="h-3 w-3" strokeWidth={2.5} />
+        </a>
+      </div>
     </div>
   );
 }
@@ -164,11 +214,65 @@ export default function PalawanMiningMap() {
       applyForestLoss();
     });
 
+    // Reusable hover popup for quick inspection without clicking
+    const hoverPopup = new Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 12,
+      maxWidth: '280px',
+    });
+
+    const totalSites = miningSites.length;
+    const activeSites = miningSites.filter(s => s.status === 'active').length;
+
     miningSites.forEach((site, i) => {
-      new Marker({ element: pinElement(site) })
+      const pin = pinElement(site);
+      const areaSites = miningSites.filter(
+        s => s.municipality === site.municipality
+      );
+
+      pin.addEventListener('mouseenter', () => {
+        const areaLabel = site.municipality.split('&')[0].trim();
+        const html = `
+          <div style="font-family: inherit; padding: 4px 2px; text-align: left;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
+              <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: ${
+                site.status === 'active' ? '#dc2626' : '#78716c'
+              };">
+                ${site.status === 'active' ? '● Active Mine' : '○ Historical Site'}
+              </span>
+              <span style="font-size: 10px; font-weight: 700; background: #fdf2f8; color: #9d174d; border: 1px solid #fbcfe8; padding: 1px 6px; border-radius: 9999px;">
+                ${areaSites.length} ${areaSites.length === 1 ? 'site' : 'sites'} in ${areaLabel}
+              </span>
+            </div>
+            <div style="font-size: 12px; font-weight: 700; color: #111827; line-height: 1.3; margin-bottom: 4px;">
+              ${site.name}
+            </div>
+            <div style="font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 4px 6px; margin-bottom: 4px;">
+              <span style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase;">Operator:</span><br/>
+              <strong style="color: #0f172a;">${site.operator || 'Not designated'}</strong>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: #64748b; border-top: 1px dashed #e2e8f0; padding-top: 4px;">
+              <span>Total in Palawan: <strong style="color: #1e293b;">${totalSites}</strong> (${activeSites} active)</span>
+              <span style="color: #0284c7; font-weight: 600;">Click for full info</span>
+            </div>
+          </div>
+        `;
+        hoverPopup.setLngLat([site.lng, site.lat]).setHTML(html).addTo(map);
+      });
+
+      pin.addEventListener('mouseleave', () => {
+        hoverPopup.remove();
+      });
+
+      pin.addEventListener('click', () => {
+        hoverPopup.remove();
+      });
+
+      new Marker({ element: pin })
         .setLngLat([site.lng, site.lat])
         .setPopup(
-          new Popup({ offset: 10, maxWidth: '300px' }).setDOMContent(
+          new Popup({ offset: 10, maxWidth: '320px' }).setDOMContent(
             popupNodes[i]
           )
         )
@@ -176,6 +280,7 @@ export default function PalawanMiningMap() {
     });
 
     return () => {
+      hoverPopup.remove();
       loadedRef.current = false;
       mapRef.current = null;
       map.remove();

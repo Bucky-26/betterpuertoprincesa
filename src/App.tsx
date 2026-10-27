@@ -14,6 +14,10 @@ import Transparency from './pages/Transparency';
 import News from './pages/News';
 import PrinsesaNgBaybay from './pages/PrinsesaNgBaybay';
 import MiningWatch from './pages/MiningWatch';
+import Markets from './pages/Markets';
+import FareCalculator from './pages/FareCalculator';
+import Hotlines from './pages/Hotlines';
+import MinimumWage from './pages/MinimumWage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -27,12 +31,25 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/markets" element={<Markets />} />
+              <Route path="/fare-calculator" element={<FareCalculator />} />
+              <Route path="/hotlines" element={<Hotlines />} />
+              <Route path="/minimum-wage" element={<MinimumWage />} />
               <Route path="/services/:category" element={<Services />} />
               <Route path="/services" element={<Services />} />
               <Route
                 path="/services/:category/:documentSlug"
                 element={<Document categoryType="service" />}
               />
+              <Route
+                path="/government/reports-and-statistics"
+                element={<Statistics />}
+              />
+              <Route
+                path="/government/transparency-documents"
+                element={<Transparency />}
+              />
+              <Route path="/government/news" element={<News />} />
               <Route path="/government/:category" element={<Government />} />
               <Route path="/government" element={<Government />} />
               <Route

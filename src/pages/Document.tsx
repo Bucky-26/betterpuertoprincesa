@@ -3,8 +3,9 @@ import Breadcrumbs from '../components/ui/Breadcrumbs';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
 import { Banner } from '../components/ui/Banner';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Printer, Share2, Calculator, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 // Content files put one field per line (e.g. contact blocks); keep those
@@ -44,6 +45,14 @@ export default function Document({
   const [nestedIndex, setNestedIndex] = useState<CategoryIndex | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const markdownComponents = createMarkdownComponents(
     getTypographyTheme(initialTheme)
@@ -226,7 +235,45 @@ export default function Document({
       <Section className="!py-4 !bg-gray-50">
         <Breadcrumbs items={breadcrumbs} />
       </Section>
-      <Section className="!pt-8 mb-12">
+      <Section className="!pt-6 mb-12">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3.5 py-1.5 font-semibold text-gray-700 hover:bg-balayong-50 hover:text-balayong-800 transition-colors shadow-2xs"
+            >
+              <Printer className="h-3.5 w-3.5" />
+              Print Guide / Save PDF
+            </button>
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3.5 py-1.5 font-semibold text-gray-700 hover:bg-balayong-50 hover:text-balayong-800 transition-colors shadow-2xs"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  <span className="text-emerald-700 font-bold">
+                    Link Copied!
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="h-3.5 w-3.5" />
+                  Share Link
+                </>
+              )}
+            </button>
+          </div>
+          <Link
+            to="/fare-calculator"
+            className="inline-flex items-center gap-1.5 font-semibold text-primary-700 hover:text-primary-800 underline decoration-primary-200 hover:decoration-primary-600"
+          >
+            <Calculator className="h-3.5 w-3.5" />
+            Check Tricycle Fare to City Hall
+          </Link>
+        </div>
         <Card className="mb-8 markdown-content">
           <CardHeader>
             {markdownContent.description && (

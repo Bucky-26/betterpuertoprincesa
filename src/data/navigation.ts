@@ -17,11 +17,18 @@ export const mainNavigation: NavigationItem[] = [
   {
     label: 'Services',
     href: '/services',
-    children: (servicesData.categories as Category[]).map(category => ({
-      label: category.category,
-      href: `/services/${category.slug}`,
-    })),
+    children: [
+      { label: 'Public Markets in PPC', href: '/markets' },
+      { label: 'Tricycle Fare Calculator', href: '/fare-calculator' },
+      { label: 'Emergency & Utility Hotlines', href: '/hotlines' },
+      { label: 'Minimum Wage & Rights', href: '/minimum-wage' },
+      ...(servicesData.categories as Category[]).map(category => ({
+        label: category.category,
+        href: `/services/${category.slug}`,
+      })),
+    ],
   },
+  { label: 'Markets', href: '/markets' },
   {
     label: 'Government',
     href: '/government/departments',
@@ -42,6 +49,10 @@ export const footerNavigation = {
       title: 'Services',
       links: [
         { label: 'Every service', href: '/services' },
+        { label: 'Public Markets in PPC', href: '/markets' },
+        { label: 'Tricycle Fare Calculator', href: '/fare-calculator' },
+        { label: 'Emergency Hotlines', href: '/hotlines' },
+        { label: 'Current Minimum Wage', href: '/minimum-wage' },
         ...(servicesData.categories as Category[])
           .slice(0, 5)
           .map(category => ({

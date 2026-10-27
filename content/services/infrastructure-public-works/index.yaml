@@ -17,3 +17,7 @@ pages:
   - name: 'Rent stalls in public markets or use LGU-managed cemeteries'
     slug: 'rent-stalls-in-public-markets-or-use-lgu-managed-cemeteries'
     description: 'Information about renting stalls in public markets and using LGU-managed cemetery services.'
+
+  - name: 'Settle traffic violation or contest citation (CTMO)'
+    slug: 'settle-traffic-violation-or-contest-citation'
+    description: 'How to pay traffic citation fines, impound release process, or contest an apprehension with the Traffic Adjudication Board.'
