@@ -19,17 +19,15 @@ import {
   Check,
   PhoneCall,
   ShieldCheck,
+  RefreshCw,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
 import PageHeader from '../components/ui/PageHeader';
-import {
-  utilityAdvisories,
-  utilityMetadata,
-  getAllAffectedZones,
-} from '../data/utilityAdvisories';
+import { utilityAdvisories, utilityMetadata } from '../data/utilityAdvisories';
+import { fetchLiveUtilityAdvisories } from '../lib/liveUtilitySync';
 import type { UtilityAdvisory, UtilitySource } from '../types/utilityAdvisory';
 
 function formatDate(isoString: string): string {
@@ -48,6 +46,13 @@ function formatDate(isoString: string): string {
 }
 
 export default function UtilityAdvisories() {
+  const [advisories, setAdvisories] =
+    useState<UtilityAdvisory[]>(utilityAdvisories);
+  const [metadata, setMetadata] = useState(utilityMetadata);
+  const [isSyncingLive, setIsSyncingLive] = useState<boolean>(false);
+  const [liveSynced, setLiveSynced] = useState<boolean>(false);
+  const [liveNotice, setLiveNotice] = useState<string | null>(null);
+
   const [selectedSource, setSelectedSource] = useState<'ALL' | UtilitySource>(
     'ALL'
   );
@@ -59,7 +64,69 @@ export default function UtilityAdvisories() {
     useState<UtilityAdvisory | null>(null);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
-  const allZones = useMemo(() => getAllAffectedZones(), []);
+  // Live scraper sync function
+  const syncLiveAdvisories = async () => {
+    setIsSyncingLive(true);
+    setLiveNotice(null);
+    try {
+      const liveData = await fetchLiveUtilityAdvisories();
+      if (liveData.advisories.length > 0) {
+        // Detect how many brand-new items were scraped
+        const previousIds = new Set(advisories.map(a => a.id));
+        const newCount = liveData.advisories.filter(
+          a => !previousIds.has(a.id)
+        ).length;
+
+        // Map by ID, giving preference to latest scraped records
+        const advisoryMap = new Map<string, UtilityAdvisory>();
+        advisories.forEach(a => advisoryMap.set(a.id, a));
+        liveData.advisories.forEach(a => advisoryMap.set(a.id, a));
+
+        const merged = Array.from(advisoryMap.values()).sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+
+        setAdvisories(merged);
+        setMetadata(prev => ({
+          ...prev,
+          lastUpdated: liveData.lastUpdated,
+          palecoCount: merged.filter(a => a.source === 'PALECO').length,
+          ppcwdCount: merged.filter(a => a.source === 'PPCWD').length,
+          totalCount: merged.length,
+        }));
+        setLiveSynced(true);
+
+        if (newCount > 0) {
+          setLiveNotice(
+            `✨ Live scrape synced: Loaded ${newCount} fresh advisory update${
+              newCount > 1 ? 's' : ''
+            } directly from PALECO & PPCWD!`
+          );
+        }
+      }
+    } catch (err) {
+      console.warn('Live fetch error:', err);
+    } finally {
+      setIsSyncingLive(false);
+    }
+  };
+
+  // Automatically fetch live advisories in background on mount
+  useEffect(() => {
+    void syncLiveAdvisories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Compute all affected zones dynamically based on active advisories
+  const allZones = useMemo(() => {
+    const zones = new Set<string>();
+    for (const advisory of advisories) {
+      for (const area of advisory.affectedAreas) {
+        zones.add(area);
+      }
+    }
+    return Array.from(zones).sort();
+  }, [advisories]);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -89,7 +156,7 @@ export default function UtilityAdvisories() {
 
   // Filtered Advisories
   const filteredAdvisories = useMemo(() => {
-    return utilityAdvisories.filter(advisory => {
+    return advisories.filter(advisory => {
       // Source filter
       if (selectedSource !== 'ALL' && advisory.source !== selectedSource) {
         return false;
@@ -152,7 +219,13 @@ export default function UtilityAdvisories() {
 
       return true;
     });
-  }, [selectedSource, selectedCategory, selectedBarangay, searchQuery]);
+  }, [
+    advisories,
+    selectedSource,
+    selectedCategory,
+    selectedBarangay,
+    searchQuery,
+  ]);
 
   const hasActiveFilters =
     selectedSource !== 'ALL' ||
@@ -167,9 +240,9 @@ export default function UtilityAdvisories() {
     setSearchQuery('');
   };
 
-  const palecoCount = utilityMetadata.palecoCount;
-  const ppcwdCount = utilityMetadata.ppcwdCount;
-  const totalCount = utilityMetadata.totalCount;
+  const palecoCount = metadata.palecoCount;
+  const ppcwdCount = metadata.ppcwdCount;
+  const totalCount = metadata.totalCount;
 
   return (
     <>
@@ -190,22 +263,59 @@ export default function UtilityAdvisories() {
       />
 
       {/* Sync Status & Hotlines Bar */}
-      <section className="border-b border-gray-200 bg-gray-50 py-4">
+      <section className="border-b border-gray-200 bg-gray-50 py-3.5">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            {/* Live Scrape Status Indicator */}
+            <div className="flex flex-wrap items-center gap-2.5 text-xs md:text-sm text-gray-600">
+              {isSyncingLive ? (
+                <span className="inline-flex items-center gap-1.5 font-medium text-primary-700">
+                  <RefreshCw className="h-3.5 w-3.5 animate-spin text-primary-600" />
+                  <span>
+                    Syncing live data from paleco.net & ppcwater.gov.ph...
+                  </span>
+                </span>
+              ) : liveSynced ? (
+                <span className="inline-flex items-center gap-2 font-medium text-emerald-800">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+                  </span>
+                  <span>
+                    <strong>Live Scrape Active:</strong> Scraped directly from
+                    PALECO & PPCWD REST endpoints.
+                  </span>
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-2 text-gray-700">
+                  <span className="h-2 w-2 rounded-full bg-gray-400"></span>
+                  <span>
+                    <strong>Official Ingestion:</strong> PALECO & PPCWD
+                    WordPress REST APIs.
+                  </span>
+                </span>
+              )}
+
+              <span className="hidden sm:inline text-gray-300">|</span>
+              <span className="text-gray-500 text-xs">
+                Updated: {formatDate(metadata.lastUpdated)}
               </span>
-              <span>
-                <strong className="text-gray-900">Direct Ingestion:</strong>{' '}
-                Scraped from official WordPress REST portals of PALECO & PPCWD.
-              </span>
-              <span className="hidden sm:inline text-gray-400">•</span>
-              <span className="hidden sm:inline text-gray-500">
-                Last synced: {formatDate(utilityMetadata.lastUpdated)}
-              </span>
+
+              {/* Refresh Button */}
+              <button
+                type="button"
+                onClick={syncLiveAdvisories}
+                disabled={isSyncingLive}
+                className="ml-1 inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-2.5 py-1 text-xs font-semibold text-gray-700 shadow-sm transition hover:bg-gray-100 disabled:opacity-50"
+                title="Fetch latest posts from PALECO and PPCWD right now"
+              >
+                <RefreshCw
+                  className={`h-3 w-3 text-gray-600 ${
+                    isSyncingLive ? 'animate-spin text-primary-600' : ''
+                  }`}
+                />
+                <span>{isSyncingLive ? 'Syncing...' : 'Sync Live Scrape'}</span>
+              </button>
             </div>
 
             {/* Quick Emergency Call Buttons */}
@@ -228,6 +338,23 @@ export default function UtilityAdvisories() {
               </a>
             </div>
           </div>
+
+          {/* New Scrape Notification Banner */}
+          {liveNotice && (
+            <div className="mt-3 flex items-center justify-between rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2.5 text-xs text-emerald-900">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span>{liveNotice}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLiveNotice(null)}
+                className="rounded p-1 text-emerald-700 hover:bg-emerald-100"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -314,7 +441,7 @@ export default function UtilityAdvisories() {
             </div>
             <p className="mt-1 text-2xl font-bold text-gray-900">
               {
-                utilityAdvisories.filter(
+                advisories.filter(
                   a =>
                     a.category === 'power-outage' ||
                     a.category === 'power-interruption'
