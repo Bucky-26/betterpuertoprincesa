@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Zap,
   Droplets,
@@ -14,6 +14,11 @@ import {
   ChevronUp,
   X,
   Filter,
+  BookOpen,
+  Share2,
+  Check,
+  PhoneCall,
+  ShieldCheck,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
@@ -25,7 +30,7 @@ import {
   utilityMetadata,
   getAllAffectedZones,
 } from '../data/utilityAdvisories';
-import type { UtilitySource } from '../types/utilityAdvisory';
+import type { UtilityAdvisory, UtilitySource } from '../types/utilityAdvisory';
 
 function formatDate(isoString: string): string {
   try {
@@ -50,8 +55,37 @@ export default function UtilityAdvisories() {
   const [selectedBarangay, setSelectedBarangay] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [readingAdvisory, setReadingAdvisory] =
+    useState<UtilityAdvisory | null>(null);
+  const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
   const allZones = useMemo(() => getAllAffectedZones(), []);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setReadingAdvisory(null);
+      }
+    };
+    if (readingAdvisory) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [readingAdvisory]);
+
+  // Copy shareable link
+  const handleCopyShare = (advisory: UtilityAdvisory) => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/advisories?id=${advisory.id}`
+    );
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
+  };
 
   // Filtered Advisories
   const filteredAdvisories = useMemo(() => {
@@ -96,6 +130,7 @@ export default function UtilityAdvisories() {
         const q = searchQuery.toLowerCase().trim();
         const inTitle = advisory.title.toLowerCase().includes(q);
         const inSummary = advisory.summary.toLowerCase().includes(q);
+        const inContent = advisory.content.toLowerCase().includes(q);
         const inReason = advisory.reason?.toLowerCase().includes(q);
         const inAreas = advisory.affectedAreas.some(a =>
           a.toLowerCase().includes(q)
@@ -103,7 +138,14 @@ export default function UtilityAdvisories() {
         const inFeeders = advisory.feeders?.some(f =>
           f.toLowerCase().includes(q)
         );
-        if (!inTitle && !inSummary && !inReason && !inAreas && !inFeeders) {
+        if (
+          !inTitle &&
+          !inSummary &&
+          !inContent &&
+          !inReason &&
+          !inAreas &&
+          !inFeeders
+        ) {
           return false;
         }
       }
@@ -133,13 +175,13 @@ export default function UtilityAdvisories() {
     <>
       <SEO
         title="PALECO & PPCWD Advisories & Outages | Better Puerto Princesa"
-        description="Real-time public utility advisory tracker for Puerto Princesa City. Track PALECO power service advisories, unscheduled blackouts, PPCWD water interruptions, and maintenance."
+        description="Real-time public utility advisory tracker for Puerto Princesa City. Read official PALECO power service advisories, unscheduled blackouts, PPCWD water interruptions, and maintenance directly on our website."
         keywords="PALECO power outage, PALECO advisory, PPCWD water interruption, Puerto Princesa brownout schedule, Palawan electric cooperative, Puerto Princesa water district, blackout PPC, water cut PPC"
       />
 
       <PageHeader
         title="Utility Advisories & Outages"
-        subtitle="Live automated bulletin tracking PALECO power service announcements, scheduled line interruptions, and PPCWD water supply updates across Puerto Princesa."
+        subtitle="Read live automated PALECO power bulletins, scheduled line interruptions, and PPCWD water supply advisories directly on our site without leaving the portal."
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
@@ -157,7 +199,7 @@ export default function UtilityAdvisories() {
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
               </span>
               <span>
-                <strong className="text-gray-900">Direct API Ingestion:</strong>{' '}
+                <strong className="text-gray-900">Direct Ingestion:</strong>{' '}
                 Scraped from official WordPress REST portals of PALECO & PPCWD.
               </span>
               <span className="hidden sm:inline text-gray-400">•</span>
@@ -438,7 +480,7 @@ export default function UtilityAdvisories() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {filteredAdvisories.map(advisory => {
               const isExpanded = expandedId === advisory.id;
               const isPaleco = advisory.source === 'PALECO';
@@ -446,7 +488,7 @@ export default function UtilityAdvisories() {
               return (
                 <article
                   key={advisory.id}
-                  className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-300 hover:shadow-md"
+                  className="group flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-300 hover:shadow-md"
                 >
                   <div>
                     {/* Header Chips */}
@@ -485,16 +527,28 @@ export default function UtilityAdvisories() {
                       </div>
                     </div>
 
+                    {/* Featured Image if available */}
+                    {advisory.imageUrl && (
+                      <div className="mt-3 overflow-hidden rounded-xl bg-gray-100 max-h-48 cursor-pointer">
+                        <img
+                          src={advisory.imageUrl}
+                          alt={advisory.title}
+                          loading="lazy"
+                          onClick={() => setReadingAdvisory(advisory)}
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                    )}
+
                     {/* Title */}
                     <h2 className="mt-3 text-base font-bold leading-snug text-gray-900">
-                      <a
-                        href={advisory.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary-700 transition"
+                      <button
+                        type="button"
+                        onClick={() => setReadingAdvisory(advisory)}
+                        className="text-left hover:text-primary-700 transition"
                       >
                         {advisory.title}
-                      </a>
+                      </button>
                     </h2>
 
                     {/* Specific Outage Times & Reason Details */}
@@ -572,7 +626,7 @@ export default function UtilityAdvisories() {
                     <div className="mt-3 text-xs leading-relaxed text-gray-600">
                       {isExpanded ? (
                         <p className="whitespace-pre-line">
-                          {advisory.rawContentSnippet || advisory.summary}
+                          {advisory.content}
                         </p>
                       ) : (
                         <p>{advisory.summary}</p>
@@ -581,34 +635,45 @@ export default function UtilityAdvisories() {
                   </div>
 
                   {/* Card Footer Actions */}
-                  <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-gray-100 pt-3">
                     <button
                       type="button"
-                      onClick={() =>
-                        setExpandedId(isExpanded ? null : advisory.id)
-                      }
-                      className="inline-flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition"
+                      onClick={() => setReadingAdvisory(advisory)}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-primary-700 transition"
                     >
-                      {isExpanded ? (
-                        <>
-                          <ChevronUp className="h-3.5 w-3.5" /> Show Less
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="h-3.5 w-3.5" /> View Details
-                        </>
-                      )}
+                      <BookOpen className="h-3.5 w-3.5" />
+                      Read Full Advisory
                     </button>
 
-                    <a
-                      href={advisory.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary-600 hover:text-primary-800 transition"
-                    >
-                      <span>Official Post</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedId(isExpanded ? null : advisory.id)
+                        }
+                        className="inline-flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition"
+                      >
+                        {isExpanded ? (
+                          <>
+                            <ChevronUp className="h-3.5 w-3.5" /> Less
+                          </>
+                        ) : (
+                          <>
+                            <ChevronDown className="h-3.5 w-3.5" /> Preview
+                          </>
+                        )}
+                      </button>
+
+                      <a
+                        href={advisory.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-primary-700 transition"
+                        title="View original link"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
                   </div>
                 </article>
               );
@@ -616,8 +681,62 @@ export default function UtilityAdvisories() {
           </div>
         )}
 
-        {/* Consumer Tips & Assistance Section */}
-        <div className="mt-12 rounded-2xl border border-gray-200 bg-balayong-50/60 p-6 md:p-8">
+        {/* Legal & Public Domain Notice Section */}
+        <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/50 p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <div className="rounded-xl bg-blue-500/10 p-3 text-blue-600 shrink-0">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <h2 className="text-base md:text-lg font-bold text-gray-900">
+                Is Scraping & Displaying This Public Utility Information Legal?
+              </h2>
+              <p className="mt-2 text-xs md:text-sm leading-relaxed text-gray-700">
+                <strong>Yes, absolutely.</strong> Under Philippine Law (Republic
+                Act No. 8293 — Intellectual Property Code of the Philippines,
+                Section 176.1),{' '}
+                <em>
+                  &quot;No copyright shall subsist in any work of the Government
+                  of the Philippines.&quot;
+                </em>{' '}
+                Official advisories, power maintenance schedules, and public
+                health water notices issued by government-owned or public
+                utility corporations (such as PPCWD and PALECO) are matters of
+                vital public interest in the public domain.
+              </p>
+              <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-gray-600">
+                <p>
+                  •{' '}
+                  <strong>
+                    1987 Philippine Constitution (Art. III, Sec. 7):
+                  </strong>{' '}
+                  Guarantees citizens the fundamental right to information on
+                  matters of public concern.
+                </p>
+                <p>
+                  •{' '}
+                  <strong>
+                    Fair Use & News of the Day (RA 8293 Sec. 184):
+                  </strong>{' '}
+                  Informational bulletins and news of the day for civic
+                  reporting are protected.
+                </p>
+                <p>
+                  • <strong>Zero PII Collected:</strong> Compliant with RA 10173
+                  (Data Privacy Act) — no personal citizen data is touched or
+                  stored.
+                </p>
+                <p>
+                  • <strong>Public Endpoints & Attribution:</strong> Fetched via
+                  public WP REST feeds with full source credit and direct links.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Consumer Tips & Hotline Dispatch Section */}
+        <div className="mt-8 rounded-2xl border border-gray-200 bg-balayong-50/60 p-6 md:p-8">
           <div className="max-w-3xl">
             <Heading
               level={2}
@@ -714,6 +833,211 @@ export default function UtilityAdvisories() {
           </div>
         </div>
       </Section>
+
+      {/* FULL IN-APP READER MODAL */}
+      {readingAdvisory && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setReadingAdvisory(null)}
+        >
+          <div
+            className="relative flex flex-col w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 bg-gray-50/80">
+              <div className="flex items-center gap-2">
+                {readingAdvisory.source === 'PALECO' ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-800">
+                    <Zap className="h-3.5 w-3.5 text-amber-600" />
+                    PALECO Official Bulletin
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-sky-500/10 px-2.5 py-1 text-xs font-semibold text-sky-800">
+                    <Droplets className="h-3.5 w-3.5 text-sky-600" />
+                    PPCWD Official Advisory
+                  </span>
+                )}
+
+                <span
+                  className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                    readingAdvisory.status === 'Restored'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : readingAdvisory.status === 'Scheduled'
+                        ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                        : readingAdvisory.isUrgent
+                          ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                          : 'bg-blue-50 text-blue-700 border border-blue-200'
+                  }`}
+                >
+                  {readingAdvisory.status}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setReadingAdvisory(null)}
+                className="rounded-full p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-700 transition"
+                aria-label="Close reader"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Scrollable Reader Body */}
+            <div className="flex-1 overflow-y-auto px-5 py-6 md:px-8 space-y-6">
+              {/* Optional Poster / Featured Image */}
+              {readingAdvisory.imageUrl && (
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-100 max-h-80 flex items-center justify-center">
+                  <img
+                    src={readingAdvisory.imageUrl}
+                    alt={readingAdvisory.title}
+                    className="w-full h-full object-contain max-h-80"
+                  />
+                </div>
+              )}
+
+              {/* Title & Metadata */}
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold leading-tight text-gray-900 font-display">
+                  {readingAdvisory.title}
+                </h1>
+
+                <div className="mt-2.5 flex flex-wrap items-center gap-3 text-xs text-gray-500 border-b border-gray-100 pb-3">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3.5 w-3.5 text-gray-400" />
+                    {formatDate(readingAdvisory.date)}
+                  </span>
+                  <span>•</span>
+                  <span>Provider: {readingAdvisory.providerName}</span>
+                </div>
+              </div>
+
+              {/* Outage Breakdown Highlights Box */}
+              {(readingAdvisory.timeOut ||
+                readingAdvisory.timeRestored ||
+                readingAdvisory.reason) && (
+                <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-xs md:text-sm text-gray-800 space-y-2.5">
+                  <p className="font-semibold text-gray-900 uppercase tracking-wider text-[11px]">
+                    Interruption Breakdown:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {readingAdvisory.timeOut && (
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4 text-rose-500 shrink-0" />
+                        <span>
+                          <strong>Outage Started:</strong>{' '}
+                          {readingAdvisory.timeOut}
+                        </span>
+                      </div>
+                    )}
+                    {readingAdvisory.timeRestored && (
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                        <span>
+                          <strong>Power Restored:</strong>{' '}
+                          {readingAdvisory.timeRestored}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  {readingAdvisory.reason && (
+                    <div className="flex items-start gap-2 pt-2 border-t border-gray-200">
+                      <Info className="h-4 w-4 text-gray-500 shrink-0 mt-0.5" />
+                      <span>
+                        <strong>Cause / Line Details:</strong>{' '}
+                        {readingAdvisory.reason}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Affected Barangays Tags */}
+              {readingAdvisory.affectedAreas.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <MapPin className="h-3.5 w-3.5 text-rose-500" />
+                    Affected Barangays & Locations:
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {readingAdvisory.affectedAreas.map(area => (
+                      <span
+                        key={area}
+                        className="rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-800"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Full Article Content */}
+              <div className="border-t border-gray-100 pt-4 text-sm leading-relaxed text-gray-800 space-y-4 whitespace-pre-line">
+                {readingAdvisory.content}
+              </div>
+            </div>
+
+            {/* Modal Sticky Footer */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-200 bg-gray-50 px-5 py-3.5">
+              <div className="flex items-center gap-2">
+                <a
+                  href={
+                    readingAdvisory.source === 'PALECO'
+                      ? 'tel:09175532836'
+                      : 'tel:09173108865'
+                  }
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-emerald-700 transition"
+                >
+                  <PhoneCall className="h-3.5 w-3.5" />
+                  Call {readingAdvisory.source}
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => handleCopyShare(readingAdvisory)}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 transition"
+                >
+                  {copiedLink ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-emerald-600" />
+                      Link Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="h-3.5 w-3.5" />
+                      Share
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <a
+                  href={readingAdvisory.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-primary-700 transition"
+                >
+                  <span>Official Source ({readingAdvisory.source})</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setReadingAdvisory(null)}
+                  className="rounded-lg bg-gray-200 px-3.5 py-1.5 text-xs font-semibold text-gray-800 hover:bg-gray-300 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

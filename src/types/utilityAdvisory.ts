@@ -27,6 +27,8 @@ export interface UtilityAdvisory {
   affectedAreas: string[];
   feeders?: string[];
   summary: string;
+  content: string;
+  imageUrl?: string;
   rawContentSnippet?: string;
 }
 

@@ -302,6 +302,16 @@ function parsePalecoPost(post) {
       cleanContent.slice(0, 260) + (cleanContent.length > 260 ? '...' : '');
   }
 
+  // Featured image extraction
+  const palecoEmbeddedImg =
+    post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const palecoJetpackImg = post.jetpack_featured_media_url;
+  const palecoContentImg = rawContent.match(
+    /<img[^>]+src=["']([^"']+)["']/i
+  )?.[1];
+  const imageUrl =
+    palecoJetpackImg || palecoEmbeddedImg || palecoContentImg || undefined;
+
   return {
     id: `paleco-${post.id}`,
     source: 'PALECO',
@@ -319,6 +329,8 @@ function parsePalecoPost(post) {
     affectedAreas,
     feeders,
     summary,
+    content: cleanContent,
+    imageUrl,
     rawContentSnippet: cleanContent.slice(0, 800),
   };
 }
@@ -373,6 +385,16 @@ function parsePpcwdPost(post) {
       cleanContent.slice(0, 260) + (cleanContent.length > 260 ? '...' : '');
   }
 
+  // Featured image extraction
+  const ppcwdEmbeddedImg =
+    post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const ppcwdJetpackImg = post.jetpack_featured_media_url;
+  const ppcwdContentImg = rawContent.match(
+    /<img[^>]+src=["']([^"']+)["']/i
+  )?.[1];
+  const imageUrl =
+    ppcwdJetpackImg || ppcwdEmbeddedImg || ppcwdContentImg || undefined;
+
   return {
     id: `ppcwd-${post.id}`,
     source: 'PPCWD',
@@ -386,6 +408,8 @@ function parsePpcwdPost(post) {
     isUrgent: isEmergency,
     affectedAreas,
     summary,
+    content: cleanContent,
+    imageUrl,
     rawContentSnippet: cleanContent.slice(0, 800),
   };
 }
@@ -397,7 +421,7 @@ async function fetchPaleco() {
   console.log('[PALECO] Fetching latest posts from paleco.net...');
   // Category IDs: 58 = POWER_ADVISORY, 9 = INTERRUPTIONS, 11 = ADVISORIES, 10 = INFORMATIONS
   const url =
-    'https://paleco.net/paleco/wp-json/wp/v2/posts?categories=58,9,11,10&per_page=20';
+    'https://paleco.net/paleco/wp-json/wp/v2/posts?_embed=1&categories=58,9,11,10&per_page=20';
 
   const res = await fetch(url, { headers: REQUEST_HEADERS });
   if (!res.ok) {
@@ -418,7 +442,8 @@ async function fetchPaleco() {
  */
 async function fetchPpcwd() {
   console.log('[PPCWD] Fetching latest posts from ppcwater.gov.ph...');
-  const url = 'https://ppcwater.gov.ph/wp-json/wp/v2/posts?per_page=20';
+  const url =
+    'https://ppcwater.gov.ph/wp-json/wp/v2/posts?_embed=1&per_page=20';
 
   const res = await fetch(url, { headers: REQUEST_HEADERS });
   if (!res.ok) {
