@@ -1,7 +1,7 @@
 name: Deploy Previews
 
-# Every PR into `main` gets a standard Vercel Preview deployment, commented
-# on the PR. Production deploys happen in release.yml, gated behind
+# Every same-repo PR into `main` gets a standard Vercel Preview deployment,
+# commented on the PR. Fork PRs are skipped (no access to secrets). Production deploys happen in release.yml, gated behind
 # semantic-release on `main`.
 on:
   pull_request:
@@ -13,6 +13,10 @@ env:
 
 jobs:
   deploy:
+    # GitHub withholds repo secrets from fork PRs, so VERCEL_TOKEN is empty
+    # there and `vercel pull` fails. Skip instead of failing; don't switch to
+    # pull_request_target, which would hand the token to untrusted code.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     permissions:
       contents: read
