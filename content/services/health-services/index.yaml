@@ -17,3 +17,7 @@ pages:
   - name: 'Join health programs (nutrition, dengue control, TB treatment)'
     slug: 'join-health-programs-nutrition-dengue-control-tb-treatment'
     description: 'Participate in various health programs including nutrition support, dengue control, and TB treatment initiatives.'
+
+  - name: 'Get sanitary permit and city health card (Green Card)'
+    slug: 'get-sanitary-permit-and-city-health-card'
+    description: 'Requirements and laboratory exams for securing food handler health certificates and establishment sanitary permits.'

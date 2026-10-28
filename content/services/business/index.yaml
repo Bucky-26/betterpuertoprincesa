@@ -13,3 +13,7 @@ pages:
   - name: 'Join trade fairs, business expos, or tourism promotions'
     slug: 'join-trade-fairs-business-expos-or-tourism-promotions'
     description: 'Participate in local trade fairs, business expos, and tourism promotion activities.'
+
+  - name: 'Apply or renew motorized tricycle franchise (MTOP)'
+    slug: 'apply-or-renew-motorized-tricycle-franchise-mtop'
+    description: "Guidelines and requirements for Motorized Tricycle Operator's Permit (MTOP) issuance, renewal, and fare compliance."

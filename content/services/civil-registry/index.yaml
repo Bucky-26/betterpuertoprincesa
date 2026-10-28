@@ -1,0 +1,15 @@
+# Civil Registry Category Pages
+# This file contains the pages available under the Civil Registry category
+
+pages:
+  - name: 'Register a Birth Certificate (Timely & Delayed)'
+    slug: 'register-birth-certificate'
+    description: 'How to register a newborn or apply for delayed late-registration of birth certificates at City Hall.'
+
+  - name: 'Apply for a Marriage License & Pre-Marriage Orientation'
+    slug: 'apply-for-marriage-license'
+    description: 'Documentary requirements, CENOMAR, family planning seminar, and 10-day notice for marriage licenses in Puerto Princesa.'
+
+  - name: 'Request Certified Copies and Death Certificates'
+    slug: 'request-certified-copies-and-death-certificates'
+    description: 'Death reporting, burial permits, and obtaining certified true copies of birth, marriage, and death records.'

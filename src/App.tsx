@@ -14,7 +14,13 @@ import Transparency from './pages/Transparency';
 import News from './pages/News';
 import PrinsesaNgBaybay from './pages/PrinsesaNgBaybay';
 import MiningWatch from './pages/MiningWatch';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Hotlines from './pages/Hotlines';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 
 function App() {
   return (
@@ -27,11 +33,24 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/hotlines" element={<Hotlines />} />
               <Route path="/services/:category" element={<Services />} />
               <Route path="/services" element={<Services />} />
               <Route
                 path="/services/:category/:documentSlug"
                 element={<Document categoryType="service" />}
+              />
+              <Route
+                path="/government/reports-and-statistics"
+                element={<Navigate to="/statistics" replace />}
+              />
+              <Route
+                path="/government/transparency-documents"
+                element={<Navigate to="/transparency" replace />}
+              />
+              <Route
+                path="/government/news"
+                element={<Navigate to="/news" replace />}
               />
               <Route path="/government/:category" element={<Government />} />
               <Route path="/government" element={<Government />} />

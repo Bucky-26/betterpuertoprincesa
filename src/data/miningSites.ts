@@ -31,6 +31,7 @@ export const miningSites: MiningSite[] = [
   {
     id: 'rio-tuba',
     name: 'Rio Tuba Nickel Mining Corporation',
+    operator: 'Nickel Asia Corporation (NAC)',
     tenement: 'MPSA No. 114-98-IV',
     municipality: 'Bataraza',
     barangay: 'Rio Tuba',
@@ -48,6 +49,7 @@ export const miningSites: MiningSite[] = [
   {
     id: 'coral-bay',
     name: 'Coral Bay Nickel Corporation',
+    operator: 'Sumitomo Metal Mining Co., Ltd. / CBNC',
     tenement: 'HPAL processing plant',
     municipality: 'Bataraza',
     barangay: 'Rio Tuba',
@@ -63,7 +65,7 @@ export const miningSites: MiningSite[] = [
   {
     id: 'ipilan',
     name: 'Ipilan Nickel Corporation',
-    operator: 'Celestial Nickel Mining Exploration Corporation',
+    operator: 'Celestial Nickel Mining / Global Ferronickel Holdings (FNI)',
     tenement: 'MPSA No. 017-93-IV',
     municipality: "Brooke's Point",
     barangay: 'Ipilan',
@@ -99,6 +101,8 @@ export const miningSites: MiningSite[] = [
   {
     id: 'citinickel',
     name: 'Citinickel Mines and Development Corporation',
+    operator:
+      'Citinickel Mines & Development Corp. (Oriental Peninsula Resources)',
     tenement: 'MPSA No. 229-2007-IVB',
     municipality: 'Narra & Sofronio Española',
     barangay: 'San Isidro (Narra) / Punang (Sofronio Española)',
@@ -116,6 +120,7 @@ export const miningSites: MiningSite[] = [
   {
     id: 'pqmi',
     name: 'Palawan Quicksilver Mines Inc. (PQMI)',
+    operator: 'Palawan Quicksilver Mines Inc. (Historical / Abandoned)',
     municipality: 'Puerto Princesa City',
     barangay: 'Santa Lourdes',
     commodity: 'Mercury (historical)',
