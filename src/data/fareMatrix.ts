@@ -219,16 +219,22 @@ export const FARE_CONFIG = {
   defaultBracketId: 'bracket-70-79',
   legalBasis: {
     ordinanceNumber: 'City Ordinance No. 1129',
-    title: 'The New Tricycle Fare Ordinance of Puerto Princesa City of 2021',
+    title:
+      'The New Tricycle Fare Ordinance of 2021 (Amending City Ordinance 1129)',
     authorizingBody:
-      'Sangguniang Panlungsod ng Puerto Princesa & City Tricycle Franchising and Regulatory Board (CTFRB)',
+      'Sangguniang Panlungsod ng Puerto Princesa (Committee on Transportation chaired by Councilor Nesario G. Awat) & CTFRB',
     stakeholders:
-      'Federation of Tricycle Operators and Drivers Association of Puerto Princesa City (FTODA)',
+      'Federation of Tricycle Operators and Drivers Association of Puerto Princesa City (FTODA Resolution No. 24, series of 2022)',
     formulaRule:
       'Automatic Fuel Bracket System: The minimum fare automatically increases or decreases by ₱2.00 for every ₱10.00 movement in the prevailing retail pump price of gasoline per liter in Puerto Princesa City.',
     sourceUrl:
-      'https://palawan-news.com/city-council-approves-ordinance-fixing-minimum-tricycle-fare/',
-    sourceName: 'Palawan News & Sangguniang Panlungsod Records',
+      'https://palawan-news.com/new-fare-rates-in-city-hiked-to-p12-minimum/',
+    sourceName:
+      'Palawan News: "New fare rates in city hiked to P12 minimum" (Gerald Ticke, Oct 18, 2022)',
+    secondarySourceUrl:
+      'https://palawan-news.com/city-councils-transpo-committee-to-conduct-public-hearing-on-trike-fare-from-irawan-terminal/',
+    secondarySourceName:
+      'Palawan News: City Council Transportation Committee Hearing Records',
   },
   discountRules: [
     {
