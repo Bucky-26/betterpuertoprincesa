@@ -12,9 +12,12 @@ import Government from './pages/Government';
 import Statistics from './pages/Statistics';
 import Transparency from './pages/Transparency';
 import News from './pages/News';
+import { lazy, Suspense } from 'react';
 import PrinsesaNgBaybay from './pages/PrinsesaNgBaybay';
 import MiningWatch from './pages/MiningWatch';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const UtilityAdvisories = lazy(() => import('./pages/UtilityAdvisories'));
 
 function App() {
   return (
@@ -27,6 +30,20 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route
+                path="/advisories"
+                element={
+                  <Suspense
+                    fallback={
+                      <div className="min-h-[60vh] flex items-center justify-center bg-gray-50">
+                        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-600 border-t-transparent" />
+                      </div>
+                    }
+                  >
+                    <UtilityAdvisories />
+                  </Suspense>
+                }
+              />
               <Route path="/services/:category" element={<Services />} />
               <Route path="/services" element={<Services />} />
               <Route
