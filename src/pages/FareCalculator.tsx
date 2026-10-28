@@ -388,20 +388,41 @@ export default function FareCalculator() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-gray-100 text-[11px] text-gray-500">
-                  <span>
-                    Verified Source:{' '}
-                    <strong>{FARE_CONFIG.legalBasis.sourceName}</strong>
-                  </span>
-                  <a
-                    href={FARE_CONFIG.legalBasis.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-primary-700 hover:text-primary-900 font-semibold underline"
-                  >
-                    Read Palawan News Ordinance Report
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
+                <div className="pt-3 border-t border-gray-100 space-y-2 text-[11px] text-gray-500">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span>
+                      Primary Source:{' '}
+                      <strong className="text-gray-700">
+                        {FARE_CONFIG.legalBasis.sourceName}
+                      </strong>
+                    </span>
+                    <a
+                      href={FARE_CONFIG.legalBasis.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-primary-700 hover:text-primary-900 font-semibold underline"
+                    >
+                      Read Full Article (Palawan News)
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span>
+                      Hearing Records:{' '}
+                      <strong className="text-gray-700">
+                        {FARE_CONFIG.legalBasis.secondarySourceName}
+                      </strong>
+                    </span>
+                    <a
+                      href={FARE_CONFIG.legalBasis.secondarySourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-primary-700 hover:text-primary-900 font-semibold underline"
+                    >
+                      View Transport Hearing
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
