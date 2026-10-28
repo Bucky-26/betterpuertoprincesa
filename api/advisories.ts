@@ -1,4 +1,7 @@
-import type { AdvisoryCategory, UtilityAdvisory } from '../src/types/utilityAdvisory';
+import type {
+  AdvisoryCategory,
+  UtilityAdvisory,
+} from '../src/types/utilityAdvisory';
 
 type WpPost = {
   id: number;
@@ -116,14 +119,24 @@ const LOCAL_ZONES = [
 
 function cleanHtml(html?: string): string {
   if (!html) return '';
-  return html
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<br\s*[/]?>/gi, '\n')
-    .replace(/<\/p>/gi, '\n\n')
-    .replace(/<li[^>]*>/gi, '• ')
-    .replace(/<\/li>/gi, '\n')
-    .replace(/<[^>]+>/g, '')
+  let stripped = '';
+  let inTag = false;
+  for (const char of html) {
+    if (char === '<') {
+      inTag = true;
+      continue;
+    }
+    if (char === '>') {
+      inTag = false;
+      stripped += ' ';
+      continue;
+    }
+    if (!inTag) {
+      stripped += char;
+    }
+  }
+
+  return stripped
     .replace(/&#8211;/g, '–')
     .replace(/&#8212;/g, '—')
     .replace(/&#8216;/g, "'")
@@ -131,12 +144,8 @@ function cleanHtml(html?: string): string {
     .replace(/&#8220;/g, '"')
     .replace(/&#8221;/g, '"')
     .replace(/&#8230;/g, '...')
-    .replace(/&#038;/g, '&')
-    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
     .replace(/&hellip;/g, '...')
     .replace(/&nbsp;/g, ' ')
     .replace(/\r\n/g, '\n')
@@ -272,7 +281,8 @@ function parsePalecoPost(post: WpPost): UtilityAdvisory {
     const parts = [];
     if (dateMentionMatch) parts.push(`Date: ${dateMentionMatch[1].trim()}`);
     if (timeOutMatch) parts.push(`Outage: ${timeOutMatch[1].trim()}`);
-    if (timeRestoredMatch) parts.push(`Restored: ${timeRestoredMatch[1].trim()}`);
+    if (timeRestoredMatch)
+      parts.push(`Restored: ${timeRestoredMatch[1].trim()}`);
     if (reasonMatch) parts.push(`Details: ${reasonMatch[1].trim()}`);
     summary = parts.join(' • ');
   } else if (cleanExcerpt) {
@@ -285,7 +295,10 @@ function parsePalecoPost(post: WpPost): UtilityAdvisory {
   const embeddedImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const contentImage = rawContent.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
   const imageUrl =
-    post.jetpack_featured_media_url || embeddedImage || contentImage || undefined;
+    post.jetpack_featured_media_url ||
+    embeddedImage ||
+    contentImage ||
+    undefined;
 
   return {
     id: `paleco-${post.id}`,
@@ -327,7 +340,9 @@ function parsePpcwdPost(post: WpPost): UtilityAdvisory {
       title
     );
   const isEmergency = /Emergency|Leak|Emergency\s*Repair/i.test(fullText);
-  const isQuality = /Laboratory|Testing|Safe\s*Water|Potability/i.test(fullText);
+  const isQuality = /Laboratory|Testing|Safe\s*Water|Potability/i.test(
+    fullText
+  );
 
   if (isInterruption) {
     category = 'water-interruption';
@@ -354,7 +369,10 @@ function parsePpcwdPost(post: WpPost): UtilityAdvisory {
   const embeddedImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const contentImage = rawContent.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
   const imageUrl =
-    post.jetpack_featured_media_url || embeddedImage || contentImage || undefined;
+    post.jetpack_featured_media_url ||
+    embeddedImage ||
+    contentImage ||
+    undefined;
 
   return {
     id: `ppcwd-${post.id}`,
@@ -409,8 +427,10 @@ export default async function handler(
     fetchSource(ppcwdUrl, parsePpcwdPost),
   ]);
 
-  const palecoItems = palecoResult.status === 'fulfilled' ? palecoResult.value : [];
-  const ppcwdItems = ppcwdResult.status === 'fulfilled' ? ppcwdResult.value : [];
+  const palecoItems =
+    palecoResult.status === 'fulfilled' ? palecoResult.value : [];
+  const ppcwdItems =
+    ppcwdResult.status === 'fulfilled' ? ppcwdResult.value : [];
 
   const advisories = [...palecoItems, ...ppcwdItems].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
