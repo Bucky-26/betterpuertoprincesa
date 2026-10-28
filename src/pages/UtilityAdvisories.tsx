@@ -102,8 +102,7 @@ export default function UtilityAdvisories() {
 
           if (newCount > 0) {
             setLiveNotice(
-              `✨ Live scrape synced: Loaded ${newCount} fresh advisory update${
-                newCount > 1 ? 's' : ''
+              `✨ Live scrape synced: Loaded ${newCount} fresh advisory update${newCount > 1 ? 's' : ''
               } directly from PALECO & PPCWD!`
             );
           }
@@ -321,11 +320,10 @@ export default function UtilityAdvisories() {
                 title="Fetch latest posts from PALECO and PPCWD right now"
               >
                 <RefreshCw
-                  className={`h-3 w-3 text-gray-600 ${
-                    isSyncingLive ? 'animate-spin text-primary-600' : ''
-                  }`}
+                  className={`h-3 w-3 text-gray-600 ${isSyncingLive ? 'animate-spin text-primary-600' : ''
+                    }`}
                 />
-                <span>{isSyncingLive ? 'Syncing...' : 'Sync Live Scrape'}</span>
+                <span>{isSyncingLive ? 'Syncing...' : 'Sync Data'}</span>
               </button>
             </div>
 
@@ -379,11 +377,10 @@ export default function UtilityAdvisories() {
               setSelectedSource('ALL');
               setSelectedCategory('ALL');
             }}
-            className={`rounded-xl border p-4 text-left transition ${
-              selectedSource === 'ALL'
+            className={`rounded-xl border p-4 text-left transition ${selectedSource === 'ALL'
                 ? 'border-primary-600 bg-primary-50/50 ring-2 ring-primary-500/20'
                 : 'border-gray-200 bg-white hover:border-gray-300'
-            }`}
+              }`}
           >
             <p className="text-xs font-medium text-gray-500">All Bulletins</p>
             <p className="mt-1 text-2xl font-bold text-gray-900">
@@ -398,11 +395,10 @@ export default function UtilityAdvisories() {
               setSelectedSource('PALECO');
               setSelectedCategory('ALL');
             }}
-            className={`rounded-xl border p-4 text-left transition ${
-              selectedSource === 'PALECO'
+            className={`rounded-xl border p-4 text-left transition ${selectedSource === 'PALECO'
                 ? 'border-amber-500 bg-amber-50/60 ring-2 ring-amber-500/20'
                 : 'border-gray-200 bg-white hover:border-gray-300'
-            }`}
+              }`}
           >
             <div className="flex items-center justify-between">
               <p className="text-xs font-medium text-amber-700">⚡ PALECO</p>
@@ -420,11 +416,10 @@ export default function UtilityAdvisories() {
               setSelectedSource('PPCWD');
               setSelectedCategory('ALL');
             }}
-            className={`rounded-xl border p-4 text-left transition ${
-              selectedSource === 'PPCWD'
+            className={`rounded-xl border p-4 text-left transition ${selectedSource === 'PPCWD'
                 ? 'border-sky-500 bg-sky-50/60 ring-2 ring-sky-500/20'
                 : 'border-gray-200 bg-white hover:border-gray-300'
-            }`}
+              }`}
           >
             <div className="flex items-center justify-between">
               <p className="text-xs font-medium text-sky-700">💧 PPCWD</p>
@@ -498,22 +493,20 @@ export default function UtilityAdvisories() {
               <button
                 type="button"
                 onClick={() => setSelectedSource('ALL')}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-                  selectedSource === 'ALL'
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${selectedSource === 'ALL'
                     ? 'bg-gray-900 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 All Sources
               </button>
               <button
                 type="button"
                 onClick={() => setSelectedSource('PALECO')}
-                className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-                  selectedSource === 'PALECO'
+                className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition ${selectedSource === 'PALECO'
                     ? 'bg-amber-600 text-white shadow-sm'
                     : 'bg-amber-50 text-amber-900 hover:bg-amber-100'
-                }`}
+                  }`}
               >
                 <Zap className="h-3 w-3" />
                 PALECO Only
@@ -521,11 +514,10 @@ export default function UtilityAdvisories() {
               <button
                 type="button"
                 onClick={() => setSelectedSource('PPCWD')}
-                className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-                  selectedSource === 'PPCWD'
+                className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition ${selectedSource === 'PPCWD'
                     ? 'bg-sky-600 text-white shadow-sm'
                     : 'bg-sky-50 text-sky-900 hover:bg-sky-100'
-                }`}
+                  }`}
               >
                 <Droplets className="h-3 w-3" />
                 PPCWD Only
@@ -645,15 +637,14 @@ export default function UtilityAdvisories() {
                         )}
 
                         <span
-                          className={`rounded-md px-2 py-0.5 text-[11px] font-medium ${
-                            advisory.status === 'Restored'
+                          className={`rounded-md px-2 py-0.5 text-[11px] font-medium ${advisory.status === 'Restored'
                               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                               : advisory.status === 'Scheduled'
                                 ? 'bg-amber-50 text-amber-700 border border-amber-200'
                                 : advisory.isUrgent
                                   ? 'bg-rose-50 text-rose-700 border border-rose-200'
                                   : 'bg-blue-50 text-blue-700 border border-blue-200'
-                          }`}
+                            }`}
                         >
                           {advisory.status}
                         </span>
@@ -693,45 +684,45 @@ export default function UtilityAdvisories() {
                     {(advisory.timeOut ||
                       advisory.timeRestored ||
                       advisory.reason) && (
-                      <div className="mt-3 rounded-xl bg-gray-50 p-3 text-xs text-gray-700">
-                        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                          {advisory.timeOut && (
-                            <div className="flex items-start gap-1.5">
-                              <Clock className="h-3.5 w-3.5 text-rose-500 mt-0.5 shrink-0" />
+                        <div className="mt-3 rounded-xl bg-gray-50 p-3 text-xs text-gray-700">
+                          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                            {advisory.timeOut && (
+                              <div className="flex items-start gap-1.5">
+                                <Clock className="h-3.5 w-3.5 text-rose-500 mt-0.5 shrink-0" />
+                                <span>
+                                  <strong className="text-gray-900">
+                                    Outage:
+                                  </strong>{' '}
+                                  {advisory.timeOut}
+                                </span>
+                              </div>
+                            )}
+                            {advisory.timeRestored && (
+                              <div className="flex items-start gap-1.5">
+                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mt-0.5 shrink-0" />
+                                <span>
+                                  <strong className="text-gray-900">
+                                    Restored:
+                                  </strong>{' '}
+                                  {advisory.timeRestored}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {advisory.reason && (
+                            <div className="mt-2 border-t border-gray-200/60 pt-2 flex items-start gap-1.5">
+                              <Info className="h-3.5 w-3.5 text-gray-500 mt-0.5 shrink-0" />
                               <span>
                                 <strong className="text-gray-900">
-                                  Outage:
+                                  Cause/Details:
                                 </strong>{' '}
-                                {advisory.timeOut}
-                              </span>
-                            </div>
-                          )}
-                          {advisory.timeRestored && (
-                            <div className="flex items-start gap-1.5">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mt-0.5 shrink-0" />
-                              <span>
-                                <strong className="text-gray-900">
-                                  Restored:
-                                </strong>{' '}
-                                {advisory.timeRestored}
+                                {advisory.reason}
                               </span>
                             </div>
                           )}
                         </div>
-
-                        {advisory.reason && (
-                          <div className="mt-2 border-t border-gray-200/60 pt-2 flex items-start gap-1.5">
-                            <Info className="h-3.5 w-3.5 text-gray-500 mt-0.5 shrink-0" />
-                            <span>
-                              <strong className="text-gray-900">
-                                Cause/Details:
-                              </strong>{' '}
-                              {advisory.reason}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                      )}
 
                     {/* Affected Areas Badges */}
                     {advisory.affectedAreas.length > 0 && (
@@ -746,12 +737,11 @@ export default function UtilityAdvisories() {
                               key={area}
                               type="button"
                               onClick={() => setSelectedBarangay(area)}
-                              className={`rounded-md px-2 py-0.5 text-xs font-medium transition ${
-                                selectedBarangay.toLowerCase() ===
-                                area.toLowerCase()
+                              className={`rounded-md px-2 py-0.5 text-xs font-medium transition ${selectedBarangay.toLowerCase() ===
+                                  area.toLowerCase()
                                   ? 'bg-primary-600 text-white'
                                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                              }`}
+                                }`}
                             >
                               {area}
                             </button>
@@ -1000,15 +990,14 @@ export default function UtilityAdvisories() {
                 )}
 
                 <span
-                  className={`rounded-md px-2 py-0.5 text-xs font-medium ${
-                    readingAdvisory.status === 'Restored'
+                  className={`rounded-md px-2 py-0.5 text-xs font-medium ${readingAdvisory.status === 'Restored'
                       ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       : readingAdvisory.status === 'Scheduled'
                         ? 'bg-amber-50 text-amber-700 border border-amber-200'
                         : readingAdvisory.isUrgent
                           ? 'bg-rose-50 text-rose-700 border border-rose-200'
                           : 'bg-blue-50 text-blue-700 border border-blue-200'
-                  }`}
+                    }`}
                 >
                   {readingAdvisory.status}
                 </span>
@@ -1057,41 +1046,41 @@ export default function UtilityAdvisories() {
               {(readingAdvisory.timeOut ||
                 readingAdvisory.timeRestored ||
                 readingAdvisory.reason) && (
-                <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-xs md:text-sm text-gray-800 space-y-2.5">
-                  <p className="font-semibold text-gray-900 uppercase tracking-wider text-[11px]">
-                    Interruption Breakdown:
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {readingAdvisory.timeOut && (
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-rose-500 shrink-0" />
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-xs md:text-sm text-gray-800 space-y-2.5">
+                    <p className="font-semibold text-gray-900 uppercase tracking-wider text-[11px]">
+                      Interruption Breakdown:
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {readingAdvisory.timeOut && (
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-rose-500 shrink-0" />
+                          <span>
+                            <strong>Outage Started:</strong>{' '}
+                            {readingAdvisory.timeOut}
+                          </span>
+                        </div>
+                      )}
+                      {readingAdvisory.timeRestored && (
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                          <span>
+                            <strong>Power Restored:</strong>{' '}
+                            {readingAdvisory.timeRestored}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    {readingAdvisory.reason && (
+                      <div className="flex items-start gap-2 pt-2 border-t border-gray-200">
+                        <Info className="h-4 w-4 text-gray-500 shrink-0 mt-0.5" />
                         <span>
-                          <strong>Outage Started:</strong>{' '}
-                          {readingAdvisory.timeOut}
-                        </span>
-                      </div>
-                    )}
-                    {readingAdvisory.timeRestored && (
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                        <span>
-                          <strong>Power Restored:</strong>{' '}
-                          {readingAdvisory.timeRestored}
+                          <strong>Cause / Line Details:</strong>{' '}
+                          {readingAdvisory.reason}
                         </span>
                       </div>
                     )}
                   </div>
-                  {readingAdvisory.reason && (
-                    <div className="flex items-start gap-2 pt-2 border-t border-gray-200">
-                      <Info className="h-4 w-4 text-gray-500 shrink-0 mt-0.5" />
-                      <span>
-                        <strong>Cause / Line Details:</strong>{' '}
-                        {readingAdvisory.reason}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
 
               {/* Affected Barangays Tags */}
               {readingAdvisory.affectedAreas.length > 0 && (
