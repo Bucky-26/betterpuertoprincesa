@@ -1,5 +1,6 @@
 import { NuqsAdapter } from 'nuqs/adapters/react';
 import { HelmetProvider } from 'react-helmet-async';
+import { lazy, Suspense } from 'react';
 import Navbar from './components/layout/Navbar';
 import InfoBar from './components/layout/InfoBar';
 import Footer from './components/layout/Footer';
@@ -18,8 +19,9 @@ import Markets from './pages/Markets';
 import FareCalculator from './pages/FareCalculator';
 import Hotlines from './pages/Hotlines';
 import MinimumWage from './pages/MinimumWage';
-import UtilityAdvisories from './pages/UtilityAdvisories';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+const UtilityAdvisories = lazy(() => import('./pages/UtilityAdvisories'));
 
 function App() {
   return (
@@ -30,45 +32,50 @@ function App() {
             <Navbar />
             <InfoBar />
             <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/advisories" element={<UtilityAdvisories />} />
-              <Route path="/markets" element={<Markets />} />
-              <Route path="/fare-calculator" element={<FareCalculator />} />
-              <Route path="/hotlines" element={<Hotlines />} />
-              <Route path="/minimum-wage" element={<MinimumWage />} />
-              <Route path="/services/:category" element={<Services />} />
-              <Route path="/services" element={<Services />} />
-              <Route
-                path="/services/:category/:documentSlug"
-                element={<Document categoryType="service" />}
-              />
-              <Route
-                path="/government/reports-and-statistics"
-                element={<Statistics />}
-              />
-              <Route
-                path="/government/transparency-documents"
-                element={<Transparency />}
-              />
-              <Route path="/government/news" element={<News />} />
-              <Route path="/government/:category" element={<Government />} />
-              <Route path="/government" element={<Government />} />
-              <Route
-                path="/government/:category/:documentSlug"
-                element={<Document categoryType="government" />}
-              />
-              <Route path="/statistics" element={<Statistics />} />
-              <Route path="/transparency" element={<Transparency />} />
-              <Route path="/news" element={<News />} />
-              <Route
-                path="/prinsesa-ng-baybay"
-                element={<PrinsesaNgBaybay />}
-              />
-              <Route path="/mining-watch" element={<MiningWatch />} />
-              <Route path="/:lang/:documentSlug" element={<Document />} />
-              <Route path="/:documentSlug" element={<Document />} />
-            </Routes>
+            <Suspense fallback={<div className="container mx-auto px-4 py-8">Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/advisories" element={<UtilityAdvisories />} />
+                <Route path="/markets" element={<Markets />} />
+                <Route path="/fare-calculator" element={<FareCalculator />} />
+                <Route path="/hotlines" element={<Hotlines />} />
+                <Route path="/minimum-wage" element={<MinimumWage />} />
+                <Route path="/services/:category" element={<Services />} />
+                <Route path="/services" element={<Services />} />
+                <Route
+                  path="/services/:category/:documentSlug"
+                  element={<Document categoryType="service" />}
+                />
+                <Route
+                  path="/government/reports-and-statistics"
+                  element={<Navigate to="/statistics" replace />}
+                />
+                <Route
+                  path="/government/transparency-documents"
+                  element={<Navigate to="/transparency" replace />}
+                />
+                <Route
+                  path="/government/news"
+                  element={<Navigate to="/news" replace />}
+                />
+                <Route path="/government/:category" element={<Government />} />
+                <Route path="/government" element={<Government />} />
+                <Route
+                  path="/government/:category/:documentSlug"
+                  element={<Document categoryType="government" />}
+                />
+                <Route path="/statistics" element={<Statistics />} />
+                <Route path="/transparency" element={<Transparency />} />
+                <Route path="/news" element={<News />} />
+                <Route
+                  path="/prinsesa-ng-baybay"
+                  element={<PrinsesaNgBaybay />}
+                />
+                <Route path="/mining-watch" element={<MiningWatch />} />
+                <Route path="/:lang/:documentSlug" element={<Document />} />
+                <Route path="/:documentSlug" element={<Document />} />
+              </Routes>
+            </Suspense>
             <Footer />
             <VolunteerPopup />
           </div>

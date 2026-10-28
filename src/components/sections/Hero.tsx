@@ -8,7 +8,6 @@ import {
   Calculator,
   ShieldAlert,
   ArrowRight,
-  Banknote,
 } from 'lucide-react';
 import BalayongBranch from '../ui/BalayongBranch';
 import { hotlines } from '../../data/hotlines';
@@ -96,13 +95,6 @@ export default function Hero() {
                     className="inline-flex items-center gap-1 rounded-full bg-white/90 border border-balayong-200 px-3 py-1 font-semibold text-gray-800 hover:bg-balayong-50 hover:text-balayong-900 shadow-2xs transition-colors"
                   >
                     <ShieldAlert className="h-3 w-3 text-red-600" /> Hotlines
-                  </Link>
-                  <Link
-                    to="/minimum-wage"
-                    className="inline-flex items-center gap-1 rounded-full bg-white/90 border border-balayong-200 px-3 py-1 font-semibold text-gray-800 hover:bg-balayong-50 hover:text-balayong-900 shadow-2xs transition-colors"
-                  >
-                    <Banknote className="h-3 w-3 text-emerald-600" /> Min. Wage
-                    (₱455)
                   </Link>
                   <button
                     type="button"

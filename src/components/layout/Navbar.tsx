@@ -128,8 +128,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white">
-      {/* Top bar: hotline ticker + meta links + language switcher */}
-      {/* Top bar: hotline ticker + minimum wage + search bar + meta links + language switcher */}
+      {/* Top bar: hotline ticker + search bar + meta links + language switcher */}
       <div className="bg-primary-800 text-primary-100">
         <div className="container mx-auto flex h-11 items-center justify-between gap-2 lg:gap-4 px-4">
           <div className="flex items-center gap-2 lg:gap-3 shrink-0">
@@ -144,16 +143,6 @@ const Navbar: React.FC = () => {
                 className="max-w-[130px] sm:max-w-[180px] truncate"
               />
             </a>
-            <Link
-              to="/minimum-wage"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-balayong-500/20 hover:bg-balayong-500/35 border border-balayong-300/40 px-2.5 py-0.5 text-[11px] font-bold text-white transition-colors shrink-0"
-              title="Official DOLE MIMAROPA Minimum Wage (₱455.00/day)"
-            >
-              <span className="text-balayong-200 font-semibold">
-                Min. Wage:
-              </span>
-              <span className="text-white">₱455/day</span>
-            </Link>
           </div>
 
           {/* Quick-Search Bar in Top Bar: Spacious, centered, zero main nav collision */}

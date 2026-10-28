@@ -26,9 +26,15 @@ import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
 import PageHeader from '../components/ui/PageHeader';
-import { utilityAdvisories, utilityMetadata } from '../data/utilityAdvisories';
 import { fetchLiveUtilityAdvisories } from '../lib/liveUtilitySync';
 import type { UtilityAdvisory, UtilitySource } from '../types/utilityAdvisory';
+
+const defaultMetadata = {
+  lastUpdated: new Date().toISOString(),
+  palecoCount: 0,
+  ppcwdCount: 0,
+  totalCount: 0,
+};
 
 function formatDate(isoString: string): string {
   try {
@@ -46,10 +52,8 @@ function formatDate(isoString: string): string {
 }
 
 export default function UtilityAdvisories() {
-  const [advisories, setAdvisories] = useState<UtilityAdvisory[]>(
-    Array.isArray(utilityAdvisories) ? utilityAdvisories : []
-  );
-  const [metadata, setMetadata] = useState(utilityMetadata);
+  const [advisories, setAdvisories] = useState<UtilityAdvisory[]>([]);
+  const [metadata, setMetadata] = useState(defaultMetadata);
   const [isSyncingLive, setIsSyncingLive] = useState<boolean>(false);
   const [liveSynced, setLiveSynced] = useState<boolean>(false);
   const [liveNotice, setLiveNotice] = useState<string | null>(null);
@@ -96,7 +100,7 @@ export default function UtilityAdvisories() {
             lastUpdated: liveData.lastUpdated,
             palecoCount: merged.filter(a => a.source === 'PALECO').length,
             ppcwdCount: merged.filter(a => a.source === 'PPCWD').length,
-            totalCount: merged.length,
+            totalCount: liveData.totalCount,
           }));
           setLiveSynced(true);
 
