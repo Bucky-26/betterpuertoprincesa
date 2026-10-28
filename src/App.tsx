@@ -14,6 +14,7 @@ import Transparency from './pages/Transparency';
 import News from './pages/News';
 import PrinsesaNgBaybay from './pages/PrinsesaNgBaybay';
 import MiningWatch from './pages/MiningWatch';
+import Markets from './pages/Markets';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/markets" element={<Markets />} />
               <Route path="/services/:category" element={<Services />} />
               <Route path="/services" element={<Services />} />
               <Route
