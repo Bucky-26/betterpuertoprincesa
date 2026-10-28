@@ -10,13 +10,21 @@ import {
   ShieldAlert,
   CheckCircle2,
   BadgePercent,
+  Fuel,
+  ExternalLink,
+  BookOpen,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import Section from '../components/ui/Section';
 import { Heading } from '../components/ui/Heading';
 import { Text } from '../components/ui/Text';
 import PageHeader from '../components/ui/PageHeader';
-import { LOCATIONS, calculateFare } from '../data/fareMatrix';
+import {
+  LOCATIONS,
+  FUEL_BRACKETS,
+  FARE_CONFIG,
+  calculateFare,
+} from '../data/fareMatrix';
 
 export default function FareCalculator() {
   const { t } = useTranslation('common');
@@ -24,6 +32,9 @@ export default function FareCalculator() {
   const [destinationId, setDestinationId] =
     useState<string>('san-jose-terminal');
   const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
+  const [selectedBracketId, setSelectedBracketId] = useState<string>(
+    FARE_CONFIG.defaultBracketId
+  );
 
   const swapLocations = () => {
     setOriginId(destinationId);
@@ -31,20 +42,25 @@ export default function FareCalculator() {
   };
 
   const fareResult = useMemo(() => {
-    return calculateFare(originId, destinationId, isDiscounted);
-  }, [originId, destinationId, isDiscounted]);
+    return calculateFare(
+      originId,
+      destinationId,
+      isDiscounted,
+      selectedBracketId
+    );
+  }, [originId, destinationId, isDiscounted, selectedBracketId]);
 
   return (
     <>
       <SEO
-        title="Tricycle Fare Calculator & Route Taripa"
-        description="Official Puerto Princesa City ordinance-based tricycle fare estimator with 20% student, senior, and PWD discount calculations and CTMO complaint hotlines."
-        keywords="Puerto Princesa tricycle fare, taripa Puerto Princesa, tricycle calculator, student discount tricycle, CTMO Puerto Princesa, San Jose terminal fare"
+        title="Tricycle Fare Calculator & Fuel Taripa Matrix"
+        description="Official Puerto Princesa City ordinance-based tricycle fare estimator indexed to retail gasoline prices under City Ordinance No. 1129, with 20% discounts and CTMO hotlines."
+        keywords="Puerto Princesa tricycle fare, gasoline price fare matrix, City Ordinance 1129, taripa Puerto Princesa, tricycle calculator, CTFRB Puerto Princesa, CTMO hotlines"
       />
       <main className="flex-grow">
         <PageHeader
           title="Tricycle Fare Calculator"
-          subtitle="Estimate authorized point-to-point tricycle fares based on official City Council (Sangguniang Panlungsod) Taripa guidelines."
+          subtitle="Estimate authorized point-to-point tricycle fares indexed to prevailing gasoline prices under Puerto Princesa City Ordinance No. 1129."
           breadcrumbs={[
             { label: t('navbar.home'), href: '/' },
             { label: 'Services', href: '/services' },
@@ -60,12 +76,70 @@ export default function FareCalculator() {
                 <div className="flex items-center gap-2 text-primary-700">
                   <Calculator className="h-6 w-6" />
                   <h2 className="font-display text-xl font-bold text-gray-900">
-                    Route & Fare Estimator
+                    Route &amp; Fare Estimator
                   </h2>
                 </div>
                 <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-balayong-100 text-balayong-800">
-                  City Ordinance Tariff
+                  Ordinance No. 1129 Taripa
                 </span>
+              </div>
+
+              {/* Fuel Price Bracket Selector */}
+              <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-bold text-amber-950 uppercase tracking-wider flex items-center gap-1.5">
+                    <Fuel className="h-4 w-4 text-amber-700" />
+                    Gasoline Price Bracket (Automatic Adjustment)
+                  </label>
+                  <span className="text-[11px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
+                    ₱2 adjustment / ₱10 fuel shift
+                  </span>
+                </div>
+                <p className="text-xs text-amber-900 mb-3 leading-relaxed">
+                  Under local law, base fares scale dynamically based on the
+                  retail pump price of gasoline in Puerto Princesa:
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {FUEL_BRACKETS.map(bracket => {
+                    const isSelected = bracket.id === selectedBracketId;
+                    return (
+                      <button
+                        key={bracket.id}
+                        type="button"
+                        onClick={() => setSelectedBracketId(bracket.id)}
+                        className={`text-left p-2.5 rounded-lg border text-xs transition-all ${
+                          isSelected
+                            ? 'border-primary-600 bg-primary-900 text-white shadow-sm ring-2 ring-primary-500/20'
+                            : 'border-amber-200 bg-white text-gray-700 hover:border-amber-300 hover:bg-amber-100/50'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span
+                            className={`font-bold ${isSelected ? 'text-white' : 'text-gray-900'}`}
+                          >
+                            {bracket.label}
+                          </span>
+                          {bracket.isDefault && (
+                            <span
+                              className={`text-[9px] px-1 py-0.2 rounded font-semibold ${
+                                isSelected
+                                  ? 'bg-primary-700 text-balayong-200'
+                                  : 'bg-emerald-100 text-emerald-800'
+                              }`}
+                            >
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <div
+                          className={`mt-1 text-[11px] font-medium ${isSelected ? 'text-primary-200' : 'text-gray-500'}`}
+                        >
+                          Base: ₱{bracket.baseFareRegular.toFixed(2)}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Origin Selection */}
@@ -161,10 +235,17 @@ export default function FareCalculator() {
             {/* Fare Result Output Box */}
             <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-primary-800 to-primary-900 p-6 sm:p-8 text-white shadow-lg">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-primary-200">
-                  Estimated Authorized Fare
-                </span>
-                <div className="mt-2 flex items-baseline gap-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary-200">
+                    Estimated Authorized Fare
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-200 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-500/30">
+                    <Fuel className="h-3 w-3 text-amber-300" />
+                    Gasoline: {fareResult.bracket.gasolinePriceRange}/L
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-baseline gap-2">
                   <span className="font-display text-5xl font-extrabold text-balayong-200 tabular-nums">
                     ₱{fareResult.fare.toFixed(2)}
                   </span>
@@ -177,9 +258,12 @@ export default function FareCalculator() {
                   <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-balayong-500/30 px-3 py-1 text-xs text-balayong-100 border border-balayong-300/30">
                     <CheckCircle2 className="h-3.5 w-3.5 text-balayong-200" />
                     20% Discount applied (Regular: ₱
-                    {calculateFare(originId, destinationId, false).fare.toFixed(
-                      2
-                    )}
+                    {calculateFare(
+                      originId,
+                      destinationId,
+                      false,
+                      selectedBracketId
+                    ).fare.toFixed(2)}
                     )
                   </div>
                 )}
@@ -197,6 +281,16 @@ export default function FareCalculator() {
                       ₱{fareResult.baseFare.toFixed(2)}
                     </strong>
                   </div>
+                  <div className="flex justify-between text-primary-100">
+                    <span>Excess Rate (Past 2.0 km):</span>
+                    <strong className="text-white tabular-nums">
+                      ₱
+                      {isDiscounted
+                        ? fareResult.bracket.perKmRateDiscounted.toFixed(2)
+                        : fareResult.bracket.perKmRateRegular.toFixed(2)}
+                      /km
+                    </strong>
+                  </div>
                   {!fareResult.isBaseOnly && (
                     <div className="flex justify-between text-primary-100">
                       <span>
@@ -211,24 +305,170 @@ export default function FareCalculator() {
 
                 <div className="mt-4 text-[11px] text-primary-200 space-y-1">
                   <p>
-                    • Estimated for regular public route trips within city
-                    roads.
+                    • Regular shared passenger route (&quot;pasakay&quot;)
+                    standard.
                   </p>
                   <p>
-                    • Charter trips (exclusive &quot;pakyaw&quot;) are
-                    negotiated or 2-3 passenger equivalent.
+                    • Chartered / special trips (&quot;pakyaw&quot;) negotiated
+                    or 2–3 passenger rate equivalent.
                   </p>
                 </div>
               </div>
 
               <div className="mt-6 pt-4 border-t border-primary-700/60 flex items-center justify-between text-xs text-primary-200">
-                <span>Ref: Puerto Princesa SP Taripa</span>
+                <span>Basis: PPC City Ordinance No. 1129</span>
                 <a
-                  href="/services/infrastructure-public-works/settle-traffic-violation-or-contest-citation"
+                  href="#legal-basis-section"
                   className="underline hover:text-white"
                 >
-                  CTMO Guidelines
+                  View Legal Source
                 </a>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* Official Sourcing and Legal Basis Card */}
+        <Section id="legal-basis-section" className="bg-gray-50 !pt-6">
+          <div className="max-w-4xl mx-auto space-y-6">
+            <div className="rounded-2xl border border-primary-200 bg-white p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <BookOpen className="h-6 w-6 text-primary-700" />
+                <div>
+                  <Heading level={2} className="!text-lg">
+                    Official Data Sourcing &amp; Legal Basis
+                  </Heading>
+                  <p className="text-xs text-gray-500">
+                    Legislation and regulatory matrix governing motorized
+                    tricycle fares in Puerto Princesa City
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-xs text-gray-700 leading-relaxed">
+                <div className="rounded-xl bg-primary-50/60 border border-primary-100 p-4">
+                  <h4 className="font-bold text-primary-950 text-sm mb-1">
+                    {FARE_CONFIG.legalBasis.ordinanceNumber}:{' '}
+                    {FARE_CONFIG.legalBasis.title}
+                  </h4>
+                  <p className="text-primary-900 mb-2">
+                    Enacted by the{' '}
+                    <strong>{FARE_CONFIG.legalBasis.authorizingBody}</strong> in
+                    consultation with the{' '}
+                    <strong>{FARE_CONFIG.legalBasis.stakeholders}</strong>.
+                  </p>
+                  <p className="text-primary-950 font-medium">
+                    <strong>Automatic Fuel Bracketing Formula:</strong>{' '}
+                    {FARE_CONFIG.legalBasis.formulaRule}
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4 pt-1">
+                  <div className="rounded-lg border border-gray-200 p-3.5 bg-gray-50/50">
+                    <strong className="block text-gray-900 mb-1">
+                      Why does fare change with petrol?
+                    </strong>
+                    <p className="text-gray-600">
+                      To prevent the need for prolonged public hearings with
+                      every oil price movement, the City Council enacted the
+                      bracket system so tricycles can legally adjust fare rates
+                      in sync with local pump prices.
+                    </p>
+                  </div>
+                  <div className="rounded-lg border border-gray-200 p-3.5 bg-gray-50/50">
+                    <strong className="block text-gray-900 mb-1">
+                      Mandatory Laminated Taripa
+                    </strong>
+                    <p className="text-gray-600">
+                      Operators and drivers are strictly required to post the
+                      official city-issued fare matrix inside the sidecar facing
+                      the passenger. Overcharging beyond the active bracket is a
+                      punishable violation.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-gray-100 text-[11px] text-gray-500">
+                  <span>
+                    Verified Source:{' '}
+                    <strong>{FARE_CONFIG.legalBasis.sourceName}</strong>
+                  </span>
+                  <a
+                    href={FARE_CONFIG.legalBasis.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-primary-700 hover:text-primary-900 font-semibold underline"
+                  >
+                    Read Palawan News Ordinance Report
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Gasoline Fuel Bracket Table */}
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm overflow-hidden">
+              <h3 className="font-bold text-sm text-gray-900 mb-3 flex items-center gap-2">
+                <Fuel className="h-4 w-4 text-primary-700" />
+                City Ordinance Fuel-Price Bracket Schedule
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-gray-200 bg-gray-50 text-gray-700">
+                      <th className="py-2.5 px-3 font-semibold">
+                        Gasoline Pump Price Tier
+                      </th>
+                      <th className="py-2.5 px-3 font-semibold">
+                        Base Fare (First 2.0 km)
+                      </th>
+                      <th className="py-2.5 px-3 font-semibold">
+                        Discounted Base (20%)
+                      </th>
+                      <th className="py-2.5 px-3 font-semibold">
+                        Excess / km Rate
+                      </th>
+                      <th className="py-2.5 px-3 font-semibold">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {FUEL_BRACKETS.map(b => (
+                      <tr
+                        key={b.id}
+                        className={
+                          b.id === selectedBracketId
+                            ? 'bg-primary-50/70 font-semibold'
+                            : 'hover:bg-gray-50/60'
+                        }
+                      >
+                        <td className="py-2.5 px-3 text-gray-900">
+                          {b.gasolinePriceRange} / liter
+                        </td>
+                        <td className="py-2.5 px-3 text-gray-900">
+                          ₱{b.baseFareRegular.toFixed(2)}
+                        </td>
+                        <td className="py-2.5 px-3 text-balayong-700 font-bold">
+                          ₱{b.baseFareDiscounted.toFixed(2)}
+                        </td>
+                        <td className="py-2.5 px-3 text-gray-600">
+                          ₱{b.perKmRateRegular.toFixed(2)}/km (₱
+                          {b.perKmRateDiscounted.toFixed(2)} disc.)
+                        </td>
+                        <td className="py-2.5 px-3">
+                          {b.isDefault ? (
+                            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
+                              Current Prevailing
+                            </span>
+                          ) : (
+                            <span className="text-[10px] text-gray-400">
+                              Standby Tier
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -238,7 +478,9 @@ export default function FareCalculator() {
         <Section className="bg-balayong-50 !pt-10">
           <div className="max-w-4xl mx-auto space-y-8">
             <div>
-              <Heading level={2}>Passenger Rights & Taripa Enforcement</Heading>
+              <Heading level={2}>
+                Passenger Rights &amp; Taripa Enforcement
+              </Heading>
               <Text className="text-gray-700 mt-2">
                 Every motorized tricycle operating in Puerto Princesa City is
                 bound by local ordinance and regulatory board standards to
@@ -262,7 +504,7 @@ export default function FareCalculator() {
               <div className="rounded-xl border border-balayong-200 bg-white p-5 shadow-xs">
                 <BadgePercent className="h-6 w-6 text-balayong-600 mb-2" />
                 <h3 className="font-bold text-sm text-gray-900 mb-1">
-                  Student & Senior Discounts
+                  Student &amp; Senior Discounts
                 </h3>
                 <p className="text-xs text-gray-600 leading-relaxed">
                   The 20% discount is mandated by national law across all days
