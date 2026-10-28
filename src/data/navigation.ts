@@ -17,10 +17,13 @@ export const mainNavigation: NavigationItem[] = [
   {
     label: 'Services',
     href: '/services',
-    children: (servicesData.categories as Category[]).map(category => ({
-      label: category.category,
-      href: `/services/${category.slug}`,
-    })),
+    children: [
+      { label: 'Minimum Wage Guide', href: '/minimum-wage' },
+      ...(servicesData.categories as Category[]).map(category => ({
+        label: category.category,
+        href: `/services/${category.slug}`,
+      })),
+    ],
   },
   {
     label: 'Government',
@@ -42,6 +45,7 @@ export const footerNavigation = {
       title: 'Services',
       links: [
         { label: 'Every service', href: '/services' },
+        { label: 'Minimum Wage Guide', href: '/minimum-wage' },
         ...(servicesData.categories as Category[])
           .slice(0, 5)
           .map(category => ({
