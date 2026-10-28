@@ -1,30 +1,38 @@
-/**
- * Scraper for PALECO (Palawan Electric Cooperative) & PPCWD (Puerto Princesa City Water District)
- * Fetches latest power advisories, outage bulletins, water interruptions, and utility news
- * directly from official WordPress REST API endpoints.
- *
- * Run manually or via CI cron:
- *   npm run scrape:utilities
- */
+import type { IncomingMessage, ServerResponse } from 'node:http';
 
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+export type UtilitySource = 'PALECO' | 'PPCWD';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const OUTPUT_FILE = path.resolve(
-  __dirname,
-  '../src/data/utilityAdvisories.json'
-);
+export type AdvisoryCategory =
+  | 'power-outage'
+  | 'power-interruption'
+  | 'power-advisory'
+  | 'water-interruption'
+  | 'water-advisory'
+  | 'water-quality'
+  | 'maintenance'
+  | 'news';
 
-const REQUEST_HEADERS = {
-  'User-Agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-  Accept: 'application/json, text/plain, */*',
-  'Accept-Language': 'en-US,en;q=0.9,fil;q=0.8',
-  'Cache-Control': 'no-cache',
-};
+export interface UtilityAdvisory {
+  id: string;
+  source: UtilitySource;
+  providerName: string;
+  utilityType: string;
+  title: string;
+  date: string;
+  url: string;
+  category: AdvisoryCategory;
+  status: string;
+  isUrgent?: boolean;
+  timeOut?: string;
+  timeRestored?: string;
+  reason?: string;
+  affectedAreas: string[];
+  feeders?: string[];
+  summary: string;
+  content: string;
+  imageUrl?: string;
+  rawContentSnippet?: string;
+}
 
 // All 66 official barangays of Puerto Princesa City + notable zones/landmarks
 const PPC_BARANGAYS = [
@@ -115,15 +123,12 @@ const LOCAL_ZONES = [
   'Campo',
 ];
 
-/**
- * Decode common HTML entities and strip unwanted HTML tags while preserving line breaks.
- */
-function cleanHtml(html) {
+function cleanHtml(html?: string): string {
   if (!html) return '';
   return html
     .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
     .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<br\s*[\/]?>/gi, '\n')
+    .replace(/<br\s*[/]?>/gi, '\n')
     .replace(/<\/p>/gi, '\n\n')
     .replace(/<li[^>]*>/gi, '• ')
     .replace(/<\/li>/gi, '\n')
@@ -149,17 +154,13 @@ function cleanHtml(html) {
     .trim();
 }
 
-/**
- * Detect mentioned Puerto Princesa barangays and notable areas in text.
- */
-function extractAffectedAreas(text) {
-  const detected = new Set();
+function extractAffectedAreas(text: string): string[] {
+  const detected = new Set<string>();
   const lower = text.toLowerCase();
 
   for (const b of PPC_BARANGAYS) {
     const bLower = b.toLowerCase();
 
-    // Special cases for generic words or "Puerto Princesa"
     if (b === 'Princesa') {
       if (
         /\b(?:brgy\.?|barangay)\s+princesa\b/i.test(text) ||
@@ -180,14 +181,13 @@ function extractAffectedAreas(text) {
         new RegExp(`\\b(?:brgy\\.?|barangay)\\s+${bLower}\\b`, 'i').test(
           text
         ) ||
-        new RegExp(`\\b${b}\\b`).test(text) // exact capital match
+        new RegExp(`\\b${b}\\b`).test(text)
       ) {
         detected.add(b);
       }
       continue;
     }
 
-    // Standard check
     const wordBoundaryRegex = new RegExp(
       `\\b${bLower.replace(/[-]/g, '[- ]')}\\b`,
       'i'
@@ -212,11 +212,8 @@ function extractAffectedAreas(text) {
   return Array.from(detected);
 }
 
-/**
- * Extract feeder references (e.g. Feeder 1, Feeder 2, Feeder 4, Feeder 7, etc.)
- */
-function extractFeeders(text) {
-  const feeders = new Set();
+function extractFeeders(text: string): string[] {
+  const feeders = new Set<string>();
   const matches = text.matchAll(/\b(?:Feeder|FDR)\s*#?\s*([0-9]+[A-Z]?)\b/gi);
   for (const m of matches) {
     feeders.add(`Feeder ${m[1]}`);
@@ -224,10 +221,21 @@ function extractFeeders(text) {
   return Array.from(feeders);
 }
 
-/**
- * Parse PALECO WordPress post into standard UtilityAdvisory object
- */
-function parsePalecoPost(post) {
+interface WpPost {
+  id: number;
+  date: string;
+  date_gmt?: string;
+  link: string;
+  title?: { rendered?: string };
+  content?: { rendered?: string };
+  excerpt?: { rendered?: string };
+  jetpack_featured_media_url?: string;
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{ source_url?: string }>;
+  };
+}
+
+function parsePalecoPost(post: WpPost): UtilityAdvisory {
   const rawTitle = post.title?.rendered || '';
   const rawContent = post.content?.rendered || '';
   const rawExcerpt = post.excerpt?.rendered || '';
@@ -237,7 +245,6 @@ function parsePalecoPost(post) {
   const cleanExcerpt = cleanHtml(rawExcerpt);
   const fullText = `${title}\n${cleanContent}\n${cleanExcerpt}`;
 
-  // Structured extraction from PALECO advisory templates
   const timeOutMatch = fullText.match(
     /(?:Oras\s*(?:Na)?\s*Nawalan|Time\s*(?:of)?\s*Interruption):\s*([^\n\r]+)/i
   );
@@ -252,7 +259,6 @@ function parsePalecoPost(post) {
   const affectedAreas = extractAffectedAreas(fullText);
   const feeders = extractFeeders(fullText);
 
-  // Determine status
   let status = 'Advisory';
   const isFinalUpdate = /Final\s*Update/i.test(title);
   const hasRestoredTime = Boolean(timeRestoredMatch);
@@ -269,8 +275,7 @@ function parsePalecoPost(post) {
     status = 'Ongoing / Investigating';
   }
 
-  // Determine category
-  let category = 'power-advisory';
+  let category: AdvisoryCategory = 'power-advisory';
   if (isScheduled) {
     category = 'power-interruption';
   } else if (
@@ -285,7 +290,6 @@ function parsePalecoPost(post) {
     category = 'news';
   }
 
-  // Generate clean concise summary
   let summary = '';
   if (timeOutMatch || timeRestoredMatch || reasonMatch) {
     const parts = [];
@@ -302,7 +306,6 @@ function parsePalecoPost(post) {
       cleanContent.slice(0, 260) + (cleanContent.length > 260 ? '...' : '');
   }
 
-  // Featured image extraction
   const palecoEmbeddedImg =
     post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const palecoJetpackImg = post.jetpack_featured_media_url;
@@ -318,7 +321,7 @@ function parsePalecoPost(post) {
     providerName: 'Palawan Electric Cooperative',
     utilityType: 'Electric Power',
     title,
-    date: post.date || post.date_gmt,
+    date: post.date || post.date_gmt || new Date().toISOString(),
     url: post.link,
     category,
     status,
@@ -335,10 +338,7 @@ function parsePalecoPost(post) {
   };
 }
 
-/**
- * Parse PPCWD WordPress post into standard UtilityAdvisory object
- */
-function parsePpcwdPost(post) {
+function parsePpcwdPost(post: WpPost): UtilityAdvisory {
   const rawTitle = post.title?.rendered || '';
   const rawContent = post.content?.rendered || '';
   const rawExcerpt = post.excerpt?.rendered || '';
@@ -350,8 +350,7 @@ function parsePpcwdPost(post) {
 
   const affectedAreas = extractAffectedAreas(fullText);
 
-  // Categorize PPCWD post
-  let category = 'water-advisory';
+  let category: AdvisoryCategory = 'water-advisory';
   let status = 'Advisory';
 
   const isInterruption =
@@ -385,7 +384,6 @@ function parsePpcwdPost(post) {
       cleanContent.slice(0, 260) + (cleanContent.length > 260 ? '...' : '');
   }
 
-  // Featured image extraction
   const ppcwdEmbeddedImg =
     post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const ppcwdJetpackImg = post.jetpack_featured_media_url;
@@ -401,7 +399,7 @@ function parsePpcwdPost(post) {
     providerName: 'Puerto Princesa City Water District',
     utilityType: 'Water Supply',
     title,
-    date: post.date || post.date_gmt,
+    date: post.date || post.date_gmt || new Date().toISOString(),
     url: post.link,
     category,
     status,
@@ -414,134 +412,107 @@ function parsePpcwdPost(post) {
   };
 }
 
-/**
- * Fetch PALECO posts from WP REST API
- */
-async function fetchPaleco() {
-  console.log('[PALECO] Fetching latest posts from paleco.net...');
-  // Category IDs: 58 = POWER_ADVISORY, 9 = INTERRUPTIONS, 11 = ADVISORIES, 10 = INFORMATIONS
-  const url =
-    'https://paleco.net/paleco/wp-json/wp/v2/posts?_embed=1&categories=58,9,11,10&per_page=20';
-
-  const res = await fetch(url, { headers: REQUEST_HEADERS });
-  if (!res.ok) {
-    throw new Error(`PALECO responded with HTTP status ${res.status}`);
+async function fetchWithTimeout(
+  url: string,
+  timeoutMs = 9000
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (compatible; BetterPuertoPrincesa/1.3; +https://betterpuertoprincesa.org)',
+        Accept: 'application/json, text/plain, */*',
+      },
+    });
+    return res;
+  } finally {
+    clearTimeout(timer);
   }
-
-  const posts = await res.json();
-  if (!Array.isArray(posts)) {
-    throw new Error('PALECO returned unexpected non-array response');
-  }
-
-  console.log(`[PALECO] Successfully received ${posts.length} posts.`);
-  return posts.map(parsePalecoPost);
 }
 
-/**
- * Fetch PPCWD posts from WP REST API
- */
-async function fetchPpcwd() {
-  console.log('[PPCWD] Fetching latest posts from ppcwater.gov.ph...');
-  const url =
-    'https://ppcwater.gov.ph/wp-json/wp/v2/posts?_embed=1&per_page=20';
+export default async function handler(
+  req: IncomingMessage,
+  res: ServerResponse & {
+    status?: (code: number) => ServerResponse;
+    json?: (data: unknown) => void;
+  }
+) {
+  // CORS & Cache-Control headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-  const res = await fetch(url, { headers: REQUEST_HEADERS });
-  if (!res.ok) {
-    throw new Error(`PPCWD responded with HTTP status ${res.status}`);
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 200;
+    res.end();
+    return;
   }
 
-  const posts = await res.json();
-  if (!Array.isArray(posts)) {
-    throw new Error('PPCWD returned unexpected non-array response');
-  }
+  const palecoUrl =
+    'https://paleco.net/paleco/wp-json/wp/v2/posts?_embed=1&categories=58,9,11,10&per_page=15';
+  const ppcwdUrl =
+    'https://ppcwater.gov.ph/wp-json/wp/v2/posts?_embed=1&per_page=15';
 
-  console.log(`[PPCWD] Successfully received ${posts.length} posts.`);
-  return posts.map(parsePpcwdPost);
-}
+  const palecoPromise = fetchWithTimeout(palecoUrl)
+    .then(async r => {
+      if (!r.ok) throw new Error(`PALECO HTTP ${r.status}`);
+      const data = (await r.json()) as WpPost[];
+      return Array.isArray(data) ? data.map(parsePalecoPost) : [];
+    })
+    .catch(err => {
+      console.warn('[advisories] PALECO fetch failed:', err?.message || err);
+      return [] as UtilityAdvisory[];
+    });
 
-/**
- * Main scraper workflow
- */
-async function main() {
-  console.log('--- Starting Utility Advisories Scraper (PALECO & PPCWD) ---');
+  const ppcwdPromise = fetchWithTimeout(ppcwdUrl)
+    .then(async r => {
+      if (!r.ok) throw new Error(`PPCWD HTTP ${r.status}`);
+      const data = (await r.json()) as WpPost[];
+      return Array.isArray(data) ? data.map(parsePpcwdPost) : [];
+    })
+    .catch(err => {
+      console.warn('[advisories] PPCWD fetch failed:', err?.message || err);
+      return [] as UtilityAdvisory[];
+    });
 
-  let existingData = null;
-  if (fs.existsSync(OUTPUT_FILE)) {
-    try {
-      existingData = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf-8'));
-    } catch {
-      existingData = null;
-    }
-  }
+  const [palecoItems, ppcwdItems] = await Promise.all([
+    palecoPromise,
+    ppcwdPromise,
+  ]);
 
-  let palecoItems = [];
-  let ppcwdItems = [];
-
-  // Fetch PALECO
-  try {
-    palecoItems = await fetchPaleco();
-  } catch (err) {
-    console.warn('[PALECO] Scrape failed:', err.message);
-    if (existingData?.advisories) {
-      console.log('[PALECO] Preserving existing cached PALECO records.');
-      palecoItems = existingData.advisories.filter(a => a.source === 'PALECO');
-    }
-  }
-
-  // Fetch PPCWD
-  try {
-    ppcwdItems = await fetchPpcwd();
-  } catch (err) {
-    console.warn('[PPCWD] Scrape failed:', err.message);
-    if (existingData?.advisories) {
-      console.log('[PPCWD] Preserving existing cached PPCWD records.');
-      ppcwdItems = existingData.advisories.filter(a => a.source === 'PPCWD');
-    }
-  }
-
-  // Combine and sort by date descending
   const combined = [...palecoItems, ...ppcwdItems].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
-  const payload = {
+  const responsePayload = {
     metadata: {
       lastUpdated: new Date().toISOString(),
       palecoCount: palecoItems.length,
       ppcwdCount: ppcwdItems.length,
       totalCount: combined.length,
-      sources: [
-        {
-          name: 'PALECO',
-          fullName: 'Palawan Electric Cooperative',
-          url: 'https://paleco.net/',
-          emergencyHotline: '0917 553 2836 / (048) 433-9144',
-          apiEndpoint: 'https://paleco.net/paleco/wp-json/wp/v2/posts',
-        },
-        {
-          name: 'PPCWD',
-          fullName: 'Puerto Princesa City Water District',
-          url: 'https://ppcwater.gov.ph/',
-          emergencyHotline: '0917 310 8865 / (048) 433-2342',
-          apiEndpoint: 'https://ppcwater.gov.ph/wp-json/wp/v2/posts',
-        },
-      ],
     },
     advisories: combined,
   };
 
-  fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(payload, null, 2), 'utf-8');
+  const jsonString = JSON.stringify(responsePayload);
 
-  console.log(
-    `\nSuccessfully saved ${combined.length} advisories to ${OUTPUT_FILE}`
-  );
-  console.log(`- PALECO advisories: ${palecoItems.length}`);
-  console.log(`- PPCWD advisories: ${ppcwdItems.length}`);
-  console.log('--- Scrape Finished ---');
+  const resWithJson = res as ServerResponse & {
+    status?: (code: number) => ServerResponse;
+    json?: (data: unknown) => void;
+  };
+
+  if (
+    typeof resWithJson.status === 'function' &&
+    typeof resWithJson.json === 'function'
+  ) {
+    resWithJson.status(200);
+    resWithJson.json(responsePayload);
+  } else {
+    res.statusCode = 200;
+    res.end(jsonString);
+  }
 }
-
-main().catch(err => {
-  console.error('Fatal scraper error:', err);
-  process.exit(1);
-});

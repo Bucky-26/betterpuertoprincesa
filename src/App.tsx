@@ -12,14 +12,21 @@ import Government from './pages/Government';
 import Statistics from './pages/Statistics';
 import Transparency from './pages/Transparency';
 import News from './pages/News';
+import { lazy, Suspense } from 'react';
 import PrinsesaNgBaybay from './pages/PrinsesaNgBaybay';
 import MiningWatch from './pages/MiningWatch';
 import Markets from './pages/Markets';
 import FareCalculator from './pages/FareCalculator';
 import Hotlines from './pages/Hotlines';
 import MinimumWage from './pages/MinimumWage';
-import UtilityAdvisories from './pages/UtilityAdvisories';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+const UtilityAdvisories = lazy(() => import('./pages/UtilityAdvisories'));
 
 function App() {
   return (
@@ -32,7 +39,20 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/advisories" element={<UtilityAdvisories />} />
+              <Route
+                path="/advisories"
+                element={
+                  <Suspense
+                    fallback={
+                      <div className="min-h-[60vh] flex items-center justify-center bg-gray-50">
+                        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-600 border-t-transparent" />
+                      </div>
+                    }
+                  >
+                    <UtilityAdvisories />
+                  </Suspense>
+                }
+              />
               <Route path="/markets" element={<Markets />} />
               <Route path="/fare-calculator" element={<FareCalculator />} />
               <Route path="/hotlines" element={<Hotlines />} />
@@ -45,13 +65,16 @@ function App() {
               />
               <Route
                 path="/government/reports-and-statistics"
-                element={<Statistics />}
+                element={<Navigate to="/statistics" replace />}
               />
               <Route
                 path="/government/transparency-documents"
-                element={<Transparency />}
+                element={<Navigate to="/transparency" replace />}
               />
-              <Route path="/government/news" element={<News />} />
+              <Route
+                path="/government/news"
+                element={<Navigate to="/news" replace />}
+              />
               <Route path="/government/:category" element={<Government />} />
               <Route path="/government" element={<Government />} />
               <Route

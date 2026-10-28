@@ -144,16 +144,6 @@ const Navbar: React.FC = () => {
                 className="max-w-[130px] sm:max-w-[180px] truncate"
               />
             </a>
-            <Link
-              to="/minimum-wage"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-balayong-500/20 hover:bg-balayong-500/35 border border-balayong-300/40 px-2.5 py-0.5 text-[11px] font-bold text-white transition-colors shrink-0"
-              title="Official DOLE MIMAROPA Minimum Wage (₱455.00/day)"
-            >
-              <span className="text-balayong-200 font-semibold">
-                Min. Wage:
-              </span>
-              <span className="text-white">₱455/day</span>
-            </Link>
           </div>
 
           {/* Quick-Search Bar in Top Bar: Spacious, centered, zero main nav collision */}
